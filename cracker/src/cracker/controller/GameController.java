@@ -1,4 +1,4 @@
-package cracker;
+package cracker.controller;
 
 import cracker.logic.*;
 import cracker.ui.AddTowerButton;
@@ -16,7 +16,7 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-public class Controller {
+public class GameController {
 
     AddTowerButton addBowTowerButton;
     AddTowerButton addMagicTowerButton;

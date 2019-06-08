@@ -1,5 +1,7 @@
 package cracker;
 
+import cracker.controller.AppController;
+import cracker.controller.GameController;
 import cracker.logic.Game;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -15,18 +17,16 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/app.fxml"));
         AnchorPane root = fxmlLoader.load();
         primaryStage.initStyle(StageStyle.UNDECORATED);
-//        primaryStage.setTitle("Cracker");
         primaryStage.setScene(new Scene(root, 1024, 868));
-        Controller controller = fxmlLoader.getController();
+        AppController appController = fxmlLoader.getController();
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
         Game game = new Game();
         game.init();
-
-        controller.setStage(primaryStage);
-        controller.init(game);
-        controller.setBinding();
+        appController.getGameController().setStage(primaryStage);
+        appController.getGameController().init(game);
+        appController.getGameController().setBinding();
         game.start();
     }
 

@@ -1,8 +1,7 @@
 package cracker.ui;
 
 
-import cracker.Controller;
-import cracker.logic.Tower;
+import cracker.controller.GameController;
 import cracker.logic.TowerType;
 import javafx.event.EventHandler;
 import javafx.scene.image.Image;
@@ -15,7 +14,7 @@ public class AddTowerButton extends ImageView {
     private Image enteredView;
     private Image selectedView;
     private boolean isSelected = false;
-    private Controller controller;
+    private GameController controller;
 
     public void setSelected(boolean isSelected){
         this.isSelected = isSelected;
@@ -25,7 +24,7 @@ public class AddTowerButton extends ImageView {
         return isSelected;
     }
 
-    public AddTowerButton(Image image, Image enteredView, Image selectedView, Controller controller, int x, int y, int height, int width) {
+    public AddTowerButton(Image image, Image enteredView, Image selectedView, GameController controller, int x, int y, int height, int width) {
         super(image);
         this.originImage = image;
         this.enteredView = enteredView;
