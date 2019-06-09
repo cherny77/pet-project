@@ -1,13 +1,13 @@
 package cracker.controller;
 
 import cracker.logic.*;
-import cracker.ui.AddTowerButton;
 import cracker.ui.MobView;
 import javafx.animation.PathTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -21,14 +21,15 @@ import javafx.util.Duration;
 import java.util.List;
 
 public class GameController {
-
-    AddTowerButton addBowTowerButton;
-    AddTowerButton addMagicTowerButton;
-    AddTowerButton addBombTowerButton;
+    private Node selectedTower;
+    @FXML
+    private AnchorPane towerBar;
+    @FXML
+    private AnchorPane gamePane;
     @FXML
     private AnchorPane pane;
     private Game game;
-    private ImageView towerTemplate = new ImageView(new Image("/image/green-tower.png"));
+    private ImageView towerCursor;
     @FXML
     private Label heartLabel;
     @FXML
@@ -45,31 +46,12 @@ public class GameController {
         return pane;
     }
 
-    public void init() {
-        ImageView imageView = new ImageView(new Image("/image/background.png"));
-        imageView.setX(0);
-        imageView.setY(0);
-        imageView.setFitHeight(768);
-        imageView.setFitWidth(1024);
-        pane.getChildren().add(imageView);
-    }
-
-    public void setStage(Stage stage) {
-        this.stage = stage;
-    }
-
     public void init(Game game) {
-        addBowTowerButton = new AddTowerButton(new Image("image/tower-icon.png"), new Image("image/tower-icon-mousemoved.png"),
-                new Image("image/tower-icon-selected.png"), this, 924, 770, 78, 74);
-        addMagicTowerButton = new AddTowerButton(new Image("image/magic-tower-icon.png"), new Image("image/magic-tower-icon-mousemoved.png"),
-                new Image("image/magic-tower-icon-selected.png"), this, 852, 772, 78, 74);
-        addBombTowerButton = new AddTowerButton(new Image("image/tower-bomb-icon.png"), new Image("image/tower-bomb-icon-mousemoved.png"),
-                new Image("image/tower-bomb-icon-selected.png"), this, 780, 772, 78, 74);
-
-        towerTemplate.setFitHeight(70);
-        towerTemplate.setFitWidth(70);
-        pane.getChildren().add(towerTemplate);
-        towerTemplate.setVisible(false);
+        towerCursor = new ImageView();
+        towerCursor.setFitHeight(70);
+        towerCursor.setFitWidth(70);
+        gamePane.getChildren().add(towerCursor);
+        towerCursor.setVisible(false);
         this.game = game;
 
         Image ghostImage = new Image("/image/ghost.gif");
@@ -155,23 +137,18 @@ public class GameController {
         });
     }
 
-    public void onTower1() {
-        if (addBowTowerButton.isSelected()) {
-            pane.setCursor(Cursor.NONE);
-        }
-    }
 
     public void setBinding() {
         coinImageInit();
         minimizeButtonInit();
         closeButtonInit();
-
+        setTowerBarBinding();
 
         pane.setOnMouseMoved(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
                 heartLabel.setText(String.valueOf(game.getMap().getRemainedLives()));
-                if (addBowTowerButton.isSelected()) {
+                if (selectedTower != null) {
                     dragTower(event);
                 }
             }
@@ -180,39 +157,81 @@ public class GameController {
         pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (addBowTowerButton.isSelected() && event.getPickResult().getIntersectedNode() != addBowTowerButton) {
+                if (selectedTower != null && event.getPickResult().getIntersectedNode() != selectedTower) {
                     addTower(event);
                 }
             }
         });
     }
 
+    private String getTowerImagePath(String id, String suffix) {
+        return "image/tower/" + id + "-" + suffix + ".png";
+    }
+
+
+    private void setTowerBarBinding() {
+        for (Node node : towerBar.getChildren()) {
+            ImageView towerView = (ImageView) node;
+            towerView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    selectedTower = event.getPickResult().getIntersectedNode();
+                    Image image = new Image(getTowerImagePath(selectedTower.getId(), "selected"));
+                    towerView.setImage(image);
+                    pane.setCursor(Cursor.NONE);
+                }
+            });
+            towerView.setOnMouseExited(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (selectedTower == null){
+                        Image image = new Image(getTowerImagePath(towerView.getId(), "exited"));
+                        towerView.setImage(image);
+                    }
+                }
+            });
+            towerView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (selectedTower == null){
+                        Image image = new Image(getTowerImagePath(towerView.getId(), "entered"));
+                        towerView.setImage(image);
+                    }
+                }
+            });
+        }
+    }
+
     public void dragTower(MouseEvent event) {
-        towerTemplate.setVisible(true);
-        towerTemplate.toFront();
-        towerTemplate.setX(event.getSceneX() - towerTemplate.getFitWidth() / 2);
-        towerTemplate.setY(event.getSceneY() - towerTemplate.getFitHeight() / 2);
+        towerCursor.setImage(new Image(getTowerImagePath(selectedTower.getId(),"cursor-enabled")));
+        towerCursor.setVisible(true);
+        towerCursor.toFront();
+        towerCursor.setX(event.getSceneX() - towerCursor.getFitWidth() / 2);
+        towerCursor.setY(event.getSceneY() - towerCursor.getFitHeight() / 2);
     }
 
     public void addTower(MouseEvent event) {
-        ImageView imageView = new ImageView(new Image("/image/tower.png"));
+        String imagePath = getTowerImagePath(selectedTower.getId(),"tower");
+        Image image = new Image(imagePath);
+        ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);
         imageView.setFitWidth(70);
         imageView.setX(event.getSceneX() - imageView.getFitWidth() / 2);
         imageView.setY(event.getSceneY() - imageView.getFitHeight() / 2);
         pane.getChildren().add(imageView);
-        towerTemplate.setVisible(false);
-        Image image = new Image("/image/cursor.png");
-        pane.setCursor(new ImageCursor(image, 100, 100));
-        addBowTowerButton.setSelected(false);
-        Tower tower = new Tower(TowerType.ARROW_TOWER, new Position(imageView.getX(), imageView.getY()),game.getMap());
+        towerCursor.setVisible(false);
+        pane.setCursor(new ImageCursor(new Image("/image/cursor.png"), 100, 100));
+        ((ImageView)selectedTower).setImage(new Image(getTowerImagePath(selectedTower.getId(),"exited")));
+        selectedTower = null;
+        Tower tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), game.getMap());
+//        tower.setCallback(p -> );
         game.getMap().addTower(tower);
 
     }
 
     public void addTower1(MouseEvent event) {
-        Position startPositon = new Position(500,500);
-        Position endPositon = new Position(700,700);
+        Position startPositon = new Position(500, 500);
+        Position endPositon = new Position(700, 700);
         double controlDeltaX = 50;
         double controlDeltaY = 50;
         Image image = new Image("image/arrow.png");
@@ -242,8 +261,40 @@ public class GameController {
         pathTransition.play();
     }
 
+//    public void onFire(Projectile projectile) {
+//        Image image = new Image("image/arrow.png");
+//        ImageView imageView = new ImageView(image);
+//        imageView.setFitHeight(11);
+//        imageView.setFitWidth(35);
+//        imageView.setX(startPositon.getX());
+//        imageView.setX(startPositon.getY());
+//        pane.getChildren().add(imageView);
+//
+//        javafx.scene.shape.Path path = new javafx.scene.shape.Path();
+//
+//        MoveTo moveTo = new MoveTo(startPositon.getX(), startPositon.getY());
+//
+//        CubicCurveTo cubicCurveTo = new CubicCurveTo(startPositon.getX() - controlDeltaX,
+//                startPositon.getY() - controlDeltaY, endPositon.getX() + controlDeltaX,
+//                endPositon.getY() - controlDeltaY, endPositon.getX(), endPositon.getY());
+//        path.getElements().add(moveTo);
+//        path.getElements().add(cubicCurveTo);
+//        PathTransition pathTransition = new PathTransition();
+//        pathTransition.setDuration(Duration.millis(1000));
+//        pathTransition.setNode(imageView);
+//        pathTransition.setPath(path);
+//        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+//        pathTransition.setCycleCount(1);
+//        pathTransition.setAutoReverse(false);
+//        pathTransition.play();
+//    }
+
     public Stage getStage() {
         return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     public Game getGame() {

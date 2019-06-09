@@ -7,16 +7,15 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="868.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cracker.controller.GameController">
    <children>
-      <ImageView fitHeight="868.0" fitWidth="1024.0">
-         <image>
-            <Image url="@../image/background.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="mapView" fitHeight="868.0" fitWidth="1024.0">
-         <image>
-            <Image url="@../image/titlebar1.png" />
-         </image>
-      </ImageView>
+      <AnchorPane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="868.0" fitWidth="1024.0">
+               <image>
+                  <Image url="@../image/background.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
       <ImageView fitHeight="60.0" fitWidth="228.0" layoutX="31.0" layoutY="31.0">
          <image>
             <Image url="@../image/toolbar.png" />
@@ -33,6 +32,18 @@
          </image>
       </ImageView>
       <Label fx:id="heartLabel" layoutX="152.0" layoutY="40.0" prefHeight="40.0" prefWidth="38.0" text="3" textFill="WHITE" />
+      <Label fx:id="coinLabel" layoutX="78.0" layoutY="40.0" prefHeight="40.0" prefWidth="37.0" text="100" textFill="WHITE" />
+      <ImageView fitHeight="32.0" fitWidth="38.0" layoutX="169.0" layoutY="44.0">
+         <image>
+            <Image url="@../image/wave.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="waveLabel" layoutX="204.0" layoutY="40.0" prefHeight="40.0" prefWidth="47.0" text="12/25" textFill="WHITE" />
+      <ImageView fx:id="controlFrame" fitHeight="868.0" fitWidth="1024.0">
+         <image>
+            <Image url="@../image/titlebar1.png" />
+         </image>
+      </ImageView>
       <ImageView fx:id="crossView" fitHeight="23.0" fitWidth="23.0" layoutX="960.0" layoutY="11.0">
          <image>
             <Image url="@../image/cross.png" />
@@ -43,12 +54,24 @@
             <Image url="@../image/line.png" />
          </image>
       </ImageView>
-      <Label fx:id="coinLabel" layoutX="78.0" layoutY="40.0" prefHeight="40.0" prefWidth="37.0" text="100" textFill="WHITE" />
-      <ImageView fitHeight="32.0" fitWidth="38.0" layoutX="169.0" layoutY="44.0">
-         <image>
-            <Image url="@../image/wave.png" />
-         </image>
-      </ImageView>
-      <Label fx:id="waveLabel" layoutX="204.0" layoutY="40.0" prefHeight="40.0" prefWidth="47.0" text="12/25" textFill="WHITE" />
+      <AnchorPane fx:id="towerBar" layoutX="772.0" layoutY="768.0" prefHeight="86.0" prefWidth="235.0">
+         <children>
+            <ImageView fx:id="AddMagicTowerButton" fitHeight="80.0" fitWidth="80.0" layoutX="78.0" layoutY="2.0">
+               <image>
+                  <Image url="@../image/tower/AddMagicTowerButton-exited.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="addArrowTowerButton" fitHeight="80.0" fitWidth="80.0" layoutX="152.0" layoutY="-1.0">
+               <image>
+                  <Image url="@../image/tower/addArrowTowerButton-exited.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="addBombTowerButton" fitHeight="80.0" fitWidth="80.0" layoutX="2.0" layoutY="2.0">
+               <image>
+                  <Image url="@../image/tower/addBombTowerButton-exited.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>

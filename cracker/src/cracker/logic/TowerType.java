@@ -1,7 +1,9 @@
 package cracker.logic;
 
 public enum TowerType {
-    ARROW_TOWER("Arrow Tower", 100, 10, 1, 100, ProjectileType.ARROW);
+    ARROW("Arrow Tower", 100, 10, 1, 100, ProjectileType.ARROW),
+    BOMB("Bomb Tower", 100, 10, 1, 100, ProjectileType.ARROW),
+    MAGIC("Magic Tower", 100, 10, 1, 100, ProjectileType.ARROW);
 
     private final ProjectileType projectileType;
     private final String name;
@@ -10,13 +12,22 @@ public enum TowerType {
     private final long reload;
     private final long cost;
 
-    TowerType(String name, double damage, double range, long reload, long cost, ProjectileType projectileType ) {
+    TowerType(String name, double damage, double range, long reload, long cost, ProjectileType projectileType) {
         this.name = name;
         this.damage = damage;
         this.range = range;
         this.reload = reload;
         this.cost = cost;
-        this. projectileType =  projectileType;
+        this.projectileType = projectileType;
+    }
+
+    public static TowerType findTowerType(String id) {
+        for (TowerType type : values()) {
+            if (("add" + type.toString() + "button").equalsIgnoreCase(id)) {
+                return type;
+            }
+        }
+        return null;
     }
 
     public String getName() {
