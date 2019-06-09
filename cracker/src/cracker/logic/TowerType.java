@@ -1,9 +1,9 @@
 package cracker.logic;
 
 public enum TowerType {
-    ARROW("Arrow Tower", 100, 10, 1, 100, ProjectileType.ARROW),
-    BOMB("Bomb Tower", 100, 10, 1, 100, ProjectileType.ARROW),
-    MAGIC("Magic Tower", 100, 10, 1, 100, ProjectileType.ARROW);
+    ARROW("Arrow Tower", 40, 300, 1000, 100, ProjectileType.ARROW),
+    BOMB("Bomb Tower", 100, 10, 1000, 100, ProjectileType.ARROW),
+    MAGIC("Magic Tower", 100, 10, 1000, 100, ProjectileType.ARROW);
 
     private final ProjectileType projectileType;
     private final String name;

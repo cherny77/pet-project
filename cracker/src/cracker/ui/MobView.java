@@ -28,6 +28,13 @@ public class MobView extends ImageView {
             Position position = mob.getPosition();
             this.setX(position.getX());
             this.setY(position.getY());
+            if (mob.isKilled()) {
+                setVisible(false);
+            }
         });
+    }
+
+    public Mob getMob() {
+        return mob;
     }
 }

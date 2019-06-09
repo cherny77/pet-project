@@ -1,6 +1,5 @@
 package cracker.logic;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class PathPosition {
@@ -70,27 +69,28 @@ public class PathPosition {
         return progress;
     }
 
-    public double getTotalProgress(){
-        return getAccomplishedDistance()/getTotalDistance();
+    public double getTotalProgress() {
+        return getAccomplishedDistance() / getTotalDistance();
     }
 
-    private double getTotalDistance(){
+    private double getTotalDistance() {
         double totalDistance = 0;
         List<Position> nodes = path.getPositions();
-        for(int i = 1; i < nodes.size(); i++){
-            totalDistance += getDistance(nodes.get(i-1), nodes.get(i));
+        for (int i = 1; i < nodes.size(); i++) {
+            totalDistance += getDistance(nodes.get(i - 1), nodes.get(i));
         }
 
         return totalDistance;
     }
 
-    private double getAccomplishedDistance(){
+    private double getAccomplishedDistance() {
         double accomplishedDistance = 0;
         List<Position> nodes = path.getPositions();
-        for (int i = 1; i  <= nodeIndex; i++){
-            accomplishedDistance += getDistance(nodes.get(i-1), nodes.get(i));
+        for (int i = 1; i <= nodeIndex; i++) {
+            accomplishedDistance += getDistance(nodes.get(i - 1), nodes.get(i));
         }
-        accomplishedDistance += getDistance(nodes.get(nodeIndex), nodes.get(nodeIndex + 1)) * progress;
+        if (nodeIndex < nodes.size() - 1)
+            accomplishedDistance += getDistance(nodes.get(nodeIndex), nodes.get(nodeIndex + 1)) * progress;
         return accomplishedDistance;
     }
 

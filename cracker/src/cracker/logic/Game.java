@@ -43,7 +43,9 @@ public class Game {
 
     public void move() {
         try {
-            map.move(Instant.now().toEpochMilli() - startTime);
+            long gameTime = Instant.now().toEpochMilli() - startTime;
+            map.move(gameTime);
+            map.fire(gameTime);
             if (map.isWin()) {
                 onWin();
                 stop();

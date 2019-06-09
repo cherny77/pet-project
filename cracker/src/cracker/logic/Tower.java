@@ -7,7 +7,7 @@ public class Tower {
     private final TowerType type;
     private final Position position;
     private final GameMap map;
-    private  Consumer<Projectile> callback;
+    private Consumer<Projectile> callback;
     private long lastShot;
 
     public Tower(TowerType type, Position position, GameMap map) {
@@ -21,18 +21,39 @@ public class Tower {
             return;
         }
         Mob mob = getTargetMob();
-        if (mob == null) return;
-        double projectileDistance = Position.getDistance(mob.getPosition(),position);
+        if (mob == null || mob.isKilled()) return;
+        Position endPosition = getMobFuturePosition(mob);
+        double projectileDistance = Position.getDistance(getMobFuturePosition(mob), position);
         long projectileTime = (long) (projectileDistance / type.getProjectileType().getSpeed());
-        double mobDistance = mob.getType().getSpeed() * projectileTime;
-        Position endPosition =  mob.getFuturePosition(mobDistance);
-        projectileTime = (long) (Position.getDistance(position, endPosition) / type.getProjectileType().getSpeed());
-        Projectile projectile = new Projectile(position, endPosition, projectileTime, type.getProjectileType());
+        Projectile projectile = new Projectile(position, endPosition, projectileTime, type.getProjectileType(), mob);
         if (callback != null) {
             callback.accept(projectile);
         }
         map.getExecutor().schedule(() -> mob.doDamage(type.getDamage()), projectileTime, TimeUnit.MILLISECONDS);
         lastShot = time;
+    }
+
+    private Position getMobFuturePositionIteration(Mob mob, Position mobStartPostion) {
+        double projectileDistance = Position.getDistance(mobStartPostion, position);
+        long projectileTime = (long) (projectileDistance / type.getProjectileType().getSpeed());
+        double mobDistance = mob.getType().getSpeed() * projectileTime;
+        Position endPosition = mob.getFuturePosition(mobDistance);
+        return endPosition;
+    }
+
+    private Position getMobFuturePosition(Mob mob) {
+        final double THRESHOLD = 5;
+        int counter = 0;
+        Position futurePosition;
+        Position nextFuturePosition = getMobFuturePositionIteration(mob, mob.getPosition());
+        do {
+            futurePosition = nextFuturePosition;
+            nextFuturePosition = getMobFuturePositionIteration(mob, futurePosition);
+            counter++;
+            if (counter > 10) System.out.println(counter);
+        }
+        while (Position.getDistance(futurePosition, nextFuturePosition) > THRESHOLD);
+        return nextFuturePosition;
     }
 
     private Mob getTargetMob() {

@@ -5,12 +5,14 @@ public class Projectile {
     private final Position endPosition;
     private final long duration;
     private final ProjectileType projectileType;
+    private final Mob targetMob;
 
-    public Projectile(Position startPosition, Position endPosition, long duration, ProjectileType projectileType) {
+    public Projectile(Position startPosition, Position endPosition, long duration, ProjectileType projectileType, Mob targetMob) {
         this.startPosition = startPosition;
         this.endPosition = endPosition;
         this.duration = duration;
         this.projectileType = projectileType;
+        this.targetMob = targetMob;
     }
 
     public Position getStartPosition() {
@@ -25,7 +27,9 @@ public class Projectile {
         return duration;
     }
 
-
+    public Mob getTargetMob() {
+        return targetMob;
+    }
 
     public ProjectileType getProjectileType() {
         return projectileType;
