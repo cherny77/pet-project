@@ -68,7 +68,7 @@ public class GameController {
                 else if (mob.getType().equals(MobType.SKELETON)) {
                     mobView = new MobView(skeletonImage, mob);
                 } else mobView = new MobView(slimeImage, mob);
-                pane.getChildren().add(mobView);
+                gamePane.getChildren().add(mobView);
 
             }
         }
@@ -218,7 +218,7 @@ public class GameController {
         imageView.setFitWidth(70);
         imageView.setX(event.getSceneX() - imageView.getFitWidth() / 2);
         imageView.setY(event.getSceneY() - imageView.getFitHeight() / 2);
-        pane.getChildren().add(imageView);
+        gamePane.getChildren().add(imageView);
         towerCursor.setVisible(false);
         pane.setCursor(new ImageCursor(new Image("/image/cursor.png"), 100, 100));
         ((ImageView)selectedTower).setImage(new Image(getTowerImagePath(selectedTower.getId(),"exited")));
