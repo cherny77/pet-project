@@ -3,6 +3,7 @@ package cracker.controller;
 import cracker.logic.*;
 import cracker.ui.AddTowerButton;
 import cracker.ui.MobView;
+import javafx.animation.PathTransition;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
@@ -12,7 +13,10 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.util.List;
 
@@ -201,9 +205,41 @@ public class GameController {
         Image image = new Image("/image/cursor.png");
         pane.setCursor(new ImageCursor(image, 100, 100));
         addBowTowerButton.setSelected(false);
-        Tower tower = new Tower(TowerType.Type1, new Position(imageView.getX(), imageView.getY()));
+        Tower tower = new Tower(TowerType.ARROW_TOWER, new Position(imageView.getX(), imageView.getY()),game.getMap());
         game.getMap().addTower(tower);
 
+    }
+
+    public void addTower1(MouseEvent event) {
+        Position startPositon = new Position(500,500);
+        Position endPositon = new Position(700,700);
+        double controlDeltaX = 50;
+        double controlDeltaY = 50;
+        Image image = new Image("image/arrow.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitHeight(11);
+        imageView.setFitWidth(35);
+        imageView.setX(startPositon.getX());
+        imageView.setX(startPositon.getY());
+        pane.getChildren().add(imageView);
+
+        javafx.scene.shape.Path path = new javafx.scene.shape.Path();
+
+        MoveTo moveTo = new MoveTo(startPositon.getX(), startPositon.getY());
+
+        CubicCurveTo cubicCurveTo = new CubicCurveTo(startPositon.getX() - controlDeltaX,
+                startPositon.getY() - controlDeltaY, endPositon.getX() + controlDeltaX,
+                endPositon.getY() - controlDeltaY, endPositon.getX(), endPositon.getY());
+        path.getElements().add(moveTo);
+        path.getElements().add(cubicCurveTo);
+        PathTransition pathTransition = new PathTransition();
+        pathTransition.setDuration(Duration.millis(1000));
+        pathTransition.setNode(imageView);
+        pathTransition.setPath(path);
+        pathTransition.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pathTransition.setCycleCount(1);
+        pathTransition.setAutoReverse(false);
+        pathTransition.play();
     }
 
     public Stage getStage() {

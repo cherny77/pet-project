@@ -14,6 +14,13 @@ public class PathPosition {
         this.progress = 0;
     }
 
+    public PathPosition clone() {
+        PathPosition cloned = new PathPosition(path);
+        cloned.nodeIndex = nodeIndex;
+        cloned.progress = progress;
+        return cloned;
+    }
+
     public void move(double distance) {
         Position firstNode = path.getPositions().get(nodeIndex);
         if (nodeIndex == path.getPositions().size() - 1)
@@ -86,4 +93,12 @@ public class PathPosition {
         accomplishedDistance += getDistance(nodes.get(nodeIndex), nodes.get(nodeIndex + 1)) * progress;
         return accomplishedDistance;
     }
+
+    public Position getFuturePosition(double distance) {
+        PathPosition cloned = clone();
+        cloned.move(distance);
+        return cloned.getPosition();
+    }
+
+
 }

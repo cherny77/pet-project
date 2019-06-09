@@ -1,7 +1,11 @@
 package cracker.logic;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 public class GameMap {
     public static final double SIZE = 100;
@@ -9,6 +13,7 @@ public class GameMap {
     private final List<Path> paths = new ArrayList<>();
     private final List<Wave> waves = new ArrayList<>();
     private int lives;
+    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
 
     public static double getSIZE() {
         return SIZE;
@@ -51,11 +56,17 @@ public class GameMap {
         }
     }
 
+    public void fire(long gameTime) {
+        for (Tower tower : towers) {
+            tower.fire(gameTime);
+        }
+    }
+
     public boolean isWin() {
         return isFinished() && getRemainedLives() > 0;
     }
 
-    public boolean isLoose(){
+    public boolean isLoose() {
         return getRemainedLives() <= 0;
     }
 
@@ -79,4 +90,18 @@ public class GameMap {
         return true;
     }
 
+    public List<Mob> getMobs() {
+        List<Mob> mobs = new ArrayList<>();
+        for (Wave wave : waves) {
+            for (Mob mob : wave.getMobs()) {
+                mobs.add(mob);
+            }
+        }
+        Collections.sort(mobs, Comparator.comparing(Mob::getProgress).reversed());
+        return mobs;
+    }
+
+    public ScheduledExecutorService getExecutor() {
+        return executor;
+    }
 }

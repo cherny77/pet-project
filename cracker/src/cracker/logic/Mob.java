@@ -29,6 +29,10 @@ public class Mob {
         }
     }
 
+    public void doDamage(double damage) {
+        health -= damage;
+    }
+
     public MobType getType() {
         return type;
     }
@@ -39,6 +43,9 @@ public class Mob {
 
     public Position getPosition() {
         return pathPosition.getPosition();
+    }
+    public double getProgress() {
+        return pathPosition.getTotalProgress();
     }
 
     public PathPosition getPathPosition() {
@@ -59,5 +66,9 @@ public class Mob {
 
     public boolean isFinished() {
         return pathPosition.isFinished();
+    }
+
+    public Position getFuturePosition(double distance) {
+       return pathPosition.getFuturePosition(distance);
     }
 }

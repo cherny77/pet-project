@@ -11,7 +11,7 @@ import java.util.concurrent.TimeUnit;
 public class Game {
 
     private static final long PERIOD = 30L;
-    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
+
     private GameMap map = new GameMap();
     private ScheduledFuture<?> future;
     private long startTime;
@@ -38,7 +38,7 @@ public class Game {
 
     public void start() {
         startTime = Instant.now().toEpochMilli();
-        future = executor.scheduleAtFixedRate(() -> move(), 0, PERIOD, TimeUnit.MILLISECONDS);
+        future = map.getExecutor().scheduleAtFixedRate(() -> move(), 0, PERIOD, TimeUnit.MILLISECONDS);
     }
 
     public void move() {
@@ -69,6 +69,6 @@ public class Game {
     }
 
     public ScheduledExecutorService getExecutor() {
-        return executor;
+        return map.getExecutor();
     }
 }

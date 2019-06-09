@@ -24,4 +24,8 @@ public class Position {
                 ", y=" + y +
                 '}';
     }
+
+    public static double getDistance(Position firstNode, Position secondNode) {
+        return Math.sqrt(Math.pow(secondNode.getX() - firstNode.getX(), 2) + Math.pow(secondNode.getY() - firstNode.getY(), 2));
+    }
 }
