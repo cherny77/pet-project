@@ -18,6 +18,9 @@ public class AddTowerButton extends ImageView {
 
     public void setSelected(boolean isSelected){
         this.isSelected = isSelected;
+        if(!isSelected){
+            setImage(enteredView);
+        }
     }
 
     public boolean isSelected(){
@@ -38,6 +41,8 @@ public class AddTowerButton extends ImageView {
         controller.getPane().getChildren().add(this);
         init();
     }
+
+
 
     private void init(){
         this.setOnMouseClicked(new EventHandler<MouseEvent>() {

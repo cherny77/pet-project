@@ -2,44 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f1e35269-4d25-4480-a768-644c40fb3329" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/res/image/right-arrow-button-entered.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cracker/logic/Character.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cracker/logic/CharacterType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cracker/ui/CharacterView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/Main.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/Main.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/AppController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/AppController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$10.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$10.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$6.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$7.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$7.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$8.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$8.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$9.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController$9.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/GameController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/controller/WelcomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/controller/WelcomeController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/logic/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/logic/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/cracker/logic/Wave.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/cracker/logic/Wave.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/fxml/welcome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/fxml/welcome.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/image/left-arrow-button-entered.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/image/left-arrow-button-entered.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/image/left-arrow-button.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/image/left-arrow-button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/image/right-arrow-button.png" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/cracker/image/right-arrow-button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/cracker/image/rightarrow-button-entered.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/fxml/welcome.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/res/fxml/welcome.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/image/left-arrow-button-entered.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/image/left-arrow-button-entered.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/image/left-arrow-button.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/image/left-arrow-button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/image/platform.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/image/platform.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/image/right-arrow-button.png" beforeDir="false" afterPath="$PROJECT_DIR$/res/image/right-arrow-button.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/res/image/rightarrow-button-entered.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cracker/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cracker/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cracker/controller/AppController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cracker/controller/AppController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cracker/controller/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cracker/controller/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cracker/controller/WelcomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cracker/controller/WelcomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cracker/logic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cracker/logic/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cracker/logic/Wave.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/cracker/logic/Wave.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -49,11 +12,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cracker/controller/GameController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2618">
-              <caret line="151" column="5" selection-start-line="130" selection-start-column="3" selection-end-line="151" selection-end-column="5" />
+            <state relative-caret-position="346">
+              <caret line="178" column="117" selection-start-line="178" selection-start-column="117" selection-end-line="178" selection-end-column="117" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -62,13 +25,23 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cracker/controller/AppController.java">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/scene/input/MouseEvent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="25" selection-start-line="25" selection-end-line="25" />
+            <state relative-caret-position="256">
+              <caret line="913" column="24" lean-forward="true" selection-start-line="913" selection-start-column="24" selection-end-line="913" selection-end-column="24" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#36662#36663#0" expanded="true" />
+                <element signature="e#36695#36696#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/scene/input/PickResult.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-1936">
+              <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -83,21 +56,6 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cracker/ui/CharacterView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="15" column="37" selection-start-line="15" selection-start-column="37" selection-end-line="15" selection-end-column="37" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#376#377#0" expanded="true" />
-                <element signature="e#407#408#0" expanded="true" />
-                <element signature="e#435#436#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/cracker/logic/Character.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="154">
@@ -111,10 +69,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/cracker/logic/TowerType.java">
+        <entry file="file://$PROJECT_DIR$/src/cracker/ui/AddTowerButton.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="66">
-              <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+            <state relative-caret-position="233">
+              <caret line="48" column="31" lean-forward="true" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
             </state>
           </provider>
         </entry>
@@ -193,12 +151,12 @@
         <option value="$PROJECT_DIR$/res/fxml/welcome.fxml" />
         <option value="$PROJECT_DIR$/src/cracker/logic/Wave.java" />
         <option value="$PROJECT_DIR$/src/cracker/logic/Game.java" />
-        <option value="$PROJECT_DIR$/src/cracker/controller/GameController.java" />
         <option value="$PROJECT_DIR$/src/cracker/logic/CharacterType.java" />
         <option value="$PROJECT_DIR$/src/cracker/logic/Character.java" />
         <option value="$PROJECT_DIR$/src/cracker/ui/CharacterView.java" />
         <option value="$PROJECT_DIR$/src/cracker/controller/AppController.java" />
         <option value="$PROJECT_DIR$/src/cracker/controller/WelcomeController.java" />
+        <option value="$PROJECT_DIR$/src/cracker/controller/GameController.java" />
       </list>
     </option>
   </component>
@@ -235,6 +193,12 @@
             <path>
               <item name="cracker" type="b2602c69:ProjectViewProjectNode" />
               <item name="cracker" type="462c0819:PsiDirectoryNode" />
+              <item name="res" type="462c0819:PsiDirectoryNode" />
+              <item name="image" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="cracker" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -264,6 +228,45 @@
               <item name="cracker" type="462c0819:PsiDirectoryNode" />
               <item name="ui" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="cracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+            </path>
+            <path>
+              <item name="cracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+            </path>
+            <path>
+              <item name="cracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="jfxrt.jar" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="jfxrt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="javafx" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="jfxrt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="javafx" type="462c0819:PsiDirectoryNode" />
+              <item name="scene" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="cracker" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; 1.8 &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="jfxrt.jar" type="462c0819:PsiDirectoryNode" />
+              <item name="javafx" type="462c0819:PsiDirectoryNode" />
+              <item name="scene" type="462c0819:PsiDirectoryNode" />
+              <item name="input" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -275,7 +278,7 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560063033417" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1560064137833" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
@@ -328,17 +331,18 @@
       <workItem from="1560004059558" duration="40000" />
       <workItem from="1560004106630" duration="450000" />
       <workItem from="1560004802973" duration="10495000" />
-      <workItem from="1560029259270" duration="4214000" />
+      <workItem from="1560029259270" duration="5168000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="15199000" />
+    <option name="totallyTimeSpent" value="16153000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.20628998" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20628998" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -347,8 +351,8 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.25135428" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.25135428" />
+      <window_info active="true" anchor="bottom" id="Debug" order="3" visible="true" weight="0.3997833" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
@@ -371,6 +375,32 @@
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/cracker/controller/GameController.java</url>
+          <line>179</line>
+          <properties />
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="debuggerHistoryManager">
+    <expressions id="evaluateExpression">
+      <expression>
+        <expression-string>event.getPickResult().node</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>event.getPickResult()</expression-string>
+        <language-id>JAVA</language-id>
+        <evaluation-mode>EXPRESSION</evaluation-mode>
+      </expression>
+    </expressions>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/src/cracker/ui/TowerView.java">
@@ -432,13 +462,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/cracker/ui/AddTowerButton.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="67" column="19" selection-start-line="67" selection-start-column="19" selection-end-line="67" selection-end-column="19" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/cracker/ui/MobView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="52">
@@ -456,16 +479,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="44">
           <caret line="2" column="1" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/cracker/controller/GameController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2618">
-          <caret line="151" column="5" selection-start-line="130" selection-start-column="3" selection-end-line="151" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -500,9 +513,6 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/res/image/right-arrow-button-entered.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/res/image/right-arrow-button.png">
       <provider selected="true" editor-type-id="images" />
     </entry>
     <entry file="file://$PROJECT_DIR$/res/fxml/welcome.fxml">
@@ -555,6 +565,44 @@
           <folding>
             <element signature="e#123#124#0" expanded="true" />
             <element signature="e#155#156#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cracker/ui/AddTowerButton.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="233">
+          <caret line="48" column="31" lean-forward="true" selection-start-line="48" selection-start-column="31" selection-end-line="48" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/res/image/right-arrow-button.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/scene/input/MouseEvent.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="256">
+          <caret line="913" column="24" lean-forward="true" selection-start-line="913" selection-start-column="24" selection-end-line="913" selection-end-column="24" />
+          <folding>
+            <element signature="e#36662#36663#0" expanded="true" />
+            <element signature="e#36695#36696#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_181/javafx-src.zip!/javafx/scene/input/PickResult.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1936">
+          <caret line="37" column="13" selection-start-line="37" selection-start-column="13" selection-end-line="37" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/cracker/controller/GameController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="178" column="117" selection-start-line="178" selection-start-column="117" selection-end-line="178" selection-end-column="117" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

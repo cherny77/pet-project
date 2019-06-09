@@ -176,7 +176,7 @@ public class GameController {
         pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (addBowTowerButton.isSelected()) {
+                if (addBowTowerButton.isSelected() && event.getPickResult().getIntersectedNode() != addBowTowerButton) {
                     addTower(event);
                 }
             }
