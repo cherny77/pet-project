@@ -22,12 +22,8 @@ public class Main extends Application {
         primaryStage.show();
         primaryStage.setResizable(false);
         primaryStage.sizeToScene();
-        Game game = new Game();
-        game.init();
+        appController.init();
         appController.getGameController().setStage(primaryStage);
-        appController.getGameController().init(game);
-        appController.getGameController().setBinding();
-        game.start();
     }
 
 

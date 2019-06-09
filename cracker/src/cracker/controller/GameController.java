@@ -71,9 +71,9 @@ public class GameController {
         Image ghostImage = new Image("/image/ghost.gif");
         Image skeletonImage = new Image("/image/skeleton.gif");
         Image slimeImage = new Image("/image/slime.gif");
-        Image image = new Image("/image/cursor.png");
-        pane.setCursor(new ImageCursor(image, 100, 100));
+
         List<Wave> waves = game.getMap().getWaves();
+        int size = pane.getChildren().size();
         for (Wave wave : waves) {
             for (Mob mob : wave.getMobs()) {
                 MobView mobView;
@@ -83,6 +83,7 @@ public class GameController {
                     mobView = new MobView(skeletonImage, mob);
                 } else mobView = new MobView(slimeImage, mob);
                 pane.getChildren().add(mobView);
+
             }
         }
     }
@@ -203,5 +204,13 @@ public class GameController {
         Tower tower = new Tower(TowerType.Type1, new Position(imageView.getX(), imageView.getY()));
         game.getMap().addTower(tower);
 
+    }
+
+    public Stage getStage() {
+        return stage;
+    }
+
+    public Game getGame() {
+        return game;
     }
 }

@@ -3,7 +3,7 @@ package cracker.logic;
 import java.util.List;
 
 public class Wave {
-    List<? extends Mob> mobs;
+    List< Mob> mobs;
     long duration;
     long start;
 
@@ -15,6 +15,8 @@ public class Wave {
             mobs.get(i).setCurrentTime(start + duration/mobs.size() * i);
         }
     }
+
+
 
     public List<? extends Mob> getMobs() {
         return mobs;
@@ -51,6 +53,10 @@ public class Wave {
             if (!(mob.isFinished() || mob.isKilled())) return false;
         }
         return true;
+    }
+
+    public void addMob(Mob mob){
+        mobs.add(mob);
     }
 
 }
