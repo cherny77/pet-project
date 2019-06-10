@@ -16,6 +16,7 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <AnchorPane fx:id="progectilePane" prefHeight="868.0" prefWidth="1024.0" />
       <ImageView fitHeight="60.0" fitWidth="228.0" layoutX="31.0" layoutY="31.0">
          <image>
             <Image url="@../image/toolbar.png" />
@@ -44,16 +45,6 @@
             <Image url="@../image/titlebar1.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="crossView" fitHeight="23.0" fitWidth="23.0" layoutX="960.0" layoutY="11.0">
-         <image>
-            <Image url="@../image/cross.png" />
-         </image>
-      </ImageView>
-      <ImageView fx:id="minimizeView" fitHeight="17.0" fitWidth="23.0" layoutX="914.0" layoutY="14.0">
-         <image>
-            <Image url="@../image/line.png" />
-         </image>
-      </ImageView>
       <AnchorPane fx:id="towerBar" layoutX="772.0" layoutY="768.0" prefHeight="86.0" prefWidth="235.0">
          <children>
             <ImageView fx:id="AddMagicTowerButton" fitHeight="80.0" fitWidth="80.0" layoutX="78.0" layoutY="2.0">
@@ -73,5 +64,39 @@
             </ImageView>
          </children>
       </AnchorPane>
+      <ImageView fx:id="gearWheel" fitHeight="60.0" fitWidth="60.0" layoutX="940.0" layoutY="50.0">
+         <image>
+            <Image url="@../image/gear-wheel.png" />
+         </image>
+      </ImageView>
+      <AnchorPane fx:id="winPane" prefHeight="200.0" prefWidth="200.0" visible="false">
+         <children>
+            <ImageView fitHeight="868.0" fitWidth="1024.0">
+               <image>
+                  <Image url="@../image/win-bg.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="playAgainBtn" fitHeight="134.0" fitWidth="536.0" layoutX="244.0" layoutY="413.0">
+               <image>
+                  <Image url="@../image/play-again-button.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="goToMenuButton" fitHeight="134.0" fitWidth="536.0" layoutX="244.0" layoutY="584.0">
+               <image>
+                  <Image url="@../image/go-to-menu-btn.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
+      <ImageView fx:id="crossView" fitHeight="23.0" fitWidth="23.0" layoutX="960.0" layoutY="11.0">
+         <image>
+            <Image url="@../image/cross.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="minimizeView" fitHeight="17.0" fitWidth="23.0" layoutX="914.0" layoutY="14.0">
+         <image>
+            <Image url="@../image/line.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

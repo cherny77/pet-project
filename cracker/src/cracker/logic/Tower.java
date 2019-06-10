@@ -50,7 +50,7 @@ public class Tower {
             futurePosition = nextFuturePosition;
             nextFuturePosition = getMobFuturePositionIteration(mob, futurePosition);
             counter++;
-            if (counter > 10) System.out.println(counter);
+            if (counter > 5) break;
         }
         while (Position.getDistance(futurePosition, nextFuturePosition) > THRESHOLD);
         return nextFuturePosition;

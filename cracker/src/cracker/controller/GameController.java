@@ -3,6 +3,7 @@ package cracker.controller;
 import cracker.logic.*;
 import cracker.ui.MobView;
 import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,6 +25,13 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class GameController {
+
+    @FXML
+    private ImageView goToMenuButton;
+    @FXML
+    private ImageView playAgainBtn;
+    @FXML
+    private ImageView gearWheel;
     private Node selectedTower;
     @FXML
     private AnchorPane towerBar;
@@ -44,6 +52,9 @@ public class GameController {
     @FXML
     private ImageView addTowerImage;
     private Stage stage;
+
+    @FXML
+    private AnchorPane progectilePane;
 
     public AnchorPane getPane() {
         return pane;
@@ -141,10 +152,13 @@ public class GameController {
 
 
     public void setBinding() {
+        setPlayAgainBtn();
+        setOptionButton();
         coinImageInit();
         minimizeButtonInit();
         closeButtonInit();
         setTowerBarBinding();
+        setGoToMenuBtn();
 
         pane.setOnMouseMoved(new EventHandler<MouseEvent>() {
             @Override
@@ -166,10 +180,13 @@ public class GameController {
         });
     }
 
-    private String getTowerImagePath(String id, String suffix) {
+    private String getTowerButtonImagePath(String id, String suffix) {
         return "image/tower/" + id + "-" + suffix + ".png";
     }
 
+    private String getTowerImagePath(String id, String suffix) {
+        return "image/tower/" + id + "-" + suffix + ".gif";
+    }
 
     private void setTowerBarBinding() {
         for (Node node : towerBar.getChildren()) {
@@ -178,7 +195,7 @@ public class GameController {
                 @Override
                 public void handle(MouseEvent event) {
                     selectedTower = event.getPickResult().getIntersectedNode();
-                    Image image = new Image(getTowerImagePath(selectedTower.getId(), "selected"));
+                    Image image = new Image(getTowerButtonImagePath(selectedTower.getId(), "selected"));
                     towerView.setImage(image);
                     pane.setCursor(Cursor.NONE);
                 }
@@ -187,7 +204,7 @@ public class GameController {
                 @Override
                 public void handle(MouseEvent event) {
                     if (selectedTower == null) {
-                        Image image = new Image(getTowerImagePath(towerView.getId(), "exited"));
+                        Image image = new Image(getTowerButtonImagePath(towerView.getId(), "exited"));
                         towerView.setImage(image);
                     }
                 }
@@ -196,7 +213,7 @@ public class GameController {
                 @Override
                 public void handle(MouseEvent event) {
                     if (selectedTower == null) {
-                        Image image = new Image(getTowerImagePath(towerView.getId(), "entered"));
+                        Image image = new Image(getTowerButtonImagePath(towerView.getId(), "entered"));
                         towerView.setImage(image);
                     }
                 }
@@ -205,7 +222,9 @@ public class GameController {
     }
 
     public void dragTower(MouseEvent event) {
-        towerCursor.setImage(new Image(getTowerImagePath(selectedTower.getId(), "cursor-enabled")));
+        towerCursor.setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "cursor-enabled")));
+        towerCursor.setFitHeight(90);
+        towerCursor.setFitWidth(90);
         towerCursor.setVisible(true);
         towerCursor.toFront();
         towerCursor.setX(event.getSceneX() - towerCursor.getFitWidth() / 2);
@@ -216,14 +235,14 @@ public class GameController {
         String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
         Image image = new Image(imagePath);
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(70);
-        imageView.setFitWidth(70);
+        imageView.setFitHeight(90);
+        imageView.setFitWidth(90);
         imageView.setX(event.getSceneX() - imageView.getFitWidth() / 2);
         imageView.setY(event.getSceneY() - imageView.getFitHeight() / 2);
         gamePane.getChildren().add(imageView);
         towerCursor.setVisible(false);
         pane.setCursor(new ImageCursor(new Image("/image/cursor.png"), 100, 100));
-        ((ImageView) selectedTower).setImage(new Image(getTowerImagePath(selectedTower.getId(), "exited")));
+        ((ImageView) selectedTower).setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "exited")));
         selectedTower = null;
         Tower tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), game.getMap());
         game.getMap().addTower(tower);
@@ -239,15 +258,15 @@ public class GameController {
         ImageView imageView = new ImageView(image);
         imageView.setX(projectile.getStartPosition().getX());
         imageView.setX(projectile.getStartPosition().getY());
-        Platform.runLater(() -> gamePane.getChildren().add(imageView));
+        Platform.runLater(() -> progectilePane.getChildren().add(imageView));
         javafx.scene.shape.Path path = new javafx.scene.shape.Path();
         MobView mobView = findMobView(projectile.getTargetMob());
         double deltaY;
         double deltaX;
         if (mobView != null) {
-         deltaY = mobView.getImage().getHeight() / 2;
-         deltaX = mobView.getImage().getWidth() / 2;}
-        else {
+            deltaY = mobView.getImage().getHeight() / 2;
+            deltaX = mobView.getImage().getWidth() / 2;
+        } else {
             deltaY = 0;
             deltaX = 0;
         }
@@ -270,7 +289,7 @@ public class GameController {
         pathTransition.setAutoReverse(false);
         pathTransition.play();
         ScheduledExecutorService executor = getGame().getExecutor();
-        executor.schedule(() -> Platform.runLater(() -> gamePane.getChildren().remove(imageView)), projectile.getDuration(), TimeUnit.MILLISECONDS);
+        executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)), projectile.getDuration(), TimeUnit.MILLISECONDS);
     }
 
     public MobView findMobView(Mob mob) {
@@ -296,4 +315,60 @@ public class GameController {
     public Game getGame() {
         return game;
     }
-}
+
+    private void setPlayAgainBtn(){
+        playAgainBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+            playAgainBtn.setImage(new Image("image/play-again-button-entered.png"));
+            }
+        });
+
+        playAgainBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                playAgainBtn.setImage(new Image("image/play-again-button.png"));
+            }
+        });
+    }
+
+    private void setGoToMenuBtn(){
+        goToMenuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                goToMenuButton.setImage(new Image("image/go-to-menu-btn-entered.png"));
+            }
+        });
+
+        goToMenuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                goToMenuButton.setImage(new Image("image/go-to-menu-btn.png"));
+            }
+        });
+    }
+
+    private void setOptionButton() {
+
+        RotateTransition rt = new RotateTransition(Duration.millis(250), gearWheel);
+        gearWheel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                rt.setByAngle(10);
+                rt.setCycleCount(1);
+                rt.play();
+            }
+        });
+
+        gearWheel.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                rt.setByAngle(-10);
+                rt.setCycleCount(1);
+                rt.play();
+
+            }
+        });
+
+    }
+

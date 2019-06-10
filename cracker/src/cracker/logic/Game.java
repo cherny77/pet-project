@@ -23,7 +23,7 @@ public class Game {
         map.addPath(path);
         ArrayList<Mob> mobs = new ArrayList<>();
         for (int i = 0; i < 10; i++){
-        Mob mob1 = new Mob(MobType.GHOST, path);
+        Mob mob1 = new Mob(MobType.SLIME, path);
         mobs.add(mob1);
 //        Mob mob2 = new Mob(MobType.SKELETON, path);
 //        Mob mob3 = new Mob(MobType.SLIME, path);

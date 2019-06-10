@@ -46,7 +46,7 @@
             <Image url="@../image/line.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="playButton" fitHeight="174.0" fitWidth="399.0" layoutX="625.0" layoutY="443.0">
+      <ImageView fx:id="playButton" fitHeight="178.0" fitWidth="408.0" layoutX="622.0" layoutY="439.0">
          <image>
             <Image url="@../image/play.png" />
          </image>
