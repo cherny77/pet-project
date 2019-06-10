@@ -198,6 +198,12 @@ public class GameController {
                     Image image = new Image(getTowerButtonImagePath(selectedTower.getId(), "selected"));
                     towerView.setImage(image);
                     pane.setCursor(Cursor.NONE);
+                    for (Node node1 : towerBar.getChildren()){
+                        if(node1 != selectedTower){
+                            Image image1 = new Image(getTowerButtonImagePath(node1.getId(), "exited"));
+                            ((ImageView)node1).setImage(image1);
+                        }
+                    }
                 }
             });
             towerView.setOnMouseExited(new EventHandler<MouseEvent>() {
@@ -316,11 +322,11 @@ public class GameController {
         return game;
     }
 
-    private void setPlayAgainBtn(){
+    private void setPlayAgainBtn() {
         playAgainBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-            playAgainBtn.setImage(new Image("image/play-again-button-entered.png"));
+                playAgainBtn.setImage(new Image("image/play-again-button-entered.png"));
             }
         });
 
@@ -332,7 +338,7 @@ public class GameController {
         });
     }
 
-    private void setGoToMenuBtn(){
+    private void setGoToMenuBtn() {
         goToMenuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
@@ -371,4 +377,5 @@ public class GameController {
         });
 
     }
+}
 
