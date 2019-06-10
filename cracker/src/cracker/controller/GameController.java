@@ -15,6 +15,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
@@ -50,7 +53,7 @@ public class GameController {
     @FXML
     private ImageView coinView;
     @FXML
-    private ImageView addTowerImage;
+    private ImageView controlFrame;
     private Stage stage;
 
     @FXML
@@ -153,7 +156,6 @@ public class GameController {
 
     public void setBinding() {
         setPlayAgainBtn();
-        setOptionButton();
         coinImageInit();
         minimizeButtonInit();
         closeButtonInit();
@@ -164,7 +166,7 @@ public class GameController {
             @Override
             public void handle(MouseEvent event) {
                 heartLabel.setText(String.valueOf(game.getMap().getRemainedLives()));
-                if (selectedTower != null) {
+                if (selectedTower != null ) {
                     dragTower(event);
                 }
             }
@@ -238,6 +240,7 @@ public class GameController {
     }
 
     public void addTower(MouseEvent event) {
+
         String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
         Image image = new Image(imagePath);
         ImageView imageView = new ImageView(image);
@@ -246,11 +249,38 @@ public class GameController {
         imageView.setX(event.getSceneX() - imageView.getFitWidth() / 2);
         imageView.setY(event.getSceneY() - imageView.getFitHeight() / 2);
         gamePane.getChildren().add(imageView);
+
         towerCursor.setVisible(false);
-        pane.setCursor(new ImageCursor(new Image("/image/cursor.png"), 100, 100));
+        pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
         ((ImageView) selectedTower).setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "exited")));
         selectedTower = null;
         Tower tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), game.getMap());
+        Circle circle = new Circle();
+        circle.setCenterX(imageView.getX() - - imageView.getFitWidth() / 2);
+        circle.setCenterY(imageView.getY() - - imageView.getFitHeight() / 2);
+        circle.setRadius(tower.getType().getRange());
+        circle.setStroke(Color.RED);
+        circle.setStrokeWidth(5);
+        circle.setOpacity(50);
+        circle.setFill(new Color(0,0,0,0));
+        gamePane.getChildren().add(circle);
+        circle.setVisible(false);
+        imageView.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                circle.setVisible(false);
+            }
+        });
+
+        imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                circle.setVisible(true);
+            }
+        });
+
         game.getMap().addTower(tower);
         tower.setCallback(this::onFire);
     }
@@ -354,28 +384,6 @@ public class GameController {
         });
     }
 
-    private void setOptionButton() {
 
-        RotateTransition rt = new RotateTransition(Duration.millis(250), gearWheel);
-        gearWheel.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                rt.setByAngle(10);
-                rt.setCycleCount(1);
-                rt.play();
-            }
-        });
-
-        gearWheel.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                rt.setByAngle(-10);
-                rt.setCycleCount(1);
-                rt.play();
-
-            }
-        });
-
-    }
 }
 

@@ -9,14 +9,14 @@
    <children>
       <AnchorPane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ImageView fitHeight="868.0" fitWidth="1024.0">
+            <ImageView fitHeight="868.0" fitWidth="1024.0" mouseTransparent="true">
                <image>
                   <Image url="@../image/background.png" />
                </image>
             </ImageView>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="progectilePane" prefHeight="868.0" prefWidth="1024.0" />
+      <AnchorPane fx:id="progectilePane" mouseTransparent="true" prefHeight="868.0" prefWidth="1024.0" />
       <ImageView fitHeight="60.0" fitWidth="228.0" layoutX="31.0" layoutY="31.0">
          <image>
             <Image url="@../image/toolbar.png" />
@@ -64,11 +64,6 @@
             </ImageView>
          </children>
       </AnchorPane>
-      <ImageView fx:id="gearWheel" fitHeight="60.0" fitWidth="60.0" layoutX="940.0" layoutY="50.0">
-         <image>
-            <Image url="@../image/gear-wheel.png" />
-         </image>
-      </ImageView>
       <AnchorPane fx:id="winPane" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
             <ImageView fitHeight="868.0" fitWidth="1024.0">

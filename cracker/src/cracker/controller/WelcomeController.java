@@ -5,6 +5,7 @@ import cracker.logic.CharacterType;
 import cracker.logic.Game;
 import cracker.ui.CharacterView;
 import javafx.animation.FadeTransition;
+import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -21,6 +22,8 @@ import java.util.concurrent.TimeUnit;
 public class WelcomeController {
     ArrayList<CharacterView> characters;
     int characterNumber = 0;
+    @FXML
+    private ImageView gearWheel;
     @FXML
     private ImageView minimizeView;
     @FXML
@@ -70,6 +73,7 @@ public class WelcomeController {
     }
 
     public void init() {
+
         playButtonInit();
         closeButtonInit();
         minimizeButtonInit();
@@ -86,6 +90,31 @@ public class WelcomeController {
         characters.add(knightView);
         characters.add(archerView);
         characters.add(wizardView);
+        setOptionButton();
+
+    }
+
+    private void setOptionButton() {
+
+        RotateTransition rt = new RotateTransition(Duration.millis(250), gearWheel);
+        gearWheel.setOnMouseEntered(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                rt.setByAngle(10);
+                rt.setCycleCount(1);
+                rt.play();
+            }
+        });
+
+        gearWheel.setOnMouseExited(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                rt.setByAngle(-10);
+                rt.setCycleCount(1);
+                rt.play();
+
+            }
+        });
 
     }
 

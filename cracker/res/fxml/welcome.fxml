@@ -51,9 +51,14 @@
             <Image url="@../image/play.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="102.0" fitWidth="197.0" layoutX="421.0" layoutY="49.0">
+      <ImageView fitHeight="102.0" fitWidth="197.0" layoutX="421.0" layoutY="9.0">
          <image>
             <Image url="@../image/soldier-info.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="gearWheel" fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="39.0">
+         <image>
+            <Image url="@../image/gear-wheel.png" />
          </image>
       </ImageView>
    </children>

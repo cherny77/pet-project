@@ -50,7 +50,7 @@ public class Tower {
             futurePosition = nextFuturePosition;
             nextFuturePosition = getMobFuturePositionIteration(mob, futurePosition);
             counter++;
-            if (counter > 5) break;
+            if (counter > 2) break;
         }
         while (Position.getDistance(futurePosition, nextFuturePosition) > THRESHOLD);
         return nextFuturePosition;
@@ -67,5 +67,25 @@ public class Tower {
 
     public void setCallback(Consumer<Projectile> callback) {
         this.callback = callback;
+    }
+
+    public TowerType getType() {
+        return type;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public GameMap getMap() {
+        return map;
+    }
+
+    public Consumer<Projectile> getCallback() {
+        return callback;
+    }
+
+    public long getLastShot() {
+        return lastShot;
     }
 }
