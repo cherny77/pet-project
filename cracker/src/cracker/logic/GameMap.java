@@ -1,5 +1,7 @@
 package cracker.logic;
 
+import cracker.CaughtExceptionsThreadFactory;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -8,16 +10,11 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class GameMap {
-    public static final double SIZE = 100;
     private final List<Tower> towers = new ArrayList<>();
     private final List<Path> paths = new ArrayList<>();
     private final List<Wave> waves = new ArrayList<>();
     private int lives;
-    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
-
-    public static double getSIZE() {
-        return SIZE;
-    }
+    private ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(new CaughtExceptionsThreadFactory());
 
     public void setLives(int lives) {
         this.lives = lives;

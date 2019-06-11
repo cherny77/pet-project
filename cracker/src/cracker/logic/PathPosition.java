@@ -29,7 +29,7 @@ public class PathPosition {
         double currentPosition = segment * progress;
         progress += distance / segment;
         if (progress >= 1) {
-            distance = currentPosition - segment;
+            distance -= segment - currentPosition;
             nodeIndex++;
             progress = 0;
             move(distance);

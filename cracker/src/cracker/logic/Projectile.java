@@ -34,4 +34,14 @@ public class Projectile {
     public ProjectileType getProjectileType() {
         return projectileType;
     }
+
+    @Override
+    public String toString() {
+        return "Projectile{" +
+                "startPosition=" + startPosition +
+                ", endPosition=" + endPosition +
+                ", duration=" + duration +
+                ", projectileType=" + projectileType +
+                '}';
+    }
 }

@@ -28,6 +28,8 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class GameController {
+    public final static double TOWER_WIDTH = 90;
+    public final static double TOWER_HEIGHT = 90;
 
     @FXML
     private ImageView goToMenuButton;
@@ -245,8 +247,8 @@ public class GameController {
 //        Image image = new Image(imagePath);
         Image image = new Image("image/tower/test-tower.png");
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(90);
-        imageView.setFitWidth(90);
+        imageView.setFitHeight(TOWER_HEIGHT);
+        imageView.setFitWidth(TOWER_WIDTH);
         imageView.setX(event.getSceneX() - imageView.getFitWidth() / 2);
         imageView.setY(event.getSceneY() - imageView.getFitHeight() / 2);
         gamePane.getChildren().add(imageView);
@@ -257,8 +259,8 @@ public class GameController {
         selectedTower = null;
         Tower tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), game.getMap());
         Circle circle = new Circle();
-        circle.setCenterX(imageView.getX() - - imageView.getFitWidth() / 2);
-        circle.setCenterY(imageView.getY() - - imageView.getFitHeight() / 2);
+        circle.setCenterX(imageView.getX() + imageView.getFitWidth() / 2);
+        circle.setCenterY(imageView.getY() + imageView.getFitHeight() / 2);
         circle.setRadius(tower.getType().getRange());
         circle.setStroke(Color.RED);
         circle.setStrokeWidth(5);
@@ -291,30 +293,20 @@ public class GameController {
     }
 
     public void onFire(Projectile projectile) {
+        System.out.println(projectile);
         Image image = new Image(getProjectfileImagePath(projectile.getProjectileType()));
         ImageView imageView = new ImageView(image);
         imageView.setX(projectile.getStartPosition().getX());
         imageView.setX(projectile.getStartPosition().getY());
         Platform.runLater(() -> progectilePane.getChildren().add(imageView));
         javafx.scene.shape.Path path = new javafx.scene.shape.Path();
-        MobView mobView = findMobView(projectile.getTargetMob());
-        double deltaY;
-        double deltaX;
-        if (mobView != null) {
-            deltaY = mobView.getImage().getHeight() / 2;
-            deltaX = mobView.getImage().getWidth() / 2;
-        } else {
-            deltaY = 0;
-            deltaX = 0;
-        }
-
-        MoveTo moveTo = new MoveTo(projectile.getStartPosition().getX(), projectile.getStartPosition().getY());
+        MoveTo moveTo = new MoveTo(projectile.getStartPosition().getX() + TOWER_WIDTH / 2, projectile.getStartPosition().getY());
         CubicCurveTo cubicCurveTo = new CubicCurveTo(projectile.getStartPosition().getX()
                 - projectile.getProjectileType().getControlDeltaX(),
                 projectile.getStartPosition().getY() - projectile.getProjectileType().getControlDeltaY(),
-                projectile.getEndPosition().getX() + deltaX + projectile.getProjectileType().getControlDeltaX(),
-                projectile.getEndPosition().getY() + deltaY - projectile.getProjectileType().getControlDeltaY(),
-                projectile.getEndPosition().getX() + deltaX, projectile.getEndPosition().getY() + deltaY);
+                projectile.getEndPosition().getX() + MobView.MOB_SIZE / 2 + projectile.getProjectileType().getControlDeltaX(),
+                projectile.getEndPosition().getY() + MobView.MOB_SIZE / 2 - projectile.getProjectileType().getControlDeltaY(),
+                projectile.getEndPosition().getX() + MobView.MOB_SIZE / 2, projectile.getEndPosition().getY() + MobView.MOB_SIZE / 2);
         path.getElements().add(moveTo);
         path.getElements().add(cubicCurveTo);
         PathTransition pathTransition = new PathTransition();
@@ -327,18 +319,6 @@ public class GameController {
         pathTransition.play();
         ScheduledExecutorService executor = getGame().getExecutor();
         executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)), projectile.getDuration(), TimeUnit.MILLISECONDS);
-    }
-
-    public MobView findMobView(Mob mob) {
-        for (Node node : gamePane.getChildren()) {
-            if (node instanceof MobView) {
-                MobView mobView = (MobView) node;
-                if (mob == mobView.getMob()) {
-                    return mobView;
-                }
-            }
-        }
-        return null;
     }
 
     public Stage getStage() {

@@ -7,18 +7,16 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 public class MobView extends ImageView {
-    private Mob mob;
+    public final static double MOB_SIZE = 48;
 
-    public MobView(Mob mob) {
-        this.mob = mob;
-    }
+    private Mob mob;
 
     public MobView(Image image, Mob mob) {
         super(image);
         this.mob = mob;
         mob.setCallback(() -> move());
-        this.setFitHeight(48);
-        this.setFitWidth(48);
+        this.setFitHeight(MOB_SIZE);
+        this.setFitWidth(MOB_SIZE);
         this.setVisible(false);
     }
 
