@@ -72,7 +72,7 @@ public class GameController {
         this.game = game;
 
         Image ghostImage = new Image("/image/ghost.gif");
-        Image skeletonImage = new Image("/image/skeleton.gif");
+        Image skeletonImage = new Image("image/test-mob.png");
         Image slimeImage = new Image("/image/slime.gif");
 
         List<Wave> waves = game.getMap().getWaves();
@@ -241,8 +241,9 @@ public class GameController {
 
     public void addTower(MouseEvent event) {
 
-        String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
-        Image image = new Image(imagePath);
+//        String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
+//        Image image = new Image(imagePath);
+        Image image = new Image("image/tower/test-tower.png");
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(90);
         imageView.setFitWidth(90);
