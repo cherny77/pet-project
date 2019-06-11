@@ -2,11 +2,13 @@ package cracker.controller;
 
 import cracker.logic.*;
 import cracker.ui.MobView;
+import cracker.ui.RangeView;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -23,6 +25,7 @@ import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -57,6 +60,7 @@ public class GameController {
     @FXML
     private ImageView controlFrame;
     private Stage stage;
+    private boolean placeIsFree;
 
     @FXML
     private AnchorPane progectilePane;
@@ -74,7 +78,7 @@ public class GameController {
         this.game = game;
 
         Image ghostImage = new Image("/image/ghost.gif");
-        Image skeletonImage = new Image("image/test-mob.png");
+        Image skeletonImage = new Image("/image/skeleton.gif");
         Image slimeImage = new Image("/image/slime.gif");
 
         List<Wave> waves = game.getMap().getWaves();
@@ -177,7 +181,7 @@ public class GameController {
         pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent event) {
-                if (selectedTower != null && event.getPickResult().getIntersectedNode() != selectedTower) {
+                if (selectedTower != null && event.getPickResult().getIntersectedNode() != selectedTower && placeIsFree) {
                     addTower(event);
                 }
             }
@@ -232,20 +236,22 @@ public class GameController {
     }
 
     public void dragTower(MouseEvent event) {
+        towerCursor.setFitHeight(100);
+        towerCursor.setFitWidth(100);
+        if (isFreePlace(new Position(event.getSceneX() ,event.getSceneY() ), towerCursor))
         towerCursor.setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "cursor-enabled")));
-        towerCursor.setFitHeight(90);
-        towerCursor.setFitWidth(90);
+        else towerCursor.setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "cursor-disabled")));
         towerCursor.setVisible(true);
         towerCursor.toFront();
         towerCursor.setX(event.getSceneX() - towerCursor.getFitWidth() / 2);
         towerCursor.setY(event.getSceneY() - towerCursor.getFitHeight() / 2);
+
     }
 
     public void addTower(MouseEvent event) {
 
-//        String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
-//        Image image = new Image(imagePath);
-        Image image = new Image("image/tower/test-tower.png");
+        String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
+        Image image = new Image(imagePath);
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(TOWER_HEIGHT);
         imageView.setFitWidth(TOWER_WIDTH);
@@ -256,33 +262,32 @@ public class GameController {
         towerCursor.setVisible(false);
         pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
         ((ImageView) selectedTower).setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "exited")));
+        Tower tower;
+        if (selectedTower.getId().toLowerCase().contains("bomb")){
+            tower = new Tower(TowerType.BOMB, new Position(imageView.getX(), imageView.getY()), game.getMap());
+        }
+        else if (selectedTower.getId().toLowerCase().contains("magic")){
+            tower = new Tower(TowerType.MAGIC, new Position(imageView.getX(), imageView.getY()), game.getMap());
+        }else {
+            tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), game.getMap());
+        }
         selectedTower = null;
-        Tower tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), game.getMap());
-        Circle circle = new Circle();
-        circle.setCenterX(imageView.getX() + imageView.getFitWidth() / 2);
-        circle.setCenterY(imageView.getY() + imageView.getFitHeight() / 2);
-        circle.setRadius(tower.getType().getRange());
-        circle.setStroke(Color.RED);
-        circle.setStrokeWidth(5);
-        circle.setOpacity(50);
-        circle.setFill(new Color(0,0,0,0));
-        gamePane.getChildren().add(circle);
-        circle.setVisible(false);
-        imageView.setOnMouseExited(new EventHandler<MouseEvent>() {
+
+        RangeView rangeView = new RangeView(imageView.getX() - - imageView.getFitWidth() / 2, imageView.getY() - - imageView.getFitHeight() / 2, tower.getType().getRange(), gamePane);
+        imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+
             @Override
             public void handle(MouseEvent event) {
-
-                circle.setVisible(false);
+                if (rangeView.isVisible()) {
+                    rangeView.setVisible(false);
+                }
+                else if (!rangeView.isVisible()) {
+                    rangeView.setVisible(true);
+                }
             }
         });
 
-        imageView.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
 
-                circle.setVisible(true);
-            }
-        });
 
         game.getMap().addTower(tower);
         tower.setCallback(this::onFire);
@@ -363,6 +368,42 @@ public class GameController {
                 goToMenuButton.setImage(new Image("image/go-to-menu-btn.png"));
             }
         });
+    }
+
+
+    private ArrayList<Double> checkPlace(Position position){
+        ArrayList<Double> distances = new ArrayList<>();
+        for (Path path : game.getMap().getPaths()){
+            for (int i = 1; i < path.getPositions().size(); i++ ){
+                double x = position.getX();
+                double y = position.getY();
+                double x1 = path.getPositions().get(i-1).getX();
+                double x0 = path.getPositions().get(i).getX();
+                double y1 = path.getPositions().get(i-1).getY();
+                double y0 = path.getPositions().get(i).getY();
+                if ((position.getX() < Math.max(x1,x0 ) && position.getX() > Math.min(x1, x0)) || (position.getY() < Math.max(y1,y0 ) && position.getX() > Math.min(y1, y0)) ){
+                    double d = ((y0-y1)*x + (x1-x0)*y + (x0*y1 - x1*y0))/ Math.sqrt(Math.pow(x1-x0,2) + Math.pow(y1-y0,2));
+                    distances.add(d);
+                }else {
+                    distances.add(Math.min(Position.getDistance(position,path.getPositions().get(i)), Position.getDistance(position,path.getPositions().get(i-1)) ));
+                }
+            }
+        }
+        return distances;
+    }
+
+    private boolean isFreePlace(Position position, ImageView imageView){
+        ArrayList<Double> distances = checkPlace(position);
+        for ( Double distance : distances){
+            System.out.println(distance);
+            if (imageView.getFitHeight()/2 >= Math.abs(distance)){
+                placeIsFree = false;
+                return false;
+            }
+
+        }
+        placeIsFree = true;
+        return true;
     }
 
 

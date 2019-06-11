@@ -94,4 +94,7 @@ public class Tower {
     public long getLastShot() {
         return lastShot;
     }
+
+
+
 }
