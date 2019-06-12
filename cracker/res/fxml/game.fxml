@@ -66,7 +66,12 @@
       </AnchorPane>
       <AnchorPane fx:id="winPane" prefHeight="200.0" prefWidth="200.0" visible="false">
          <children>
-            <ImageView fitHeight="868.0" fitWidth="1024.0">
+            <ImageView fx:id="loseView" fitHeight="868.0" fitWidth="1024.0">
+               <image>
+                  <Image url="@../image/lose-bg.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="winView" fitHeight="868.0" fitWidth="1024.0">
                <image>
                   <Image url="@../image/win-bg.png" />
                </image>

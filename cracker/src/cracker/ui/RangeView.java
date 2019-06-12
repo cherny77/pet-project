@@ -39,7 +39,4 @@ public class RangeView {
     public boolean isVisible(){
         return isVisible;
     }
-
-
-
 }

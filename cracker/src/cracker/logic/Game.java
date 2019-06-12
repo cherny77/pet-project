@@ -15,6 +15,8 @@ public class Game {
     private GameMap map = new GameMap();
     private ScheduledFuture<?> future;
     private long startTime;
+    private Runnable callback;
+    private boolean isWin;
 
 
     public void init() {
@@ -22,14 +24,18 @@ public class Game {
         Path path = new Path(new Position(0, 404),new Position(230,404),new Position(230,80), new Position(480, 80), new Position(480, 580), new Position(720, 580),new Position(755, 570), new Position(755, 240), new Position(1024,240) );
         map.addPath(path);
         ArrayList<Mob> mobs = new ArrayList<>();
-        for (int i = 0; i < 60; i++){
+        for (int i = 0; i < 11; i++){
         Mob mob1 = new Mob(MobType.SKELETON, path);
         mobs.add(mob1);
 //        Mob mob2 = new Mob(MobType.SKELETON, path);
 //        Mob mob3 = new Mob(MobType.SLIME, path);
         }
-        Wave wave = new Wave(mobs, 100000L, 0);
+        Wave wave = new Wave(mobs, 100L, 0);
         map.addWave(wave);
+    }
+
+    public void setCallback(Runnable callback) {
+        this.callback = callback;
     }
 
     public GameMap getMap() {
@@ -63,11 +69,25 @@ public class Game {
     }
 
     public void onWin() {
+        isWin = true;
+        if (callback != null) {
+            callback.run();
+        }
+
         System.out.println("You win!");
     }
 
     public void onLoose() {
+        isWin = false;
+        if (callback != null) {
+            callback.run();
+        }
+
         System.out.println("You loose!");
+    }
+
+    public boolean isWin() {
+        return isWin;
     }
 
     public ScheduledExecutorService getExecutor() {
