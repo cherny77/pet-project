@@ -25,7 +25,7 @@ public class Tower {
         Position endPosition = getMobFuturePosition(mob);
         double projectileDistance = Position.getDistance(getMobFuturePosition(mob), position);
         long projectileTime = (long) (projectileDistance / type.getProjectileType().getSpeed());
-        Projectile projectile = new Projectile(position, endPosition, projectileTime, type.getProjectileType(), mob);
+        Projectile projectile = new Projectile(position, endPosition, projectileTime, type.getProjectileType());
         if (callback != null) {
             callback.accept(projectile);
         }
@@ -38,12 +38,12 @@ public class Tower {
         long projectileTime = (long) (projectileDistance / type.getProjectileType().getSpeed());
         double mobDistance = mob.getType().getSpeed() * projectileTime;
         Position endPosition = mob.getFuturePosition(mobDistance);
-        System.out.println("-------------------------------");
-        System.out.println("time=" + projectileTime);
-        System.out.println("towerPosition=" + position);
-        System.out.println("startPosition=" + startPosition);
-        System.out.println("endPosition=" + endPosition);
-        System.out.println("-------------------------------");
+//        System.out.println("-------------------------------");
+//        System.out.println("time=" + projectileTime);
+//        System.out.println("towerPosition=" + position);
+//        System.out.println("startPosition=" + startPosition);
+//        System.out.println("endPosition=" + endPosition);
+//        System.out.println("-------------------------------");
         return endPosition;
     }
 
@@ -94,7 +94,4 @@ public class Tower {
     public long getLastShot() {
         return lastShot;
     }
-
-
-
 }
