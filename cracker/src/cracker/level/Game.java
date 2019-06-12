@@ -1,4 +1,6 @@
-package cracker.model;
+package cracker.level;
+
+import cracker.model.*;
 
 import java.time.Instant;
 import java.util.ArrayList;

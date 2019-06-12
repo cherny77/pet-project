@@ -2,7 +2,7 @@ package cracker.controller;
 
 import cracker.model.Character;
 import cracker.model.CharacterType;
-import cracker.model.Game;
+import cracker.level.Game;
 import cracker.ui.CharacterView;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;

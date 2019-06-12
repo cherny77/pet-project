@@ -1,5 +1,6 @@
 package cracker.controller;
 
+import cracker.level.Game;
 import cracker.model.*;
 import cracker.ui.MobView;
 import cracker.ui.RangeView;
