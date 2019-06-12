@@ -22,7 +22,7 @@ public class Game {
         Path path = new Path(new Position(0, 404),new Position(230,404),new Position(230,80), new Position(480, 80), new Position(480, 580), new Position(720, 580),new Position(755, 570), new Position(755, 240), new Position(1024,240) );
         map.addPath(path);
         ArrayList<Mob> mobs = new ArrayList<>();
-        for (int i = 0; i < 10; i++){
+        for (int i = 0; i < 60; i++){
         Mob mob1 = new Mob(MobType.SKELETON, path);
         mobs.add(mob1);
 //        Mob mob2 = new Mob(MobType.SKELETON, path);

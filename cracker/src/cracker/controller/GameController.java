@@ -4,11 +4,9 @@ import cracker.logic.*;
 import cracker.ui.MobView;
 import cracker.ui.RangeView;
 import javafx.animation.PathTransition;
-import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
@@ -17,9 +15,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
@@ -293,13 +288,13 @@ public class GameController {
         tower.setCallback(this::onFire);
     }
 
-    private String getProjectfileImagePath(ProjectileType type) {
-        return "image/projectile/" + type.toString().toLowerCase() + ".png";
+    private String getProjectileImagePath(ProjectileType type) {
+        return "image/projectile/" + type.toString().toLowerCase() + ".gif";
     }
 
     public void onFire(Projectile projectile) {
         System.out.println(projectile);
-        Image image = new Image(getProjectfileImagePath(projectile.getProjectileType()));
+        Image image = new Image(getProjectileImagePath(projectile.getProjectileType()));
         ImageView imageView = new ImageView(image);
         imageView.setX(projectile.getStartPosition().getX());
         imageView.setX(projectile.getStartPosition().getY());

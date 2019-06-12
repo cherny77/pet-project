@@ -1,7 +1,9 @@
 package cracker.logic;
 
 public enum ProjectileType {
-    ARROW(0.03, 0,0);
+    ARROW(0.3, 40,40),
+    BOMB (0.2,100,100),
+    MAGIC_BALL(0.2, 40, 40);
 
     private final double speed;
     private final double controlDeltaX;
