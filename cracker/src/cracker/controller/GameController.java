@@ -351,6 +351,13 @@ public class GameController {
 				playAgainBtn.setImage(new Image("image/play-again-button.png"));
 			}
 		});
+
+		playAgainBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+
+			}
+		});
 	}
 
 	private void setGoToMenuBtn() {

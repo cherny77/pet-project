@@ -30,7 +30,7 @@ public class Game {
 //        Mob mob2 = new Mob(MobType.SKELETON, path);
 //        Mob mob3 = new Mob(MobType.SLIME, path);
         }
-        Wave wave = new Wave(mobs, 100L, 0);
+        Wave wave = new Wave(mobs, 10000L, 0);
         map.addWave(wave);
     }
 
