@@ -1,31 +1,29 @@
 package cracker.logic;
 
 public class Position {
-    private final double x;
-    private final double y;
+	private final double x;
+	private final double y;
 
-    public Position(double x, double y) {
-        this.x = x;
-        this.y = y;
-    }
+	public Position(double x, double y) {
+		this.x = x;
+		this.y = y;
+	}
 
-    public double getX() {
-        return x;
-    }
+	public static double getDistance(Position firstNode, Position secondNode) {
+		return Math.sqrt(Math.pow(secondNode.getX() - firstNode.getX(), 2) +
+				Math.pow(secondNode.getY() - firstNode.getY(), 2));
+	}
 
-    public double getY() {
-        return y;
-    }
+	public double getX() {
+		return x;
+	}
 
-    @Override
-    public String toString() {
-        return "Position{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
-    }
+	public double getY() {
+		return y;
+	}
 
-    public static double getDistance(Position firstNode, Position secondNode) {
-        return Math.sqrt(Math.pow(secondNode.getX() - firstNode.getX(), 2) + Math.pow(secondNode.getY() - firstNode.getY(), 2));
-    }
+	@Override
+	public String toString() {
+		return "Position{" + "x=" + x + ", y=" + y + '}';
+	}
 }

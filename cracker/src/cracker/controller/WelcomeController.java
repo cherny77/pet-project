@@ -171,9 +171,10 @@ public class WelcomeController {
 		}
 	}
 
-	public void getCharacter(int number){
-		charName.setImage(new Image(getImagePath(characters.get(characterNumber).getCharacter().getType().toString().toLowerCase(),
-				"name")));
+	public void getCharacter(int number) {
+		charName.setImage(new Image(
+				getImagePath(characters.get(characterNumber).getCharacter().getType().toString().toLowerCase(),
+						"name")));
 		charDescription.setImage(new Image(
 				getImagePath(characters.get(characterNumber).getCharacter().getType().toString().toLowerCase(),
 						"description")));

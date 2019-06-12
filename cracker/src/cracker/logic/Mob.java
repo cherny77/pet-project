@@ -14,6 +14,7 @@ public class Mob {
 		pathPosition = new PathPosition(path);
 		health = type.getHealth();
 	}
+
 	public void setCallback(Runnable callback) {
 		this.callback = callback;
 	}
