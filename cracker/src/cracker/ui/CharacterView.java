@@ -1,6 +1,6 @@
 package cracker.ui;
 
-import cracker.logic.Character;
+import cracker.model.Character;
 import javafx.scene.image.Image;
 
 public class CharacterView {

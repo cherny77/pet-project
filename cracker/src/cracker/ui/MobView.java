@@ -1,7 +1,7 @@
 package cracker.ui;
 
-import cracker.logic.Mob;
-import cracker.logic.Position;
+import cracker.model.Mob;
+import cracker.model.Position;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

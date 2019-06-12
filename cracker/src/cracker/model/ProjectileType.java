@@ -1,8 +1,8 @@
-package cracker.logic;
+package cracker.model;
 
 public enum ProjectileType {
 	ARROW(0.3, 10, 0),
-	BOMB(0.2, 100, 100),
+	BOMB(0.2, 200, 100),
 	MAGIC_BALL(0.2, 40, 40);
 
 	private final double speed;

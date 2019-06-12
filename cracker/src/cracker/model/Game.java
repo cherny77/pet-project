@@ -1,4 +1,4 @@
-package cracker.logic;
+package cracker.model;
 
 import java.time.Instant;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package cracker.logic;
+package cracker.model;
 
 import java.util.Arrays;
 import java.util.List;

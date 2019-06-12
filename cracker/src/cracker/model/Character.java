@@ -1,4 +1,4 @@
-package cracker.logic;
+package cracker.model;
 
 public class Character {
 	private CharacterType type;

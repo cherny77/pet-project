@@ -1,4 +1,4 @@
-package cracker.logic;
+package cracker.model;
 
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;

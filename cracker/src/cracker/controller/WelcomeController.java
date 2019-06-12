@@ -1,8 +1,8 @@
 package cracker.controller;
 
-import cracker.logic.Character;
-import cracker.logic.CharacterType;
-import cracker.logic.Game;
+import cracker.model.Character;
+import cracker.model.CharacterType;
+import cracker.model.Game;
 import cracker.ui.CharacterView;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;

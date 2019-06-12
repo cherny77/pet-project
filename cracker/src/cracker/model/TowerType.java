@@ -1,4 +1,4 @@
-package cracker.logic;
+package cracker.model;
 
 public enum TowerType {
 	ARROW("Arrow Tower", 40, 300, 1000, 100, ProjectileType.ARROW),

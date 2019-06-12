@@ -1,4 +1,4 @@
-package cracker.logic;
+package cracker.model;
 
 public class Projectile {
 	private final Position startPosition;

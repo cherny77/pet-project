@@ -1,6 +1,6 @@
 package cracker.controller;
 
-import cracker.logic.*;
+import cracker.model.*;
 import cracker.ui.MobView;
 import cracker.ui.RangeView;
 import javafx.animation.PathTransition;
