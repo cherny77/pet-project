@@ -52,23 +52,12 @@ public class WelcomeController {
 		gameController.init(game);
 		gameController.setBinding();
 		game.start();
-//        welcomePane.setVisible(false);
 		FadeTransition fade = new FadeTransition();
-
-		//setting the duration for the Fade transition
 		fade.setDuration(Duration.millis(1000));
-
-		//setting the initial and the target opacity value for the transition
 		fade.setFromValue(100);
 		fade.setToValue(0);
-
-		//setting cycle count for the Fade transition
 		fade.setCycleCount(1);
-
-		//setting Circle as the node onto which the transition will be applied
 		fade.setNode(welcomePane);
-
-		//playing the transition
 		fade.play();
 		ScheduledExecutorService executor = gameController.getGame().getExecutor();
 		executor.schedule(() -> Platform.runLater(() -> welcomePane.setVisible(false)), 1000, TimeUnit.MILLISECONDS);

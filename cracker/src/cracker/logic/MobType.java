@@ -2,7 +2,9 @@ package cracker.logic;
 
 public enum MobType {
 
-	GHOST("Ghost", 100, 0.1, 1), SKELETON("Skeleton", 500, 0.13, 1), SLIME("Slime", 200, 0.05, 2);
+	GHOST("Ghost", 100, 0.1, 1),
+	SKELETON("Skeleton", 500, 0.13, 1),
+	SLIME("Slime", 200, 0.05, 2);
 
 	private final String name;
 	private final double health;
