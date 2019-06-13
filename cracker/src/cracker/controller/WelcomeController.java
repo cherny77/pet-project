@@ -51,7 +51,7 @@ public class WelcomeController {
 	public void onPlay() {
 		if (level != null && level.isRunning())
 			return;
-		AbstractLevel level = new FirstLevel();
+		level = new FirstLevel();
 		level.init();
 		levelController.init(level);
 		levelController.setBinding();
