@@ -55,6 +55,7 @@ public class LevelController {
 	private ImageView coinView;
 	@FXML
 	private ImageView controlFrame;
+	@FXML
 	private Stage stage;
 	private boolean placeIsFree;
 
@@ -164,17 +165,25 @@ public class LevelController {
 		setTowerBarBinding();
 		setGoToMenuBtn();
 
-		pane.setOnMouseMoved(new EventHandler<MouseEvent>() {
+		controlFrame.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
+			}
+		});
+		gamePane.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				heartLabel.setText(String.valueOf(level.getMap().getRemainedLives()));
+
 				if (selectedTower != null) {
+					pane.setCursor(Cursor.NONE);
 					dragTower(event);
 				}
 			}
 		});
 
-		pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+		gamePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
 				if (selectedTower != null && event.getPickResult().getIntersectedNode() != selectedTower &&
@@ -202,7 +211,7 @@ public class LevelController {
 					selectedTower = event.getPickResult().getIntersectedNode();
 					Image image = new Image(getTowerButtonImagePath(selectedTower.getId(), "selected"));
 					towerView.setImage(image);
-					pane.setCursor(Cursor.NONE);
+//					pane.setCursor(Cursor.NONE);
 					for (Node node1 : towerBar.getChildren()) {
 						if (node1 != selectedTower) {
 							Image image1 = new Image(getTowerButtonImagePath(node1.getId(), "exited"));
@@ -214,7 +223,8 @@ public class LevelController {
 			towerView.setOnMouseExited(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					if (selectedTower == null) {
+
+					if (selectedTower != towerView) {
 						Image image = new Image(getTowerButtonImagePath(towerView.getId(), "exited"));
 						towerView.setImage(image);
 					}
@@ -223,7 +233,8 @@ public class LevelController {
 			towerView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					if (selectedTower == null) {
+					pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
+					if (selectedTower != towerView) {
 						Image image = new Image(getTowerButtonImagePath(towerView.getId(), "entered"));
 						towerView.setImage(image);
 					}
@@ -233,6 +244,7 @@ public class LevelController {
 	}
 
 	public void dragTower(MouseEvent event) {
+
 		towerCursor.setFitHeight(100);
 		towerCursor.setFitWidth(100);
 		if (isFreePlace(new Position(event.getSceneX(), event.getSceneY()), towerCursor))
@@ -258,7 +270,7 @@ public class LevelController {
 		gamePane.getChildren().add(imageView);
 
 		towerCursor.setVisible(false);
-		pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
+
 		((ImageView) selectedTower).setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "exited")));
 		Tower tower;
 		if (selectedTower.getId().toLowerCase().contains("bomb")) {
@@ -269,7 +281,7 @@ public class LevelController {
 			tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		}
 		selectedTower = null;
-
+		pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
 		RangeView rangeView = new RangeView(imageView.getX() + imageView.getFitWidth() / 2,
 				imageView.getY() - -imageView.getFitHeight() / 2, tower.getType().getRange(), gamePane);
 		imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
