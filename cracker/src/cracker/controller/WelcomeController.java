@@ -6,6 +6,7 @@ import cracker.model.Character;
 import cracker.model.CharacterType;
 import cracker.ui.CharacterView;
 import javafx.animation.FadeTransition;
+import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -14,6 +15,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.util.Duration;
 
 import java.util.ArrayList;
@@ -23,6 +27,18 @@ import java.util.concurrent.TimeUnit;
 public class WelcomeController {
 	ArrayList<CharacterView> characters;
 	int characterNumber = 0;
+	@FXML
+	ImageView leftShadow;
+	@FXML
+	ImageView rightShadow;
+	@FXML
+	ImageView logo;
+	@FXML
+	ImageView loading;
+	@FXML
+	ImageView leftWall;
+	@FXML
+	ImageView rightWall;
 	@FXML
 	private ImageView charName;
 	@FXML
@@ -68,6 +84,7 @@ public class WelcomeController {
 	}
 
 	public void init() {
+		startAnimation();
 		playButtonInit();
 		closeButtonInit();
 		minimizeButtonInit();
@@ -87,6 +104,13 @@ public class WelcomeController {
 		setOptionButton();
 
 	}
+
+	private void startAnimation(){
+
+
+
+	}
+
 
 	private void setOptionButton() {
 
