@@ -6,7 +6,8 @@ public class Mob {
 	private PathPosition pathPosition;
 	private long currentTime;
 	private double health;
-	private Runnable callback;
+	private Runnable moveCallback;
+	private Runnable damageCallback;
 
 	public Mob(MobType type, Path path) {
 		this.type = type;
@@ -15,8 +16,8 @@ public class Mob {
 		health = type.getHealth();
 	}
 
-	public void setCallback(Runnable callback) {
-		this.callback = callback;
+	public void setMoveCallback(Runnable moveCallback) {
+		this.moveCallback = moveCallback;
 	}
 
 	public void move(long time) {
@@ -24,21 +25,20 @@ public class Mob {
 		pathPosition.move(distance);
 		currentTime = time;
 //        System.out.println(getPosition());
-		if (callback != null) {
-			callback.run();
+		if (moveCallback != null) {
+			moveCallback.run();
 		}
 	}
 
 	public void doDamage(double damage) {
 		health -= damage;
+		if (damageCallback != null) {
+			damageCallback.run();
+		}
 	}
 
 	public MobType getType() {
 		return type;
-	}
-
-	public Path getPath() {
-		return path;
 	}
 
 	public Position getPosition() {
@@ -47,14 +47,6 @@ public class Mob {
 
 	public double getProgress() {
 		return pathPosition.getTotalProgress();
-	}
-
-	public PathPosition getPathPosition() {
-		return pathPosition;
-	}
-
-	public long getCurrentTime() {
-		return currentTime;
 	}
 
 	public void setCurrentTime(long currentTime) {
@@ -71,5 +63,13 @@ public class Mob {
 
 	public Position getFuturePosition(double distance) {
 		return pathPosition.getFuturePosition(distance);
+	}
+
+	public void setDamageCallback(Runnable damageCallback) {
+		this.damageCallback = damageCallback;
+	}
+
+	public double getHealth() {
+		return health;
 	}
 }

@@ -270,7 +270,7 @@ public class LevelController {
 		}
 		selectedTower = null;
 
-		RangeView rangeView = new RangeView(imageView.getX() - -imageView.getFitWidth() / 2,
+		RangeView rangeView = new RangeView(imageView.getX() + imageView.getFitWidth() / 2,
 				imageView.getY() - -imageView.getFitHeight() / 2, tower.getType().getRange(), gamePane);
 		imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
@@ -293,7 +293,7 @@ public class LevelController {
 	}
 
 	public void onFire(Projectile projectile) {
-		System.out.println(projectile);
+//		System.out.println(projectile);
 		Image image = new Image(getProjectileImagePath(projectile.getProjectileType()));
 		ImageView imageView = new ImageView(image);
 		imageView.setX(projectile.getStartPosition().getX());

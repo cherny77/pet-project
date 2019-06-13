@@ -1,5 +1,7 @@
 package cracker.model;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 
@@ -23,15 +25,31 @@ public class Tower {
 		Mob mob = getTargetMob();
 		if (mob == null)
 			return;
-		Position endPosition = getMobFuturePosition(mob);
-		double projectileDistance = Position.getDistance(getMobFuturePosition(mob), position);
+		double splash = type.getProjectileType().getSplash();
+		double derivation = splash * map.getRng().nextDouble();
+		double angle = 2 * Math.PI * map.getRng().nextDouble();
+		double derivationX = derivation * Math.sin(angle);
+		double derivationY = derivation * Math.cos(angle);
+		Position futureMobPosition = getMobFuturePosition(mob);
+		Position strikePosition =
+				new Position(futureMobPosition.getX() + derivationX, futureMobPosition.getY() + derivationY);
+		double projectileDistance = Position.getDistance(strikePosition, position);
 		long projectileTime = (long) (projectileDistance / type.getProjectileType().getSpeed());
-		Projectile projectile = new Projectile(position, endPosition, projectileTime, type.getProjectileType());
+		Projectile projectile = new Projectile(position, strikePosition, projectileTime, type.getProjectileType());
 		if (callback != null) {
 			callback.accept(projectile);
 		}
-		map.getExecutor().schedule(() -> mob.doDamage(type.getDamage()), projectileTime, TimeUnit.MILLISECONDS);
-		lastShot = time;
+		map.getExecutor().schedule(() -> {
+			if (type.getProjectileType().getSplash() == 0) {
+				mob.doDamage(type.getDamage());
+			} else {
+				List<Mob> splashedMobs = getSplashedMobs(strikePosition);
+				for (Mob m : splashedMobs) {
+					m.doDamage(type.getDamage() * (splash - Position.getDistance(m.getPosition(), strikePosition)) / splash);
+				}
+			}
+
+		}, projectileTime, TimeUnit.MILLISECONDS); lastShot = time;
 	}
 
 	private Position getMobFuturePositionIteration(Mob mob, Position startPosition) {
@@ -70,6 +88,17 @@ public class Tower {
 			}
 		}
 		return null;
+	}
+
+	private List<Mob> getSplashedMobs(Position strikePosition) {
+		ArrayList<Mob> splashedMobs = new ArrayList<>();
+		for (Mob mob : map.getMobs()) {
+			if (!mob.isKilled() &&
+					Position.getDistance(mob.getPosition(), strikePosition) <= type.getProjectileType().getSplash()) {
+				splashedMobs.add(mob);
+			}
+		}
+		return splashedMobs;
 	}
 
 	public TowerType getType() {

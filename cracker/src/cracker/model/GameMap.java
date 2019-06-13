@@ -2,10 +2,7 @@ package cracker.model;
 
 import cracker.CaughtExceptionsThreadFactory;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
@@ -14,8 +11,9 @@ public class GameMap {
 	private final List<Path> paths = new ArrayList<>();
 	private final List<Wave> waves = new ArrayList<>();
 	private int lives;
-	private ScheduledExecutorService executor =
+	private final ScheduledExecutorService executor =
 			Executors.newSingleThreadScheduledExecutor(new CaughtExceptionsThreadFactory());
+	private final Random rng = new Random();
 
 	public void setLives(int lives) {
 		this.lives = lives;
@@ -101,5 +99,9 @@ public class GameMap {
 
 	public ScheduledExecutorService getExecutor() {
 		return executor;
+	}
+
+	public Random getRng() {
+		return rng;
 	}
 }

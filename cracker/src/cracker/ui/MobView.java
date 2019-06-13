@@ -14,7 +14,8 @@ public class MobView extends ImageView {
 	public MobView(Image image, Mob mob) {
 		super(image);
 		this.mob = mob;
-		mob.setCallback(() -> move());
+		mob.setMoveCallback(() -> move());
+		mob.setDamageCallback(() -> doDamage());
 		this.setFitHeight(MOB_SIZE);
 		this.setFitWidth(MOB_SIZE);
 		this.setVisible(false);
@@ -32,7 +33,10 @@ public class MobView extends ImageView {
 		});
 	}
 
-	public Mob getMob() {
-		return mob;
+	public void doDamage() {
+		Platform.runLater(() -> {
+			this.setOpacity(mob.getHealth() / mob.getType().getHealth());
+		});
 	}
+
 }
