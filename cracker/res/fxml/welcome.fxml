@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane fx:id="welcomePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="868.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cracker.controller.WelcomeController">
    <children>
@@ -51,19 +53,19 @@
             <Image url="@../image/knight-name.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="gearWheel" fitHeight="75.0" fitWidth="75.0" layoutX="33.0" layoutY="39.0">
+      <ImageView fx:id="gearWheel" fitHeight="75.0" fitWidth="75.0" layoutX="849.0" layoutY="588.0">
          <image>
             <Image url="@../image/gear-wheel.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="868.0" fitWidth="1024.0" mouseTransparent="true" pickOnBounds="true">
-         <image>
-            <Image url="@../image/intro.gif" />
          </image>
       </ImageView>
       <ImageView fitHeight="868.0" fitWidth="1024.0">
          <image>
             <Image url="@../image/titlebar-firstframe.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="199.0" fitWidth="236.0" layoutX="128.0" layoutY="410.0">
+         <image>
+            <Image url="@../image/cracker.png" />
          </image>
       </ImageView>
       <ImageView fx:id="crossView" fitHeight="23.0" fitWidth="23.0" layoutX="960.0" layoutY="11.0">
@@ -76,5 +78,10 @@
             <Image url="@../image/line.png" />
          </image>
       </ImageView>
+      <Label layoutX="48.0" layoutY="34.0" prefHeight="48.0" prefWidth="653.0" text="© Cyrill Chernokozynskyi, 2019 " textFill="WHITE">
+         <font>
+            <Font size="19.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
