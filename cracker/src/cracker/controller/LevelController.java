@@ -1,6 +1,6 @@
 package cracker.controller;
 
-import cracker.level.Game;
+import cracker.level.AbstractLevel;
 import cracker.model.*;
 import cracker.ui.MobView;
 import cracker.ui.RangeView;
@@ -26,7 +26,7 @@ import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-public class GameController {
+public class LevelController {
 	public final static double TOWER_WIDTH = 90;
 	public final static double TOWER_HEIGHT = 90;
 
@@ -43,7 +43,7 @@ public class GameController {
 	private AnchorPane gamePane;
 	@FXML
 	private AnchorPane pane;
-	private Game game;
+	private AbstractLevel level;
 	private ImageView towerCursor;
 	@FXML
 	private Label heartLabel;
@@ -65,19 +65,19 @@ public class GameController {
 		return pane;
 	}
 
-	public void init(Game game) {
+	public void init(AbstractLevel level) {
 		towerCursor = new ImageView();
 		towerCursor.setFitHeight(70);
 		towerCursor.setFitWidth(70);
 		gamePane.getChildren().add(towerCursor);
 		towerCursor.setVisible(false);
-		this.game = game;
+		this.level = level;
 
 		Image ghostImage = new Image("/image/ghost.gif");
 		Image skeletonImage = new Image("/image/skeleton.gif");
 		Image slimeImage = new Image("/image/slime.gif");
 
-		List<Wave> waves = game.getMap().getWaves();
+		List<Wave> waves = level.getMap().getWaves();
 		for (Wave wave : waves) {
 			for (Mob mob : wave.getMobs()) {
 				MobView mobView;
@@ -167,7 +167,7 @@ public class GameController {
 		pane.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				heartLabel.setText(String.valueOf(game.getMap().getRemainedLives()));
+				heartLabel.setText(String.valueOf(level.getMap().getRemainedLives()));
 				if (selectedTower != null) {
 					dragTower(event);
 				}
@@ -262,11 +262,11 @@ public class GameController {
 		((ImageView) selectedTower).setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "exited")));
 		Tower tower;
 		if (selectedTower.getId().toLowerCase().contains("bomb")) {
-			tower = new Tower(TowerType.BOMB, new Position(imageView.getX(), imageView.getY()), game.getMap());
+			tower = new Tower(TowerType.BOMB, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		} else if (selectedTower.getId().toLowerCase().contains("magic")) {
-			tower = new Tower(TowerType.MAGIC, new Position(imageView.getX(), imageView.getY()), game.getMap());
+			tower = new Tower(TowerType.MAGIC, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		} else {
-			tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), game.getMap());
+			tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		}
 		selectedTower = null;
 
@@ -284,7 +284,7 @@ public class GameController {
 			}
 		});
 
-		game.getMap().addTower(tower);
+		level.getMap().addTower(tower);
 		tower.setCallback(this::onFire);
 	}
 
@@ -321,7 +321,7 @@ public class GameController {
 		pathTransition.setCycleCount(1);
 		pathTransition.setAutoReverse(false);
 		pathTransition.play();
-		ScheduledExecutorService executor = getGame().getExecutor();
+		ScheduledExecutorService executor = getLevel().getExecutor();
 		executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
 				projectile.getDuration(), TimeUnit.MILLISECONDS);
 	}
@@ -334,8 +334,8 @@ public class GameController {
 		this.stage = stage;
 	}
 
-	public Game getGame() {
-		return game;
+	public AbstractLevel getLevel() {
+		return level;
 	}
 
 	private void setPlayAgainBtn() {
@@ -379,7 +379,7 @@ public class GameController {
 
 	private ArrayList<Double> checkPlace(Position position) {
 		ArrayList<Double> distances = new ArrayList<>();
-		for (Path path : game.getMap().getPaths()) {
+		for (Path path : level.getMap().getPaths()) {
 			for (int i = 1; i < path.getPositions().size(); i++) {
 				double x = position.getX();
 				double y = position.getY();

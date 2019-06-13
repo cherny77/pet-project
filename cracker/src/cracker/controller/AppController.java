@@ -6,12 +6,12 @@ import javafx.scene.image.Image;
 
 public class AppController {
 	@FXML
-	GameController gameController;
+	LevelController levelController;
 	@FXML
 	WelcomeController welcomeController;
 
-	public GameController getGameController() {
-		return gameController;
+	public LevelController getLevelController() {
+		return levelController;
 	}
 
 	public WelcomeController getWelcomeController() {
@@ -19,10 +19,10 @@ public class AppController {
 	}
 
 	public void init() {
-		welcomeController.setGameController(gameController);
+		welcomeController.setLevelController(levelController);
 		welcomeController.init();
 		Image image = new Image("/image/cursor.png");
-		gameController.getPane().setCursor(new ImageCursor(image));
+		levelController.getPane().setCursor(new ImageCursor(image));
 		welcomeController.getWelcomePane().setCursor(new ImageCursor(image));
 
 	}

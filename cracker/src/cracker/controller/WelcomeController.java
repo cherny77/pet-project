@@ -1,8 +1,9 @@
 package cracker.controller;
 
+import cracker.level.AbstractLevel;
+import cracker.level.FirstLevel;
 import cracker.model.Character;
 import cracker.model.CharacterType;
-import cracker.level.Game;
 import cracker.ui.CharacterView;
 import javafx.animation.FadeTransition;
 import javafx.animation.RotateTransition;
@@ -33,7 +34,7 @@ public class WelcomeController {
 	@FXML
 	private ImageView crossView;
 	@FXML
-	private GameController gameController;
+	private LevelController levelController;
 	@FXML
 	private AnchorPane welcomePane;
 	@FXML
@@ -44,14 +45,17 @@ public class WelcomeController {
 	private ImageView characterImage;
 	@FXML
 	private ImageView playButton;
+	private AbstractLevel level;
 
 	@FXML
 	public void onPlay() {
-		Game game = new Game();
-		game.init();
-		gameController.init(game);
-		gameController.setBinding();
-		game.start();
+		if (level != null && level.isRunning())
+			return;
+		AbstractLevel level = new FirstLevel();
+		level.init();
+		levelController.init(level);
+		levelController.setBinding();
+		level.start();
 		FadeTransition fade = new FadeTransition();
 		fade.setDuration(Duration.millis(1000));
 		fade.setFromValue(100);
@@ -59,7 +63,7 @@ public class WelcomeController {
 		fade.setCycleCount(1);
 		fade.setNode(welcomePane);
 		fade.play();
-		ScheduledExecutorService executor = gameController.getGame().getExecutor();
+		ScheduledExecutorService executor = levelController.getLevel().getExecutor();
 		executor.schedule(() -> Platform.runLater(() -> welcomePane.setVisible(false)), 1000, TimeUnit.MILLISECONDS);
 	}
 
@@ -108,8 +112,8 @@ public class WelcomeController {
 
 	}
 
-	public void setGameController(GameController gameController) {
-		this.gameController = gameController;
+	public void setLevelController(LevelController levelController) {
+		this.levelController = levelController;
 	}
 
 	public void onExitedLeftButton() {
@@ -191,7 +195,7 @@ public class WelcomeController {
 		minimizeView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				gameController.getStage().setIconified(true);
+				levelController.getStage().setIconified(true);
 
 			}
 		});

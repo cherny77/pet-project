@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 
@@ -11,7 +7,7 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="cracker.controller.AppController"
             prefHeight="868" prefWidth="1024">
-    <fx:include fx:id="game" source="game.fxml"/>
+    <fx:include fx:id="level" source="level.fxml"/>
     <fx:include fx:id="welcome" source="welcome.fxml"/>
 
 
