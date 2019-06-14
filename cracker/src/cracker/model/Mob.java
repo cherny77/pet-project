@@ -11,7 +11,6 @@ public class Mob {
 	private Runnable finishCallback;
 	private Runnable killCallback;
 
-
 	public Mob(MobType type, Path path) {
 		this.type = type;
 		this.path = path;
@@ -31,10 +30,8 @@ public class Mob {
 		this.killCallback = killCallback;
 	}
 
-
-
 	public void move(long time) {
-		if (isKilled()){
+		if (isKilled()) {
 			onKilled();
 		}
 		if (isFinished())
@@ -50,9 +47,6 @@ public class Mob {
 		if (isFinished() && !isKilled()) {
 			onFinished();
 		}
-
-
-
 
 	}
 

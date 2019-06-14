@@ -10,22 +10,28 @@ public class GameMap {
 	private final List<Tower> towers = new ArrayList<>();
 	private final List<Path> paths = new ArrayList<>();
 	private final List<Wave> waves = new ArrayList<>();
-	private int lives;
-	private int money;
 	private final ScheduledExecutorService executor =
 			Executors.newSingleThreadScheduledExecutor(new CaughtExceptionsThreadFactory());
 	private final Random rng = new Random();
+	private int lives;
+	private int money;
+	private int waveNumber;
+	private Runnable waveCallback;
 
-	public void setLives(int lives) {
-		this.lives = lives;
+	public int getWaveNumber() {
+		return waveNumber;
 	}
 
-	public void setMoney(int money) {
-		this.money = money;
+	public void setWaveCallback(Runnable waveCallback) {
+		this.waveCallback = waveCallback;
 	}
 
 	public int getMoney() {
 		return money;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 
 	public boolean addTower(Tower tower) {
@@ -57,6 +63,10 @@ public class GameMap {
 
 	public void move(long gameTime) {
 		for (Wave wave : waves) {
+
+			if (waveCallback != null) {
+				waveCallback.run();
+			}
 			wave.move(gameTime);
 		}
 	}
@@ -83,15 +93,15 @@ public class GameMap {
 		return counter;
 	}
 
-	public int getAddMoney(){
+	public int getAddMoney() {
 		int addMoney = money;
-		for (Wave wave: waves) {
+		for (Wave wave : waves) {
 			for (Mob mob : wave.getMobs()) {
 				if (mob.isKilled())
-				addMoney += mob.getType().getCost();
+					addMoney += mob.getType().getCost();
 			}
 		}
-		for (Tower tower : towers){
+		for (Tower tower : towers) {
 			addMoney -= tower.getType().getCost();
 		}
 		return addMoney;
@@ -99,6 +109,10 @@ public class GameMap {
 
 	public int getLives() {
 		return lives;
+	}
+
+	public void setLives(int lives) {
+		this.lives = lives;
 	}
 
 	public int getRemainedLives() {

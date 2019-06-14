@@ -24,7 +24,6 @@ public class WelcomeController {
 	ArrayList<CharacterView> characters;
 	int characterNumber = 0;
 
-
 	@FXML
 	private ImageView charName;
 	@FXML
@@ -48,8 +47,6 @@ public class WelcomeController {
 	@FXML
 	private ImageView playButton;
 	private AbstractLevel level;
-
-
 
 	@FXML
 	public void onPlay() {
@@ -92,9 +89,6 @@ public class WelcomeController {
 		setOptionButton();
 
 	}
-
-
-
 
 	private void setOptionButton() {
 

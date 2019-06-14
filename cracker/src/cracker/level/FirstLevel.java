@@ -27,5 +27,4 @@ public class FirstLevel extends AbstractLevel {
 		map.addWave(wave);
 	}
 
-
 }

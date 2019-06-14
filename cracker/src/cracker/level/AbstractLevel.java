@@ -1,9 +1,8 @@
 package cracker.level;
 
-import cracker.model.*;
+import cracker.model.GameMap;
 
 import java.time.Instant;
-import java.util.ArrayList;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;

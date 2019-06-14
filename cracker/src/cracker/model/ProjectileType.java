@@ -2,8 +2,8 @@ package cracker.model;
 
 public enum ProjectileType {
 	ARROW(0.3, 10, 0),
-	BOMB(0.2, 200, 100),
-	MAGIC(0.2, 40, 40);
+	BOMB(0.2, 200, 70),
+	MAGIC(0.2, 10, 20);
 
 	private final double speed;
 	private final double plunging;

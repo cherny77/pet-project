@@ -26,13 +26,16 @@ public class MobView extends ImageView {
 	}
 
 	public void move() {
-			Platform.runLater(() -> {
+		Platform.runLater(() -> {
+			if (mob.isKilled())
+				setImage(new Image(getMobImagePath(mob.getType().toString().toLowerCase(), "dead")));
+			else {
 				this.setVisible(true);
 				Position position = mob.getPosition();
 				this.setX(position.getX());
 				this.setY(position.getY());
-				if (mob.isKilled()) setVisible(false);
-			});
+			}
+		});
 
 	}
 

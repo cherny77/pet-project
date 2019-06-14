@@ -45,11 +45,13 @@ public class Tower {
 			} else {
 				List<Mob> splashedMobs = getSplashedMobs(strikePosition);
 				for (Mob m : splashedMobs) {
-					m.doDamage(type.getDamage() * (splash - Position.getDistance(m.getPosition(), strikePosition)) / splash);
+					m.doDamage(type.getDamage() * (splash - Position.getDistance(m.getPosition(), strikePosition)) /
+							splash);
 				}
 			}
 
-		}, projectileTime, TimeUnit.MILLISECONDS); lastShot = time;
+		}, projectileTime, TimeUnit.MILLISECONDS);
+		lastShot = time;
 	}
 
 	private Position getMobFuturePositionIteration(Mob mob, Position startPosition) {
@@ -83,7 +85,8 @@ public class Tower {
 
 	private Mob getTargetMob() {
 		for (Mob mob : map.getMobs()) {
-			if (!mob.isFinished() && !mob.isKilled() && Position.getDistance(mob.getPosition(), position) <= type.getRange()) {
+			if (!mob.isFinished() && !mob.isKilled() &&
+					Position.getDistance(mob.getPosition(), position) <= type.getRange()) {
 				return mob;
 			}
 		}

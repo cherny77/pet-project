@@ -71,9 +71,10 @@ public class LevelController {
 	}
 
 	public void init(AbstractLevel level) {
-		waveLabel.setText("0/" + level.getMap().getWaves().size());
+		level.getMap().setWaveCallback(() -> setWaveLabel());
 		coinLabel.setText(String.valueOf(level.getMap().getMoney()));
 		heartLabel.setText(String.valueOf(level.getMap().getLives()));
+
 		towerCursor = new ImageView();
 		towerCursor.setFitHeight(70);
 		towerCursor.setFitWidth(70);
@@ -115,6 +116,15 @@ public class LevelController {
 			@Override
 			public void handle(MouseEvent event) {
 				coinView.setImage(new Image("/image/coin.gif"));
+			}
+		});
+	}
+
+	private void setWaveLabel() {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				waveLabel.setText(level.getMap().getWaveNumber() + "/" + level.getMap().getWaves().size());
 			}
 		});
 	}
