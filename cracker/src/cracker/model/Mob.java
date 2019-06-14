@@ -26,12 +26,17 @@ public class Mob {
 	}
 
 	public void move(long time) {
+		if (isFinished())
+			return;
 		double distance = (time - currentTime) * type.getSpeed();
 		pathPosition.move(distance);
 		currentTime = time;
 //        System.out.println(getPosition());
 		if (moveCallback != null) {
 			moveCallback.run();
+		}
+		if (isFinished() && !isKilled()) {
+			onFinished();
 		}
 	}
 
@@ -63,12 +68,13 @@ public class Mob {
 	}
 
 	public boolean isFinished() {
+		return pathPosition.isFinished();
+	}
+
+	public void onFinished() {
 		if (finishCallback != null) {
 			finishCallback.run();
 		}
-		return pathPosition.isFinished();
-
-
 	}
 
 	public Position getFuturePosition(double distance) {
