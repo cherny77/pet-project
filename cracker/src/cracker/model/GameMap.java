@@ -83,6 +83,20 @@ public class GameMap {
 		return counter;
 	}
 
+	public int getAddMoney(){
+		int addMoney = money;
+		for (Wave wave: waves) {
+			for (Mob mob : wave.getMobs()) {
+				if (mob.isKilled())
+				addMoney += mob.getType().getCost();
+			}
+		}
+		for (Tower tower : towers){
+			addMoney -= tower.getType().getCost();
+		}
+		return addMoney;
+	}
+
 	public int getLives() {
 		return lives;
 	}

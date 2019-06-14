@@ -9,6 +9,8 @@ public class Mob {
 	private Runnable moveCallback;
 	private Runnable damageCallback;
 	private Runnable finishCallback;
+	private Runnable killCallback;
+
 
 	public Mob(MobType type, Path path) {
 		this.type = type;
@@ -25,7 +27,16 @@ public class Mob {
 		this.finishCallback = finishCallback;
 	}
 
+	public void setKillCallback(Runnable killCallback) {
+		this.killCallback = killCallback;
+	}
+
+
+
 	public void move(long time) {
+		if (isKilled()){
+			onKilled();
+		}
 		if (isFinished())
 			return;
 		double distance = (time - currentTime) * type.getSpeed();
@@ -35,9 +46,14 @@ public class Mob {
 		if (moveCallback != null) {
 			moveCallback.run();
 		}
+
 		if (isFinished() && !isKilled()) {
 			onFinished();
 		}
+
+
+
+
 	}
 
 	public void doDamage(double damage) {
@@ -75,6 +91,13 @@ public class Mob {
 		if (finishCallback != null) {
 			finishCallback.run();
 		}
+	}
+
+	public void onKilled() {
+		if (killCallback != null) {
+			killCallback.run();
+		}
+
 	}
 
 	public Position getFuturePosition(double distance) {

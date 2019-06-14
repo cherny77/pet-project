@@ -8,7 +8,7 @@ public class FirstLevel extends AbstractLevel {
 	@Override
 	public void init() {
 		map.setLives(10);
-		map.setMoney(100);
+		map.setMoney(150);
 		Path path = new Path(new Position(0, 404), new Position(230, 404), new Position(230, 80), new Position(480,
 				80),
 				new Position(480, 580), new Position(720, 580), new Position(755, 570), new Position(755, 240),

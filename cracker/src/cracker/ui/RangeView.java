@@ -11,7 +11,7 @@ public class RangeView {
 	private boolean isVisible;
 	private Circle circle;
 
-	public RangeView(double x, double y, double radius, AnchorPane gamePane) {
+	public RangeView(double x, double y, double radius, AnchorPane rangePane) {
 		this.x = x;
 		this.y = y;
 		this.radius = radius;
@@ -23,7 +23,7 @@ public class RangeView {
 		circle.setStrokeWidth(5);
 
 		circle.setFill(new Color(1, 1, 1, 0.2));
-		gamePane.getChildren().add(circle);
+		rangePane.getChildren().add(circle);
 		circle.setMouseTransparent(true);
 		circle.setVisible(false);
 

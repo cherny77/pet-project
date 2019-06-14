@@ -83,7 +83,7 @@ public class Tower {
 
 	private Mob getTargetMob() {
 		for (Mob mob : map.getMobs()) {
-			if (!mob.isKilled() && Position.getDistance(mob.getPosition(), position) <= type.getRange()) {
+			if (!mob.isFinished() && !mob.isKilled() && Position.getDistance(mob.getPosition(), position) <= type.getRange()) {
 				return mob;
 			}
 		}

@@ -63,6 +63,8 @@ public class LevelController {
 
 	@FXML
 	private AnchorPane progectilePane;
+	@FXML
+	private AnchorPane rangePane;
 
 	public AnchorPane getPane() {
 		return pane;
@@ -95,6 +97,7 @@ public class LevelController {
 					mobView = new MobView(slimeImage, mob);
 				gamePane.getChildren().add(mobView);
 				mob.setFinishCallback(() -> setLives());
+				mob.setKillCallback(() -> addMoney(mob));
 
 			}
 		}
@@ -181,7 +184,6 @@ public class LevelController {
 			@Override
 			public void handle(MouseEvent event) {
 
-
 				if (selectedTower != null) {
 					pane.setCursor(Cursor.NONE);
 					dragTower(event);
@@ -200,7 +202,7 @@ public class LevelController {
 		});
 	}
 
-	private void setLives(){
+	private void setLives() {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
@@ -208,6 +210,15 @@ public class LevelController {
 			}
 		});
 
+	}
+
+	private void addMoney(Mob mob) {
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				coinLabel.setText(String.valueOf(level.getMap().getAddMoney()));
+			}
+		});
 	}
 
 	private String getTowerButtonImagePath(String id, String suffix) {
@@ -224,22 +235,30 @@ public class LevelController {
 			towerView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					selectedTower = event.getPickResult().getIntersectedNode();
-					Image image = new Image(getTowerButtonImagePath(selectedTower.getId(), "selected"));
-					towerView.setImage(image);
-//					pane.setCursor(Cursor.NONE);
-					for (Node node1 : towerBar.getChildren()) {
-						if (node1 != selectedTower) {
-							Image image1 = new Image(getTowerButtonImagePath(node1.getId(), "exited"));
-							((ImageView) node1).setImage(image1);
+					if (selectedTower != towerView) {
+						selectedTower = event.getPickResult().getIntersectedNode();
+						Image image = new Image(getTowerButtonImagePath(selectedTower.getId(), "selected"));
+
+						towerView.setImage(image);
+						for (Node node1 : towerBar.getChildren()) {
+							if (node1 != selectedTower) {
+								Image image1 = new Image(getTowerButtonImagePath(node1.getId(), "exited"));
+								((ImageView) node1).setImage(image1);
+
+							}
 						}
+					} else {
+						Image image = new Image(getTowerButtonImagePath(selectedTower.getId(), "exited"));
+						selectedTower = null;
+						towerView.setImage(image);
+						towerCursor.setVisible(false);
 					}
 				}
+
 			});
 			towerView.setOnMouseExited(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-
 					if (selectedTower != towerView) {
 						Image image = new Image(getTowerButtonImagePath(towerView.getId(), "exited"));
 						towerView.setImage(image);
@@ -250,6 +269,7 @@ public class LevelController {
 				@Override
 				public void handle(MouseEvent event) {
 					pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
+
 					if (selectedTower != towerView) {
 						Image image = new Image(getTowerButtonImagePath(towerView.getId(), "entered"));
 						towerView.setImage(image);
@@ -299,7 +319,7 @@ public class LevelController {
 		selectedTower = null;
 		pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
 		RangeView rangeView = new RangeView(imageView.getX() + imageView.getFitWidth() / 2,
-				imageView.getY() - -imageView.getFitHeight() / 2, tower.getType().getRange(), gamePane);
+				imageView.getY() - -imageView.getFitHeight() / 2, tower.getType().getRange(), rangePane);
 		imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -311,8 +331,8 @@ public class LevelController {
 				}
 			}
 		});
-
 		level.getMap().addTower(tower);
+		coinLabel.setText(String.valueOf(level.getMap().getAddMoney()));
 		tower.setCallback(this::onFire);
 	}
 
@@ -350,8 +370,20 @@ public class LevelController {
 		pathTransition.setAutoReverse(false);
 		pathTransition.play();
 		ScheduledExecutorService executor = getLevel().getExecutor();
-		executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
-				projectile.getDuration(), TimeUnit.MILLISECONDS);
+		if (projectile.getProjectileType().equals(ProjectileType.BOMB)) {
+			executor.schedule(() -> Platform.runLater(() -> imageView.setImage(new Image("image/explosion.gif"))),
+					projectile.getDuration(), TimeUnit.MILLISECONDS);
+			executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
+					projectile.getDuration() + 1000, TimeUnit.MILLISECONDS);
+		} else if (projectile.getProjectileType().equals(ProjectileType.MAGIC)) {
+			executor.schedule(() -> Platform
+							.runLater(() -> imageView.setImage(new Image("image/projectile/magic" + "-explosion.gif"))),
+					projectile.getDuration(), TimeUnit.MILLISECONDS);
+			executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
+					projectile.getDuration() + 1000, TimeUnit.MILLISECONDS);
+		} else
+			executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
+					projectile.getDuration(), TimeUnit.MILLISECONDS);
 	}
 
 	public Stage getStage() {
