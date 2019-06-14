@@ -98,7 +98,7 @@ public class LevelController {
 					mobView = new MobView(slimeImage, mob);
 				gamePane.getChildren().add(mobView);
 				mob.setFinishCallback(() -> setLives());
-				mob.setKillCallback(() -> addMoney(mob));
+				mob.addKillCallback(() -> addMoney(mob));
 
 			}
 		}

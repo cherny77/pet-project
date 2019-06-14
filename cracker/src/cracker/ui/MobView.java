@@ -14,11 +14,13 @@ public class MobView extends ImageView {
 	public MobView(Image image, Mob mob) {
 		super(image);
 		this.mob = mob;
-		mob.setMoveCallback(() -> move());
-		mob.setDamageCallback(() -> doDamage());
+		mob.setMoveCallback(this::move);
+		mob.setDamageCallback(this::doDamage);
 		this.setFitHeight(MOB_SIZE);
 		this.setFitWidth(MOB_SIZE);
 		this.setVisible(false);
+		mob.addKillCallback(this::onKill);
+
 	}
 
 	private String getMobImagePath(String id, String suffix) {
@@ -27,14 +29,10 @@ public class MobView extends ImageView {
 
 	public void move() {
 		Platform.runLater(() -> {
-			if (mob.isKilled())
-				setImage(new Image(getMobImagePath(mob.getType().toString().toLowerCase(), "dead")));
-			else {
-				this.setVisible(true);
-				Position position = mob.getPosition();
-				this.setX(position.getX());
-				this.setY(position.getY());
-			}
+			this.setVisible(true);
+			Position position = mob.getPosition();
+			this.setX(position.getX());
+			this.setY(position.getY());
 		});
 
 	}
@@ -43,6 +41,10 @@ public class MobView extends ImageView {
 //		Platform.runLater(() -> {
 //			this.setOpacity(mob.getHealth() / mob.getType().getHealth());
 //		});
+	}
+
+	public void onKill() {
+		Platform.runLater(() -> setImage(new Image(getMobImagePath(mob.getType().toString().toLowerCase(), "dead"))));
 	}
 
 }

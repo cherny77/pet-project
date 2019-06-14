@@ -1,5 +1,10 @@
 package cracker.model;
 
+import cracker.level.AbstractLevel;
+
+import java.util.HashSet;
+import java.util.Set;
+
 public class Mob {
 	private final MobType type;
 	private final Path path;
@@ -9,13 +14,14 @@ public class Mob {
 	private Runnable moveCallback;
 	private Runnable damageCallback;
 	private Runnable finishCallback;
-	private Runnable killCallback;
+	private Set<Runnable> killCallbacks;
 
 	public Mob(MobType type, Path path) {
 		this.type = type;
 		this.path = path;
 		pathPosition = new PathPosition(path);
 		health = type.getHealth();
+		killCallbacks = new HashSet<>();
 	}
 
 	public void setMoveCallback(Runnable moveCallback) {
@@ -26,15 +32,12 @@ public class Mob {
 		this.finishCallback = finishCallback;
 	}
 
-	public void setKillCallback(Runnable killCallback) {
-		this.killCallback = killCallback;
+	public void addKillCallback(Runnable killCallback) {
+		killCallbacks.add(killCallback);
 	}
 
 	public void move(long time) {
-		if (isKilled()) {
-			onKilled();
-		}
-		if (isFinished())
+		if (isFinished() || isKilled())
 			return;
 		double distance = (time - currentTime) * type.getSpeed();
 		pathPosition.move(distance);
@@ -43,7 +46,6 @@ public class Mob {
 		if (moveCallback != null) {
 			moveCallback.run();
 		}
-
 		if (isFinished() && !isKilled()) {
 			onFinished();
 		}
@@ -51,10 +53,14 @@ public class Mob {
 	}
 
 	public void doDamage(double damage) {
+		if (isKilled())
+			return;
 		health -= damage;
 		if (damageCallback != null) {
 			damageCallback.run();
 		}
+		if (isKilled())
+			onKilled();
 	}
 
 	public MobType getType() {
@@ -88,7 +94,7 @@ public class Mob {
 	}
 
 	public void onKilled() {
-		if (killCallback != null) {
+		for (Runnable killCallback : killCallbacks) {
 			killCallback.run();
 		}
 
@@ -105,4 +111,5 @@ public class Mob {
 	public double getHealth() {
 		return health;
 	}
+
 }
