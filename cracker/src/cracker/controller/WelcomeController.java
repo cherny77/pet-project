@@ -68,6 +68,8 @@ public class WelcomeController {
 		executor.schedule(() -> Platform.runLater(() -> welcomePane.setVisible(false)), 1000, TimeUnit.MILLISECONDS);
 	}
 
+
+
 	public void init() {
 
 		playButtonInit();

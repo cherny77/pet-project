@@ -52,6 +52,7 @@ public abstract class AbstractLevel {
 
 	public void onWin() {
 		isWin = true;
+		System.out.println(callback);
 		if (callback != null) {
 			callback.run();
 		}
@@ -61,6 +62,7 @@ public abstract class AbstractLevel {
 
 	public void onLoose() {
 		isWin = false;
+
 		if (callback != null) {
 			callback.run();
 		}
@@ -78,5 +80,9 @@ public abstract class AbstractLevel {
 
 	public ScheduledExecutorService getExecutor() {
 		return map.getExecutor();
+	}
+
+	public void setCallback(Runnable callback) {
+		this.callback = callback;
 	}
 }

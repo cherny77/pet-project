@@ -21,6 +21,7 @@ public class AppController {
 	public void init() {
 		welcomeController.setLevelController(levelController);
 		welcomeController.init();
+		levelController.setWelcomeController(welcomeController);
 		Image image = new Image("/image/cursor.png");
 		levelController.getPane().setCursor(new ImageCursor(image));
 		welcomeController.getWelcomePane().setCursor(new ImageCursor(image));

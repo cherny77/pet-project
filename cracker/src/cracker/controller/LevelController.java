@@ -4,6 +4,7 @@ import cracker.level.AbstractLevel;
 import cracker.model.*;
 import cracker.ui.MobView;
 import cracker.ui.RangeView;
+import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -60,17 +61,31 @@ public class LevelController {
 	@FXML
 	private Stage stage;
 	private boolean placeIsFree;
+	private WelcomeController welcomeController;
 
 	@FXML
 	private AnchorPane progectilePane;
 	@FXML
 	private AnchorPane rangePane;
 
+	@FXML
+	private AnchorPane winPane;
+
+	@FXML
+	private ImageView loseView;
+	@FXML
+	private ImageView winView;
+
 	public AnchorPane getPane() {
 		return pane;
 	}
 
+	public void setWelcomeController(WelcomeController welcomeController) {
+		this.welcomeController = welcomeController;
+	}
+
 	public void init(AbstractLevel level) {
+		level.setCallback(() -> onFinish());
 		level.getMap().setWaveCallback(() -> setWaveLabel());
 		coinLabel.setText(String.valueOf(level.getMap().getMoney()));
 		heartLabel.setText(String.valueOf(level.getMap().getLives()));
@@ -445,6 +460,20 @@ public class LevelController {
 				goToMenuButton.setImage(new Image("image/go-to-menu-btn.png"));
 			}
 		});
+
+		goToMenuButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				welcomeController.getWelcomePane().setVisible(true);
+				FadeTransition fade = new FadeTransition();
+				fade.setDuration(Duration.millis(1000 ));
+				fade.setFromValue(0);
+				fade.setToValue(100);
+				fade.setCycleCount(1);
+				fade.setNode(welcomeController.getWelcomePane());
+				fade.play();
+			}
+		});
 	}
 
 	private ArrayList<Double> checkPlace(Position position) {
@@ -483,6 +512,24 @@ public class LevelController {
 		}
 		placeIsFree = true;
 		return true;
+	}
+
+	public void onFinish() {
+		Platform.runLater(new Runnable() {
+
+			@Override
+			public void run() {
+				FadeTransition opacityAnimation = new FadeTransition(Duration.millis(1000), winPane);
+				loseView.setVisible(!level.isWin());
+				winView.setVisible(level.isWin());
+				winPane.setVisible(true);
+				winPane.setOpacity(0);
+				opacityAnimation.setFromValue(0);
+				opacityAnimation.setToValue(100);
+				opacityAnimation.play();
+
+			}
+		});
 	}
 
 }
