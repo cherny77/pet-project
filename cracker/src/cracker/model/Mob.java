@@ -8,6 +8,7 @@ public class Mob {
 	private double health;
 	private Runnable moveCallback;
 	private Runnable damageCallback;
+	private Runnable finishCallback;
 
 	public Mob(MobType type, Path path) {
 		this.type = type;
@@ -18,6 +19,10 @@ public class Mob {
 
 	public void setMoveCallback(Runnable moveCallback) {
 		this.moveCallback = moveCallback;
+	}
+
+	public void setFinishCallback(Runnable finishCallback) {
+		this.finishCallback = finishCallback;
 	}
 
 	public void move(long time) {
@@ -58,7 +63,12 @@ public class Mob {
 	}
 
 	public boolean isFinished() {
+		if (finishCallback != null) {
+			finishCallback.run();
+		}
 		return pathPosition.isFinished();
+
+
 	}
 
 	public Position getFuturePosition(double distance) {

@@ -11,12 +11,21 @@ public class GameMap {
 	private final List<Path> paths = new ArrayList<>();
 	private final List<Wave> waves = new ArrayList<>();
 	private int lives;
+	private int money;
 	private final ScheduledExecutorService executor =
 			Executors.newSingleThreadScheduledExecutor(new CaughtExceptionsThreadFactory());
 	private final Random rng = new Random();
 
 	public void setLives(int lives) {
 		this.lives = lives;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
+	}
+
+	public int getMoney() {
+		return money;
 	}
 
 	public boolean addTower(Tower tower) {
@@ -72,6 +81,10 @@ public class GameMap {
 			counter += wave.getWastedLives();
 		}
 		return counter;
+	}
+
+	public int getLives() {
+		return lives;
 	}
 
 	public int getRemainedLives() {

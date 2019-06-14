@@ -29,13 +29,17 @@ import java.util.concurrent.TimeUnit;
 public class LevelController {
 	public final static double TOWER_WIDTH = 90;
 	public final static double TOWER_HEIGHT = 90;
-
+	@FXML
+	private Label waveLabel;
+	@FXML
+	private Label coinLabel;
+	@FXML
+	private ImageView coinView;
 	@FXML
 	private ImageView goToMenuButton;
 	@FXML
 	private ImageView playAgainBtn;
 	@FXML
-	private ImageView gearWheel;
 	private Node selectedTower;
 	@FXML
 	private AnchorPane towerBar;
@@ -52,8 +56,6 @@ public class LevelController {
 	@FXML
 	private ImageView minimizeView;
 	@FXML
-	private ImageView coinView;
-	@FXML
 	private ImageView controlFrame;
 	@FXML
 	private Stage stage;
@@ -67,6 +69,9 @@ public class LevelController {
 	}
 
 	public void init(AbstractLevel level) {
+		waveLabel.setText("0/" + level.getMap().getWaves().size());
+		coinLabel.setText(String.valueOf(level.getMap().getMoney()));
+		heartLabel.setText(String.valueOf(level.getMap().getLives()));
 		towerCursor = new ImageView();
 		towerCursor.setFitHeight(70);
 		towerCursor.setFitWidth(70);
@@ -89,6 +94,7 @@ public class LevelController {
 				} else
 					mobView = new MobView(slimeImage, mob);
 				gamePane.getChildren().add(mobView);
+				mob.setFinishCallback(() -> setLives());
 
 			}
 		}
@@ -174,7 +180,7 @@ public class LevelController {
 		gamePane.setOnMouseMoved(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				heartLabel.setText(String.valueOf(level.getMap().getRemainedLives()));
+
 
 				if (selectedTower != null) {
 					pane.setCursor(Cursor.NONE);
@@ -192,6 +198,16 @@ public class LevelController {
 				}
 			}
 		});
+	}
+
+	private void setLives(){
+		Platform.runLater(new Runnable() {
+			@Override
+			public void run() {
+				heartLabel.setText(String.valueOf(level.getMap().getRemainedLives()));
+			}
+		});
+
 	}
 
 	private String getTowerButtonImagePath(String id, String suffix) {
