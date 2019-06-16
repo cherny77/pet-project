@@ -126,14 +126,14 @@ public class LevelController {
 		coinView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				coinView.setImage(new Image("/image/level/coin.png"));
+				coinView.setImage(new Image("/image/info-panel/coin-icon.png"));
 			}
 		});
 
 		coinView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				coinView.setImage(new Image("/image/level/coin.gif"));
+				coinView.setImage(new Image("/image/info-panel/coin-icon-animated.gif"));
 			}
 		});
 	}
@@ -158,7 +158,7 @@ public class LevelController {
 		minimizeView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(new Image("/image/window/line-mousemoved.png"));
+				minimizeView.setImage(new Image("/image/window/line-entered.png"));
 			}
 		});
 
@@ -175,7 +175,7 @@ public class LevelController {
 		crossView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(new Image("/image/window/cross-mousemoved.png"));
+				crossView.setImage(new Image("/image/window/cross-entered.png"));
 			}
 		});
 
@@ -400,13 +400,13 @@ public class LevelController {
 		ScheduledExecutorService executor = getLevel().getExecutor();
 		if (projectile.getProjectileType().equals(ProjectileType.BOMB)) {
 			executor.schedule(
-					() -> Platform.runLater(() -> imageView.setImage(new Image("image/projectile/explosion.gif"))),
+					() -> Platform.runLater(() -> imageView.setImage(new Image("image/projectile/bomb-explosion.gif"))),
 					projectile.getDuration(), TimeUnit.MILLISECONDS);
 			executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
 					projectile.getDuration() + 1000, TimeUnit.MILLISECONDS);
 		} else if (projectile.getProjectileType().equals(ProjectileType.MAGIC)) {
 			executor.schedule(() -> Platform
-							.runLater(() -> imageView.setImage(new Image("image/projectile/magic" + "-explosion.gif"))),
+							.runLater(() -> imageView.setImage(new Image("image/projectile/magic-explosion.gif"))),
 					projectile.getDuration(), TimeUnit.MILLISECONDS);
 			executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
 					projectile.getDuration() + 1000, TimeUnit.MILLISECONDS);
@@ -431,14 +431,14 @@ public class LevelController {
 		playAgainBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playAgainBtn.setImage(new Image("image/level/play-again-button-entered.png"));
+				playAgainBtn.setImage(new Image("image/end-game/play-again-btn-entered.png"));
 			}
 		});
 
 		playAgainBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playAgainBtn.setImage(new Image("image/level/play-again-button.png"));
+				playAgainBtn.setImage(new Image("image/end-game/play-again-btn.png"));
 			}
 		});
 
@@ -466,14 +466,14 @@ public class LevelController {
 		goToMenuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				goToMenuButton.setImage(new Image("image/level/go-to-menu-btn-entered.png"));
+				goToMenuButton.setImage(new Image("image/end-game/go-to-menu-btn-entered.png"));
 			}
 		});
 
 		goToMenuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				goToMenuButton.setImage(new Image("image/level/go-to-menu-btn.png"));
+				goToMenuButton.setImage(new Image("image/end-game/go-to-menu-btn.png"));
 			}
 		});
 

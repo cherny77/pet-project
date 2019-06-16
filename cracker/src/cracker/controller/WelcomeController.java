@@ -131,12 +131,12 @@ public class WelcomeController {
 	}
 
 	public void onExitedRightButton() {
-		Image image = new Image("image/welcome/right-arrow-button.png");
+		Image image = new Image("image/welcome/right-arrow-btn.png");
 		rightButton.setImage(image);
 	}
 
 	public void onEnteredRightButton() {
-		Image image = new Image("image/welcome/right-arrow-button-entered.png");
+		Image image = new Image("image/welcome/right-arrow-btn-entered.png");
 		rightButton.setImage(image);
 	}
 
@@ -192,7 +192,7 @@ public class WelcomeController {
 		this.minimizeView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(new Image("/image/window/line-mousemoved.png"));
+				minimizeView.setImage(new Image("/image/window/line-entered.png"));
 			}
 		});
 
@@ -209,7 +209,7 @@ public class WelcomeController {
 		this.crossView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(new Image("/image/window/cross-mousemoved.png"));
+				crossView.setImage(new Image("/image/window/cross-entered.png"));
 			}
 		});
 
@@ -232,14 +232,14 @@ public class WelcomeController {
 		this.playButton.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playButton.setImage(new Image("/image/welcome/play.png"));
+				playButton.setImage(new Image("/image/welcome/play-btn.png"));
 			}
 		});
 
 		this.playButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playButton.setImage(new Image("/image/welcome/play-entered.png"));
+				playButton.setImage(new Image("/image/welcome/play-btn-entered.png"));
 			}
 		});
 
