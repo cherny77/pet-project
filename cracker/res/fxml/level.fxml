@@ -11,7 +11,7 @@
          <children>
             <ImageView fx:id="backGround" fitHeight="868.0" fitWidth="1024.0" mouseTransparent="true">
                <image>
-                  <Image url="@../image/background.png" />
+                  <Image url="@../image/level/background.png" />
                </image>
             </ImageView>
             <AnchorPane fx:id="rangePane" mouseTransparent="true" prefHeight="868.0" prefWidth="1024.0" />
@@ -20,30 +20,30 @@
       <AnchorPane fx:id="progectilePane" mouseTransparent="true" prefHeight="868.0" prefWidth="1024.0" />
       <ImageView fitHeight="60.0" fitWidth="228.0" layoutX="31.0" layoutY="31.0">
          <image>
-            <Image url="@../image/toolbar.png" />
+            <Image url="@../image/level/toolbar.png" />
          </image>
       </ImageView>
       <ImageView fx:id="coinView" fitHeight="40.0" fitWidth="94.0" layoutX="14.0" layoutY="40.0">
          <image>
-            <Image url="@../image/coin.png" />
+            <Image url="@../image/level/coin.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="40.0" fitWidth="38.0" layoutX="109.0" layoutY="40.0">
          <image>
-            <Image url="@../image/heart.png" />
+            <Image url="@../image/level/heart.png" />
          </image>
       </ImageView>
       <Label fx:id="heartLabel" layoutX="148.0" layoutY="40.0" prefHeight="40.0" prefWidth="38.0" text="3" textFill="WHITE" />
       <Label fx:id="coinLabel" layoutX="78.0" layoutY="40.0" prefHeight="40.0" prefWidth="37.0" text="100" textFill="WHITE" />
       <ImageView fitHeight="32.0" fitWidth="38.0" layoutX="172.0" layoutY="44.0">
          <image>
-            <Image url="@../image/wave.png" />
+            <Image url="@../image/level/wave.png" />
          </image>
       </ImageView>
       <Label fx:id="waveLabel" layoutX="211.0" layoutY="40.0" prefHeight="40.0" prefWidth="47.0" text="12/25" textFill="WHITE" />
       <ImageView fx:id="controlFrame" fitHeight="868.0" fitWidth="1024.0" mouseTransparent="true" pickOnBounds="true">
          <image>
-            <Image url="@../image/titlebar1.png" />
+            <Image url="@../image/level/titlebar1.png" />
          </image>
       </ImageView>
       <AnchorPane fx:id="towerBar" layoutX="772.0" layoutY="768.0" prefHeight="86.0" prefWidth="235.0">
@@ -69,22 +69,22 @@
          <children>
             <ImageView fx:id="loseView" fitHeight="868.0" fitWidth="1024.0">
                <image>
-                  <Image url="@../image/lose-bg.png" />
+                  <Image url="@../image/level/lose-bg.png" />
                </image>
             </ImageView>
             <ImageView fx:id="winView" fitHeight="868.0" fitWidth="1024.0">
                <image>
-                  <Image url="@../image/win-bg.png" />
+                  <Image url="@../image/level/win-bg.png" />
                </image>
             </ImageView>
             <ImageView fx:id="playAgainBtn" fitHeight="134.0" fitWidth="536.0" layoutX="244.0" layoutY="413.0">
                <image>
-                  <Image url="@../image/play-again-button.png" />
+                  <Image url="@../image/level/play-again-button.png" />
                </image>
             </ImageView>
             <ImageView fx:id="goToMenuButton" fitHeight="134.0" fitWidth="536.0" layoutX="244.0" layoutY="584.0">
                <image>
-                  <Image url="@../image/go-to-menu-btn.png" />
+                  <Image url="@../image/level/go-to-menu-btn.png" />
                </image>
             </ImageView>
          </children>

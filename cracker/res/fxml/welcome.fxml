@@ -10,62 +10,62 @@
    <children>
       <ImageView fitHeight="868.0" fitWidth="1024.0">
          <image>
-            <Image url="@../image/bg.jpg.png" />
+            <Image url="@../image/welcome/bg.jpg.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="868.0" fitWidth="1024.0" layoutY="1.0">
          <image>
-            <Image url="@../image/character-info.png" />
+            <Image url="@../image/welcome/character-info.png" />
          </image>
       </ImageView>
       <ImageView fx:id="charDescription" fitHeight="259.0" fitWidth="414.0" layoutX="390.0" layoutY="542.0">
          <image>
-            <Image url="@../image/knight-description.png" />
+            <Image url="@../image/welcome/knight-description.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="298.0" fitWidth="518.0" layoutX="118.0" layoutY="372.0">
          <image>
-            <Image url="@../image/platform.png" />
+            <Image url="@../image/welcome/platform.png" />
          </image>
       </ImageView>
       <ImageView fx:id="characterImage" fitHeight="400.0" fitWidth="300.0" layoutX="205.0" layoutY="29.0">
          <image>
-            <Image url="@../image/knight.gif" />
+            <Image url="@../image/welcome/knight.gif" />
          </image>
       </ImageView>
       <ImageView fx:id="rightButton" fitHeight="100.0" fitWidth="100.0" layoutX="562.0" layoutY="227.0" onMouseClicked="#onRightButton" onMouseEntered="#onEnteredRightButton" onMouseExited="#onExitedRightButton" rotate="22.8">
          <image>
-            <Image url="@../image/right-arrow-button.png" />
+            <Image url="@../image/welcome/right-arrow-button.png" />
          </image>
       </ImageView>
       <ImageView fx:id="leftButton" fitHeight="100.0" fitWidth="100.0" layoutX="87.0" layoutY="227.0" onMouseClicked="#onLeftButton" onMouseEntered="#onEnteredLeftButton" onMouseExited="#onExitedLeftButton" rotate="-22.8">
          <image>
-            <Image url="@../image/left-arrow-button.png" />
+            <Image url="@../image/welcome/left-arrow-button.png" />
          </image>
       </ImageView>
       <ImageView fx:id="playButton" fitHeight="178.0" fitWidth="408.0" layoutX="622.0" layoutY="439.0">
          <image>
-            <Image url="@../image/play.png" />
+            <Image url="@../image/welcome/play.png" />
          </image>
       </ImageView>
       <ImageView fx:id="charName" fitHeight="119.0" fitWidth="190.0" layoutX="734.0" layoutY="82.0">
          <image>
-            <Image url="@../image/knight-name.png" />
+            <Image url="@../image/welcome/knight-name.png" />
          </image>
       </ImageView>
       <ImageView fx:id="gearWheel" fitHeight="75.0" fitWidth="75.0" layoutX="792.0" layoutY="297.0">
          <image>
-            <Image url="@../image/gear-wheel.png" />
+            <Image url="@../image/welcome/gear-wheel.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="868.0" fitWidth="1024.0">
          <image>
-            <Image url="@../image/titlebar-firstframe.png" />
+            <Image url="@../image/welcome/titlebar-firstframe.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="199.0" fitWidth="236.0" layoutX="128.0" layoutY="410.0">
          <image>
-            <Image url="@../image/cracker.png" />
+            <Image url="@../image/welcome/cracker.png" />
          </image>
       </ImageView>
       <ImageView fx:id="crossView" fitHeight="23.0" fitWidth="23.0" layoutX="960.0" layoutY="11.0">

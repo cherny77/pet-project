@@ -24,7 +24,7 @@ public class MobView extends ImageView {
 	}
 
 	private String getMobImagePath(String id, String suffix) {
-		return "image/" + id + "-" + suffix + ".gif";
+		return "image/mob/" + id + "-" + suffix + ".gif";
 	}
 
 	public void move() {

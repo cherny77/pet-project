@@ -77,11 +77,11 @@ public class WelcomeController {
 		minimizeButtonInit();
 		characters = new ArrayList<>();
 		Character knight = new Character(CharacterType.KNIGHT);
-		Image knightImage = new Image("image/knight.gif");
+		Image knightImage = new Image("image/welcome/knight.gif");
 		Character archer = new Character(CharacterType.ARCHER);
-		Image archerImage = new Image("image/archer.gif");
+		Image archerImage = new Image("image/welcome/archer.gif");
 		Character wizard = new Character(CharacterType.WIZARD);
-		Image wizardImage = new Image("image/wizard.gif");
+		Image wizardImage = new Image("image/welcome/wizard.gif");
 		CharacterView knightView = new CharacterView(knight, knightImage);
 		CharacterView archerView = new CharacterView(archer, archerImage);
 		CharacterView wizardView = new CharacterView(wizard, wizardImage);
@@ -121,27 +121,27 @@ public class WelcomeController {
 	}
 
 	public void onExitedLeftButton() {
-		Image image = new Image("image/left-arrow-button.png");
+		Image image = new Image("image/welcome/left-arrow-button.png");
 		leftButton.setImage(image);
 	}
 
 	public void onEnteredLeftButton() {
-		Image image = new Image("image/left-arrow-button-entered.png");
+		Image image = new Image("image/welcome/left-arrow-button-entered.png");
 		leftButton.setImage(image);
 	}
 
 	public void onExitedRightButton() {
-		Image image = new Image("image/right-arrow-button.png");
+		Image image = new Image("image/welcome/right-arrow-button.png");
 		rightButton.setImage(image);
 	}
 
 	public void onEnteredRightButton() {
-		Image image = new Image("image/right-arrow-button-entered.png");
+		Image image = new Image("image/welcome/right-arrow-button-entered.png");
 		rightButton.setImage(image);
 	}
 
 	private String getImagePath(String id, String suffix) {
-		return "image/" + id + "-" + suffix + ".png";
+		return "image/welcome/" + id + "-" + suffix + ".png";
 	}
 
 	public void onLeftButton() {
@@ -232,14 +232,14 @@ public class WelcomeController {
 		this.playButton.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playButton.setImage(new Image("/image/play.png"));
+				playButton.setImage(new Image("/image/welcome/play.png"));
 			}
 		});
 
 		this.playButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playButton.setImage(new Image("/image/play-entered.png"));
+				playButton.setImage(new Image("/image/welcome/play-entered.png"));
 			}
 		});
 
