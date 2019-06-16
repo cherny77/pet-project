@@ -13,4 +13,8 @@ public class Path {
 	public List<Position> getPositions() {
 		return positions;
 	}
+
+	public Position get(int i) {
+		return positions.get(i);
+	}
 }

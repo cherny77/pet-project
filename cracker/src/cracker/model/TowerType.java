@@ -1,8 +1,8 @@
 package cracker.model;
 
 public enum TowerType {
-	ARROW("Arrow Tower", 40, 300, 700, 60, ProjectileType.ARROW),
-	BOMB("Bomb Tower", 100, 400, 3000, 100, ProjectileType.BOMB),
+	ARROW("Arrow Tower", 40, 300, 500, 60, ProjectileType.ARROW),
+	BOMB("Bomb Tower", 400, 400, 6000, 100, ProjectileType.BOMB),
 	MAGIC("Magic Tower", 100, 150, 1200, 80, ProjectileType.MAGIC);
 
 	private final ProjectileType projectileType;

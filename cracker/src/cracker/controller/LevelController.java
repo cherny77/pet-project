@@ -10,20 +10,22 @@ import javafx.animation.PathTransition;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -64,9 +66,7 @@ public class LevelController {
 	private ImageView controlFrame;
 	@FXML
 	private Stage stage;
-	private boolean placeIsFree;
 	private WelcomeController welcomeController;
-
 	@FXML
 	private AnchorPane progectilePane;
 	@FXML
@@ -82,6 +82,14 @@ public class LevelController {
 	@FXML
 	private ImageView background;
 
+	private static Image getMobImage(String id) {
+		return new Image("/image/mob/" + id.toLowerCase() + ".gif");
+	}
+
+	private static Image getMapImage(String id) {
+		return new Image("/image/level/" + id + "-background.png");
+	}
+
 	public AnchorPane getPane() {
 		return pane;
 	}
@@ -91,6 +99,9 @@ public class LevelController {
 	}
 
 	public void init(AbstractLevel level) {
+		clear();
+		winPane.setVisible(false);
+//		drawPath(level);
 		System.out.println(level.getClass().getSimpleName());
 		level.setCallback(() -> onFinish());
 		level.getMap().setWaveCallback(() -> setWaveLabel());
@@ -98,8 +109,8 @@ public class LevelController {
 		heartLabel.setText(String.valueOf(level.getMap().getLives()));
 
 		towerCursor = new ImageView();
-		towerCursor.setFitHeight(70);
-		towerCursor.setFitWidth(70);
+		towerCursor.setFitHeight(TOWER_HEIGHT);
+		towerCursor.setFitWidth(TOWER_WIDTH);
 		mobTowerPane.getChildren().add(towerCursor);
 		towerCursor.setVisible(false);
 		this.level = level;
@@ -115,13 +126,16 @@ public class LevelController {
 		}
 	}
 
-	private static Image getMobImage(String id){
-		return new Image("/image/mob/" + id.toLowerCase() + ".gif");
-	}
+	private void drawPath(AbstractLevel level) {
+		List<Position> positions = level.getMap().getPaths().get(0).getPositions();
+		for (int i = 1; i < positions.size(); i++) {
+			Line line1 = new Line(positions.get(i - 1).getX(), positions.get(i - 1).getY(), positions.get(i).getX(),
+					positions.get(i).getY());
+			line1.setStroke(Color.RED);
+			line1.setStrokeWidth(6);
+			pane.getChildren().add(line1);
+		}
 
-	private static Image getMapImage(String id){
-		System.out.println("/image/level/" + id + "-background.png");
-		return new Image("/image/level/" + id + "-background.png");
 	}
 
 	private void coinImageInit() {
@@ -215,7 +229,7 @@ public class LevelController {
 			public void handle(MouseEvent event) {
 
 				if (selectedTower != null) {
-					pane.setCursor(Cursor.NONE);
+//					pane.setCursor(Cursor.NONE);
 					dragTower(event);
 				}
 			}
@@ -225,7 +239,7 @@ public class LevelController {
 			@Override
 			public void handle(MouseEvent event) {
 				if (selectedTower != null && event.getPickResult().getIntersectedNode() != selectedTower &&
-						placeIsFree) {
+						checkIntersectionWithPaths(new Position(event.getX(), event.getY()))) {
 					addTower(event);
 				}
 			}
@@ -311,16 +325,21 @@ public class LevelController {
 
 	public void dragTower(MouseEvent event) {
 
-		towerCursor.setFitHeight(100);
-		towerCursor.setFitWidth(100);
-		if (isFreePlace(new Position(event.getSceneX(), event.getSceneY()), towerCursor))
+		towerCursor.setFitHeight(TOWER_HEIGHT);
+		towerCursor.setFitWidth(TOWER_WIDTH);
+
+		if (checkIntersectionWithPaths(new Position(event.getSceneX(), event.getSceneY())))
 			towerCursor.setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "cursor-enabled")));
 		else
 			towerCursor.setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "cursor-disabled")));
 		towerCursor.setVisible(true);
+		if (selectedTower.getId().contains("Magic")){
+			towerCursor.setFitHeight(TOWER_HEIGHT * 1.1);
+			towerCursor.setFitWidth(TOWER_WIDTH * 1.1);
+		}
 		towerCursor.toFront();
-		towerCursor.setX(event.getSceneX() - towerCursor.getFitWidth() / 2);
-		towerCursor.setY(event.getSceneY() - towerCursor.getFitHeight() / 2);
+		towerCursor.setX(event.getX() - TOWER_WIDTH / 2);
+		towerCursor.setY(event.getY() - TOWER_HEIGHT / 2);
 
 	}
 
@@ -331,8 +350,9 @@ public class LevelController {
 		ImageView imageView = new ImageView(image);
 		imageView.setFitHeight(TOWER_HEIGHT);
 		imageView.setFitWidth(TOWER_WIDTH);
-		imageView.setX(event.getSceneX() - imageView.getFitWidth() / 2);
-		imageView.setY(event.getSceneY() - imageView.getFitHeight() / 2);
+
+		imageView.setX(event.getX() - TOWER_WIDTH / 2);
+		imageView.setY(event.getY() - TOWER_HEIGHT / 2);
 		mobTowerPane.getChildren().add(imageView);
 
 		towerCursor.setVisible(false);
@@ -343,6 +363,8 @@ public class LevelController {
 			tower = new Tower(TowerType.BOMB, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		} else if (selectedTower.getId().toLowerCase().contains("magic")) {
 			tower = new Tower(TowerType.MAGIC, new Position(imageView.getX(), imageView.getY()), level.getMap());
+			imageView.setFitWidth(TOWER_WIDTH * 1.1);
+			imageView.setFitHeight(TOWER_HEIGHT * 1.1 );
 		} else {
 			tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		}
@@ -371,7 +393,6 @@ public class LevelController {
 	}
 
 	public void onFire(Projectile projectile) {
-//		System.out.println(projectile);
 		Image image = new Image(getProjectileImagePath(projectile.getProjectileType()));
 		ImageView imageView = new ImageView(image);
 		imageView.setX(projectile.getStartPosition().getX());
@@ -381,14 +402,12 @@ public class LevelController {
 		MoveTo moveTo = new MoveTo(projectile.getStartPosition().getX() + TOWER_WIDTH / 2,
 				projectile.getStartPosition().getY());
 		Position controlPoint = new Position(
-				(projectile.getStartPosition().getX() + TOWER_WIDTH / 2 + projectile.getEndPosition().getX() +
-						MobView.MOB_SIZE / 2) / 2,
-				(projectile.getStartPosition().getY() + projectile.getEndPosition().getY() + MobView.MOB_SIZE / 2) / 2 -
+				(projectile.getStartPosition().getX() + TOWER_WIDTH / 2 + projectile.getEndPosition().getX()) / 2,
+				(projectile.getStartPosition().getY() + projectile.getEndPosition().getY()) / 2 -
 						projectile.getProjectileType().getPlunging());
 		CubicCurveTo cubicCurveTo =
 				new CubicCurveTo(controlPoint.getX(), controlPoint.getY(), controlPoint.getX(), controlPoint.getY(),
-						projectile.getEndPosition().getX() + MobView.MOB_SIZE / 2,
-						projectile.getEndPosition().getY() + MobView.MOB_SIZE / 2);
+						projectile.getEndPosition().getX(), projectile.getEndPosition().getY() - MobView.MOB_SIZE / 2);
 		path.getElements().add(moveTo);
 		path.getElements().add(cubicCurveTo);
 		PathTransition pathTransition = new PathTransition();
@@ -460,6 +479,13 @@ public class LevelController {
 	}
 
 	private void clear() {
+		selectedTower = null;
+		for (Node node : towerBar.getChildren()) {
+			ImageView towerView = (ImageView) node;
+			Image image = new Image(getTowerButtonImagePath(node.getId(), "exited"));
+			((ImageView) node).setImage(image);
+		}
+		rangePane.getChildren().clear();
 		mobTowerPane.getChildren().clear();
 		progectilePane.getChildren().clear();
 	}
@@ -494,42 +520,39 @@ public class LevelController {
 		});
 	}
 
-	private ArrayList<Double> checkPlace(Position position) {
-		ArrayList<Double> distances = new ArrayList<>();
-		for (Path path : level.getMap().getPaths()) {
-			for (int i = 1; i < path.getPositions().size(); i++) {
-				double x = position.getX();
-				double y = position.getY();
-				double x1 = path.getPositions().get(i - 1).getX();
-				double x0 = path.getPositions().get(i).getX();
-				double y1 = path.getPositions().get(i - 1).getY();
-				double y0 = path.getPositions().get(i).getY();
-				if ((position.getX() < Math.max(x1, x0) && position.getX() > Math.min(x1, x0)) ||
-						(position.getY() < Math.max(y1, y0) && position.getX() > Math.min(y1, y0))) {
-					double d = ((y0 - y1) * x + (x1 - x0) * y + (x0 * y1 - x1 * y0)) /
-							Math.sqrt(Math.pow(x1 - x0, 2) + Math.pow(y1 - y0, 2));
-					distances.add(d);
-				} else {
-					distances.add(Math.min(Position.getDistance(position, path.getPositions().get(i)),
-							Position.getDistance(position, path.getPositions().get(i - 1))));
-				}
-			}
+	private boolean isEnoughMoney(){
+		if (selectedTower.getId().contains("Magic")) {
+			return level.getMap().getAddMoney() >= TowerType.MAGIC.getCost();
 		}
-		return distances;
+		else if (selectedTower.getId().contains("Bomb")) {
+			return level.getMap().getAddMoney() >= TowerType.BOMB.getCost();
+		}
+
+		else if (selectedTower.getId().contains("Arrow")) {
+			return level.getMap().getAddMoney() >= TowerType.ARROW.getCost();
+		}
+
+		return false;
 	}
 
-	private boolean isFreePlace(Position position, ImageView imageView) {
-		ArrayList<Double> distances = checkPlace(position);
-		for (Double distance : distances) {
-			System.out.println(distance);
-			if (imageView.getFitHeight() / 2 >= Math.abs(distance)) {
-				placeIsFree = false;
+	private boolean isFreePlace(Position position) {
+		for (Tower tower : level.getMap().getTowers()) {
+			if (Math.abs(Position.getDistance(new Position(tower.getPosition().getX() + TOWER_HEIGHT / 2,
+					tower.getPosition().getY() + TOWER_HEIGHT / 2), position)) < TOWER_HEIGHT )
 				return false;
-			}
-
 		}
-		placeIsFree = true;
 		return true;
+	}
+
+	private boolean checkIntersectionWithPaths(Position position) {
+		double minDistance = Double.MAX_VALUE;
+		for (Path path : level.getMap().getPaths()) {
+			for (int i = 1; i < path.getPositions().size(); i++) {
+				minDistance =
+						Math.min(minDistance, Position.getDistanceToSegment(position, path.get(i - 1), path.get(i)));
+			}
+		}
+		return (minDistance > TOWER_HEIGHT / 2.5) && isFreePlace(position) && isEnoughMoney() ;
 	}
 
 	public void onFinish() {
