@@ -9,9 +9,9 @@
    <children>
       <AnchorPane fx:id="gamePane" prefHeight="200.0" prefWidth="200.0">
          <children>
-            <ImageView fx:id="backGround" fitHeight="868.0" fitWidth="1024.0" mouseTransparent="true">
+            <ImageView fx:id="background" fitHeight="868.0" fitWidth="1024.0" mouseTransparent="true">
                <image>
-                  <Image url="@../image/level/background.png" />
+                  <Image url="@../image/level/FirstLevel-background.png" />
                </image>
             </ImageView>
             <AnchorPane fx:id="mobTowerPane" prefHeight="200.0" prefWidth="200.0" />

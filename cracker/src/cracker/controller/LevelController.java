@@ -31,6 +31,7 @@ import java.util.concurrent.TimeUnit;
 public class LevelController {
 	public final static double TOWER_WIDTH = 90;
 	public final static double TOWER_HEIGHT = 90;
+
 	@FXML
 	private AnchorPane mobTowerPane;
 	@FXML
@@ -78,6 +79,8 @@ public class LevelController {
 	private ImageView loseView;
 	@FXML
 	private ImageView winView;
+	@FXML
+	private ImageView background;
 
 	public AnchorPane getPane() {
 		return pane;
@@ -88,6 +91,7 @@ public class LevelController {
 	}
 
 	public void init(AbstractLevel level) {
+		System.out.println(level.getClass().getSimpleName());
 		level.setCallback(() -> onFinish());
 		level.getMap().setWaveCallback(() -> setWaveLabel());
 		coinLabel.setText(String.valueOf(level.getMap().getMoney()));
@@ -96,30 +100,28 @@ public class LevelController {
 		towerCursor = new ImageView();
 		towerCursor.setFitHeight(70);
 		towerCursor.setFitWidth(70);
-		gamePane.getChildren().add(towerCursor);
+		mobTowerPane.getChildren().add(towerCursor);
 		towerCursor.setVisible(false);
 		this.level = level;
-
-		Image ghostImage = new Image("/image/mob/ghost.gif");
-		Image skeletonImage = new Image("/image/mob/skeleton.gif");
-		Image slimeImage = new Image("/image/mob/slime.gif");
-
+		background.setImage(getMapImage(this.level.getClass().getSimpleName()));
 		List<Wave> waves = level.getMap().getWaves();
 		for (Wave wave : waves) {
 			for (Mob mob : wave.getMobs()) {
-				MobView mobView;
-				if (mob.getType().equals(MobType.GHOST))
-					mobView = new MobView(ghostImage, mob);
-				else if (mob.getType().equals(MobType.SKELETON)) {
-					mobView = new MobView(skeletonImage, mob);
-				} else
-					mobView = new MobView(slimeImage, mob);
+				MobView mobView = new MobView(getMobImage(mob.getType().toString()), mob);
 				mobTowerPane.getChildren().add(mobView);
 				mob.setFinishCallback(() -> setLives());
 				mob.addKillCallback(() -> addMoney(mob));
-
 			}
 		}
+	}
+
+	private static Image getMobImage(String id){
+		return new Image("/image/mob/" + id.toLowerCase() + ".gif");
+	}
+
+	private static Image getMapImage(String id){
+		System.out.println("/image/level/" + id + "-background.png");
+		return new Image("/image/level/" + id + "-background.png");
 	}
 
 	private void coinImageInit() {
