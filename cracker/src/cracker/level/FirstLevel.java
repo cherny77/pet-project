@@ -15,12 +15,12 @@ public class FirstLevel extends AbstractLevel {
 				new Position(1024, 240));
 		map.addPath(path);
 		ArrayList<Mob> mobs = new ArrayList<>();
-		for (int i = 0; i < 4; i++) {
-			Mob mob1 = new Mob(MobType.SKELETON, path);
-			Mob mob2 = new Mob(MobType.SLIME, path);
+		for (int i = 0; i < 1; i++) {
+//			Mob mob1 = new Mob(MobType.SKELETON, path);
+//			Mob mob2 = new Mob(MobType.SLIME, path);
 			Mob mob3 = new Mob(MobType.GHOST, path);
-			mobs.add(mob1);
-			mobs.add(mob2);
+//			mobs.add(mob1);
+//			mobs.add(mob2);
 			mobs.add(mob3);
 		}
 		Wave wave = new Wave(mobs, 10000L, 0);

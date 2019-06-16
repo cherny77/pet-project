@@ -14,6 +14,7 @@
                   <Image url="@../image/level/background.png" />
                </image>
             </ImageView>
+            <AnchorPane fx:id="mobTowerPane" prefHeight="200.0" prefWidth="200.0" />
             <AnchorPane fx:id="rangePane" mouseTransparent="true" prefHeight="868.0" prefWidth="1024.0" />
          </children>
       </AnchorPane>
@@ -91,12 +92,12 @@
       </AnchorPane>
       <ImageView fx:id="crossView" fitHeight="23.0" fitWidth="23.0" layoutX="960.0" layoutY="11.0">
          <image>
-            <Image url="@../image/cross.png" />
+            <Image url="@../image/window/cross.png" />
          </image>
       </ImageView>
       <ImageView fx:id="minimizeView" fitHeight="17.0" fitWidth="23.0" layoutX="914.0" layoutY="14.0">
          <image>
-            <Image url="@../image/line.png" />
+            <Image url="@../image/window/line.png" />
          </image>
       </ImageView>
    </children>

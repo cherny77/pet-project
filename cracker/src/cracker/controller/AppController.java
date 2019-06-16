@@ -22,7 +22,7 @@ public class AppController {
 		welcomeController.setLevelController(levelController);
 		welcomeController.init();
 		levelController.setWelcomeController(welcomeController);
-		Image image = new Image("/image/cursor.png");
+		Image image = new Image("/image/window/cursor.png");
 		levelController.getPane().setCursor(new ImageCursor(image));
 		welcomeController.getWelcomePane().setCursor(new ImageCursor(image));
 

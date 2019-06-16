@@ -70,12 +70,12 @@
       </ImageView>
       <ImageView fx:id="crossView" fitHeight="23.0" fitWidth="23.0" layoutX="960.0" layoutY="11.0">
          <image>
-            <Image url="@../image/cross.png" />
+            <Image url="@../image/window/cross.png" />
          </image>
       </ImageView>
       <ImageView fx:id="minimizeView" fitHeight="17.0" fitWidth="23.0" layoutX="914.0" layoutY="14.0">
          <image>
-            <Image url="@../image/line.png" />
+            <Image url="@../image/window/line.png" />
          </image>
       </ImageView>
       <Label layoutX="48.0" layoutY="34.0" prefHeight="48.0" prefWidth="653.0" text="© Cyrill Chernokozynskyi, 2019 " textFill="WHITE">

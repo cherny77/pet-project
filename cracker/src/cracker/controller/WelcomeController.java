@@ -185,14 +185,14 @@ public class WelcomeController {
 		this.minimizeView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(new Image("/image/line.png"));
+				minimizeView.setImage(new Image("/image/window/line.png"));
 			}
 		});
 
 		this.minimizeView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(new Image("/image/line-mousemoved.png"));
+				minimizeView.setImage(new Image("/image/window/line-mousemoved.png"));
 			}
 		});
 
@@ -209,14 +209,14 @@ public class WelcomeController {
 		this.crossView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(new Image("/image/cross-mousemoved.png"));
+				crossView.setImage(new Image("/image/window/cross-mousemoved.png"));
 			}
 		});
 
 		this.crossView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(new Image("/image/cross.png"));
+				crossView.setImage(new Image("/image/window/cross.png"));
 			}
 		});
 

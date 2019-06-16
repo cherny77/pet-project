@@ -1,6 +1,7 @@
 package cracker.controller;
 
 import cracker.level.AbstractLevel;
+import cracker.level.FirstLevel;
 import cracker.model.*;
 import cracker.ui.MobView;
 import cracker.ui.RangeView;
@@ -30,6 +31,8 @@ import java.util.concurrent.TimeUnit;
 public class LevelController {
 	public final static double TOWER_WIDTH = 90;
 	public final static double TOWER_HEIGHT = 90;
+	@FXML
+	private AnchorPane mobTowerPane;
 	@FXML
 	private Label waveLabel;
 	@FXML
@@ -111,7 +114,7 @@ public class LevelController {
 					mobView = new MobView(skeletonImage, mob);
 				} else
 					mobView = new MobView(slimeImage, mob);
-				gamePane.getChildren().add(mobView);
+				mobTowerPane.getChildren().add(mobView);
 				mob.setFinishCallback(() -> setLives());
 				mob.addKillCallback(() -> addMoney(mob));
 
@@ -148,14 +151,14 @@ public class LevelController {
 		minimizeView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(new Image("/image/line.png"));
+				minimizeView.setImage(new Image("/image/window/line.png"));
 			}
 		});
 
 		minimizeView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(new Image("/image/line-mousemoved.png"));
+				minimizeView.setImage(new Image("/image/window/line-mousemoved.png"));
 			}
 		});
 
@@ -172,14 +175,14 @@ public class LevelController {
 		crossView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(new Image("/image/cross-mousemoved.png"));
+				crossView.setImage(new Image("/image/window/cross-mousemoved.png"));
 			}
 		});
 
 		crossView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(new Image("/image/cross.png"));
+				crossView.setImage(new Image("/image/window/cross.png"));
 			}
 		});
 
@@ -202,7 +205,7 @@ public class LevelController {
 		controlFrame.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
+				pane.setCursor(new ImageCursor(new Image("/image/window/cursor.png")));
 			}
 		});
 		gamePane.setOnMouseMoved(new EventHandler<MouseEvent>() {
@@ -293,7 +296,7 @@ public class LevelController {
 			towerView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
+					pane.setCursor(new ImageCursor(new Image("/image/window/cursor.png")));
 
 					if (selectedTower != towerView) {
 						Image image = new Image(getTowerButtonImagePath(towerView.getId(), "entered"));
@@ -328,7 +331,7 @@ public class LevelController {
 		imageView.setFitWidth(TOWER_WIDTH);
 		imageView.setX(event.getSceneX() - imageView.getFitWidth() / 2);
 		imageView.setY(event.getSceneY() - imageView.getFitHeight() / 2);
-		gamePane.getChildren().add(imageView);
+		mobTowerPane.getChildren().add(imageView);
 
 		towerCursor.setVisible(false);
 
@@ -342,7 +345,7 @@ public class LevelController {
 			tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		}
 		selectedTower = null;
-		pane.setCursor(new ImageCursor(new Image("/image/cursor.png")));
+		pane.setCursor(new ImageCursor(new Image("/image/window/cursor.png")));
 		RangeView rangeView = new RangeView(imageView.getX() + imageView.getFitWidth() / 2,
 				imageView.getY() - -imageView.getFitHeight() / 2, tower.getType().getRange(), rangePane);
 		imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -396,8 +399,8 @@ public class LevelController {
 		pathTransition.play();
 		ScheduledExecutorService executor = getLevel().getExecutor();
 		if (projectile.getProjectileType().equals(ProjectileType.BOMB)) {
-			executor.schedule(() -> Platform.runLater(() -> imageView.setImage(new Image(
-							"image/projectile/explosion.gif"))),
+			executor.schedule(
+					() -> Platform.runLater(() -> imageView.setImage(new Image("image/projectile/explosion.gif"))),
 					projectile.getDuration(), TimeUnit.MILLISECONDS);
 			executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
 					projectile.getDuration() + 1000, TimeUnit.MILLISECONDS);
@@ -442,9 +445,21 @@ public class LevelController {
 		playAgainBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-
+				System.out.println(gamePane.getChildren());
+				clear();
+				winPane.setVisible(false);
+				level = new FirstLevel();
+				level.init();
+				init(level);
+				setBinding();
+				level.start();
 			}
 		});
+	}
+
+	private void clear() {
+		mobTowerPane.getChildren().clear();
+		progectilePane.getChildren().clear();
 	}
 
 	private void setGoToMenuBtn() {
@@ -467,7 +482,7 @@ public class LevelController {
 			public void handle(MouseEvent event) {
 				welcomeController.getWelcomePane().setVisible(true);
 				FadeTransition fade = new FadeTransition();
-				fade.setDuration(Duration.millis(1000 ));
+				fade.setDuration(Duration.millis(1000));
 				fade.setFromValue(0);
 				fade.setToValue(100);
 				fade.setCycleCount(1);
