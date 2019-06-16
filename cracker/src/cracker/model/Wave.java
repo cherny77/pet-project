@@ -3,9 +3,11 @@ package cracker.model;
 import java.util.List;
 
 public class Wave {
-	List<Mob> mobs;
-	long duration;
-	long start;
+	private List<Mob> mobs;
+	private long duration;
+	private long start;
+	private Runnable startCallback;
+	private boolean started;
 
 	public Wave(List<Mob> mobs, long duration, long start) {
 		this.mobs = mobs;
@@ -14,6 +16,15 @@ public class Wave {
 		for (int i = 0; i < mobs.size(); i++) {
 			mobs.get(i).setCurrentTime(start + duration / mobs.size() * i);
 		}
+	}
+
+	public void setStartCallback(Runnable startCallback) {
+		this.startCallback = startCallback;
+	}
+
+	public void start() {
+		if (startCallback != null)
+			startCallback.run();
 	}
 
 	public List<? extends Mob> getMobs() {
@@ -29,6 +40,10 @@ public class Wave {
 	}
 
 	public void move(long gameTime) {
+		if (gameTime > start && !started) {
+			start();
+			started = true;
+		}
 		for (int i = 0; i < mobs.size(); i++) {
 			if (gameTime > start + i * duration / mobs.size() && !mobs.get(i).isFinished()) {
 				mobs.get(i).move(gameTime);

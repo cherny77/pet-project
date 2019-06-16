@@ -104,7 +104,9 @@ public class LevelController {
 //		drawPath(level);
 		System.out.println(level.getClass().getSimpleName());
 		level.setCallback(() -> onFinish());
-		level.getMap().setWaveCallback(() -> setWaveLabel());
+		for (Wave wave : level.getMap().getWaves()) {
+			wave.setStartCallback(()-> setWavesNumber());
+		}
 		coinLabel.setText(String.valueOf(level.getMap().getMoney()));
 		heartLabel.setText(String.valueOf(level.getMap().getLives()));
 
@@ -124,6 +126,11 @@ public class LevelController {
 				mob.addKillCallback(() -> addMoney(mob));
 			}
 		}
+	}
+
+	private void setWavesNumber(){
+		level.getMap().setWaveNumber(level.getMap().getWaveNumber() + 1);
+		setWaveLabel();
 	}
 
 	private void drawPath(AbstractLevel level) {

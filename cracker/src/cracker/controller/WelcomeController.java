@@ -2,6 +2,7 @@ package cracker.controller;
 
 import cracker.level.AbstractLevel;
 import cracker.level.FirstLevel;
+import cracker.level.TestLevel;
 import cracker.model.Character;
 import cracker.model.CharacterType;
 import cracker.ui.CharacterView;

@@ -83,5 +83,10 @@
             <Font size="19.0" />
          </font>
       </Label>
+      <Label layoutX="393.0" layoutY="600.0" prefHeight="140.0" prefWidth="408.0" text="You can display multi-line read-only text in a Label.If the text has \n (newline) characters in it, then the label will wrap to" textAlignment="CENTER" textFill="#f5ecec" visible="false" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

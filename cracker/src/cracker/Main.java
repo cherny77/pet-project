@@ -4,6 +4,7 @@ import cracker.controller.AppController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -19,6 +20,7 @@ public class Main extends Application {
 		FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/fxml/app.fxml"));
 		AnchorPane root = fxmlLoader.load();
 		primaryStage.initStyle(StageStyle.UNDECORATED);
+		primaryStage.getIcons().add(new Image("/image/welcome/logo.png"));
 		primaryStage.setScene(new Scene(root, 1024, 868));
 		AppController appController = fxmlLoader.getController();
 		primaryStage.show();

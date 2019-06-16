@@ -16,15 +16,12 @@ public class GameMap {
 	private int lives;
 	private int money;
 	private int waveNumber;
-	private Runnable waveCallback;
 
 	public int getWaveNumber() {
 		return waveNumber;
 	}
 
-	public void setWaveCallback(Runnable waveCallback) {
-		this.waveCallback = waveCallback;
-	}
+
 
 	public int getMoney() {
 		return money;
@@ -63,10 +60,6 @@ public class GameMap {
 
 	public void move(long gameTime) {
 		for (Wave wave : waves) {
-
-			if (waveCallback != null) {
-				waveCallback.run();
-			}
 			wave.move(gameTime);
 		}
 	}
@@ -105,6 +98,10 @@ public class GameMap {
 			addMoney -= tower.getType().getCost();
 		}
 		return addMoney;
+	}
+
+	public void setWaveNumber(int waveNumber) {
+		this.waveNumber = waveNumber;
 	}
 
 	public int getLives() {

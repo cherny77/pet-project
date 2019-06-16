@@ -1,15 +1,16 @@
 package cracker.level;
 
-import cracker.model.GameMap;
+import cracker.model.*;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractLevel {
 
-	private static final long PERIOD = 30L;
+	private static final long PERIOD = 50L;
 
 	protected GameMap map = new GameMap();
 	private ScheduledFuture<?> future;
@@ -68,6 +69,16 @@ public abstract class AbstractLevel {
 		}
 
 		System.out.println("You loose!");
+	}
+
+	protected  void addWave(long start, long duration, MobType mobType, int size, Path path) {
+		ArrayList<Mob> mobs = new ArrayList<>();
+		for (int i = 0; i < size; i++) {
+			Mob mob = new Mob(mobType, path);
+			mobs.add(mob);
+		}
+		Wave wave = new Wave(mobs, duration, start);
+		map.addWave(wave);
 	}
 
 	public boolean isWin() {
