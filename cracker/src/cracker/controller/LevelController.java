@@ -26,7 +26,9 @@ import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -81,13 +83,21 @@ public class LevelController {
 	private ImageView winView;
 	@FXML
 	private ImageView background;
+	private Map<String, Image> images = new HashMap<>();
 
-	private static Image getMobImage(String id) {
-		return new Image("/image/mob/" + id.toLowerCase() + ".gif");
+	private Image getImage(String path) {
+		if (!images.containsKey(path)) {
+			images.put(path, new Image(path));
+		}
+		return images.get(path);
 	}
 
-	private static Image getMapImage(String id) {
-		return new Image("/image/level/" + id + "-background.png");
+	private Image getMobImage(String id) {
+		return getImage("/image/mob/" + id.toLowerCase() + ".gif");
+	}
+
+	private  Image getMapImage(String id) {
+		return getImage("/image/level/" + id + "-background.png");
 	}
 
 	public AnchorPane getPane() {
@@ -149,14 +159,14 @@ public class LevelController {
 		coinView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				coinView.setImage(new Image("/image/info-panel/coin-icon.png"));
+				coinView.setImage(getImage("/image/info-panel/coin-icon.png"));
 			}
 		});
 
 		coinView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				coinView.setImage(new Image("/image/info-panel/coin-icon-animated.gif"));
+				coinView.setImage(getImage("/image/info-panel/coin-icon-animated.gif"));
 			}
 		});
 	}
@@ -174,14 +184,14 @@ public class LevelController {
 		minimizeView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(new Image("/image/window/line.png"));
+				minimizeView.setImage(getImage("/image/window/line.png"));
 			}
 		});
 
 		minimizeView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(new Image("/image/window/line-entered.png"));
+				minimizeView.setImage(getImage("/image/window/line-entered.png"));
 			}
 		});
 
@@ -198,14 +208,14 @@ public class LevelController {
 		crossView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(new Image("/image/window/cross-entered.png"));
+				crossView.setImage(getImage("/image/window/cross-entered.png"));
 			}
 		});
 
 		crossView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(new Image("/image/window/cross.png"));
+				crossView.setImage(getImage("/image/window/cross.png"));
 			}
 		});
 
@@ -228,7 +238,7 @@ public class LevelController {
 		controlFrame.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				pane.setCursor(new ImageCursor(new Image("/image/window/cursor.png")));
+				pane.setCursor(new ImageCursor(getImage("/image/window/cursor.png")));
 			}
 		});
 		gamePane.setOnMouseMoved(new EventHandler<MouseEvent>() {
@@ -288,18 +298,18 @@ public class LevelController {
 				public void handle(MouseEvent event) {
 					if (selectedTower != towerView) {
 						selectedTower = event.getPickResult().getIntersectedNode();
-						Image image = new Image(getTowerButtonImagePath(selectedTower.getId(), "selected"));
+						Image image = getImage(getTowerButtonImagePath(selectedTower.getId(), "selected"));
 
 						towerView.setImage(image);
 						for (Node node1 : towerBar.getChildren()) {
 							if (node1 != selectedTower) {
-								Image image1 = new Image(getTowerButtonImagePath(node1.getId(), "exited"));
+								Image image1 = getImage(getTowerButtonImagePath(node1.getId(), "exited"));
 								((ImageView) node1).setImage(image1);
 
 							}
 						}
 					} else {
-						Image image = new Image(getTowerButtonImagePath(selectedTower.getId(), "exited"));
+						Image image = getImage(getTowerButtonImagePath(selectedTower.getId(), "exited"));
 						selectedTower = null;
 						towerView.setImage(image);
 						towerCursor.setVisible(false);
@@ -311,7 +321,7 @@ public class LevelController {
 				@Override
 				public void handle(MouseEvent event) {
 					if (selectedTower != towerView) {
-						Image image = new Image(getTowerButtonImagePath(towerView.getId(), "exited"));
+						Image image = getImage(getTowerButtonImagePath(towerView.getId(), "exited"));
 						towerView.setImage(image);
 					}
 				}
@@ -319,10 +329,10 @@ public class LevelController {
 			towerView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					pane.setCursor(new ImageCursor(new Image("/image/window/cursor.png")));
+					pane.setCursor(new ImageCursor(getImage("/image/window/cursor.png")));
 
 					if (selectedTower != towerView) {
-						Image image = new Image(getTowerButtonImagePath(towerView.getId(), "entered"));
+						Image image = getImage(getTowerButtonImagePath(towerView.getId(), "entered"));
 						towerView.setImage(image);
 					}
 				}
@@ -336,9 +346,9 @@ public class LevelController {
 		towerCursor.setFitWidth(TOWER_WIDTH);
 
 		if (checkIntersectionWithPaths(new Position(event.getSceneX(), event.getSceneY())))
-			towerCursor.setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "cursor-enabled")));
+			towerCursor.setImage(getImage(getTowerButtonImagePath(selectedTower.getId(), "cursor-enabled")));
 		else
-			towerCursor.setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "cursor-disabled")));
+			towerCursor.setImage(getImage(getTowerButtonImagePath(selectedTower.getId(), "cursor-disabled")));
 		towerCursor.setVisible(true);
 		if (selectedTower.getId().contains("Magic")){
 			towerCursor.setFitHeight(TOWER_HEIGHT * 1.1);
@@ -353,7 +363,7 @@ public class LevelController {
 	public void addTower(MouseEvent event) {
 
 		String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
-		Image image = new Image(imagePath);
+		Image image = getImage(imagePath);
 		ImageView imageView = new ImageView(image);
 		imageView.setFitHeight(TOWER_HEIGHT);
 		imageView.setFitWidth(TOWER_WIDTH);
@@ -364,7 +374,7 @@ public class LevelController {
 
 		towerCursor.setVisible(false);
 
-		((ImageView) selectedTower).setImage(new Image(getTowerButtonImagePath(selectedTower.getId(), "exited")));
+		((ImageView) selectedTower).setImage(getImage(getTowerButtonImagePath(selectedTower.getId(), "exited")));
 		Tower tower;
 		if (selectedTower.getId().toLowerCase().contains("bomb")) {
 			tower = new Tower(TowerType.BOMB, new Position(imageView.getX(), imageView.getY()), level.getMap());
@@ -376,7 +386,7 @@ public class LevelController {
 			tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		}
 		selectedTower = null;
-		pane.setCursor(new ImageCursor(new Image("/image/window/cursor.png")));
+		pane.setCursor(new ImageCursor(getImage("/image/window/cursor.png")));
 		RangeView rangeView = new RangeView(imageView.getX() + imageView.getFitWidth() / 2,
 				imageView.getY() - -imageView.getFitHeight() / 2, tower.getType().getRange(), rangePane);
 		imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -400,7 +410,7 @@ public class LevelController {
 	}
 
 	public void onFire(Projectile projectile) {
-		Image image = new Image(getProjectileImagePath(projectile.getProjectileType()));
+		Image image = getImage(getProjectileImagePath(projectile.getProjectileType()));
 		ImageView imageView = new ImageView(image);
 		imageView.setX(projectile.getStartPosition().getX());
 		imageView.setX(projectile.getStartPosition().getY());
@@ -459,14 +469,14 @@ public class LevelController {
 		playAgainBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playAgainBtn.setImage(new Image("image/end-game/play-again-btn-entered.png"));
+				playAgainBtn.setImage(getImage("image/end-game/play-again-btn-entered.png"));
 			}
 		});
 
 		playAgainBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playAgainBtn.setImage(new Image("image/end-game/play-again-btn.png"));
+				playAgainBtn.setImage(getImage("image/end-game/play-again-btn.png"));
 			}
 		});
 
@@ -501,14 +511,14 @@ public class LevelController {
 		goToMenuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				goToMenuButton.setImage(new Image("image/end-game/go-to-menu-btn-entered.png"));
+				goToMenuButton.setImage(getImage("image/end-game/go-to-menu-btn-entered.png"));
 			}
 		});
 
 		goToMenuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				goToMenuButton.setImage(new Image("image/end-game/go-to-menu-btn.png"));
+				goToMenuButton.setImage(getImage("image/end-game/go-to-menu-btn.png"));
 			}
 		});
 

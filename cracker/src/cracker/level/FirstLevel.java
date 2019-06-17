@@ -19,7 +19,7 @@ public class FirstLevel extends AbstractLevel {
 		addWave(24000, 10000, MobType.GHOST, 6, path);
 		addWave(35000, 10000, MobType.SKELETON, 20, path);
 		addWave(46000, 10000, MobType.SLIME, 6, path);
-		addWave(57000, 10000, MobType.SKELETON, 25, path);
+		addWave(57000, 10000, MobType.SKELETON, 100, path);
 		addWave(57000, 10000, MobType.GHOST, 15, path);
 	}
 

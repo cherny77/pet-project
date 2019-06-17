@@ -7,9 +7,9 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 
 public class GameMap {
-	private final List<Tower> towers = new ArrayList<>();
-	private final List<Path> paths = new ArrayList<>();
-	private final List<Wave> waves = new ArrayList<>();
+	private final List<Tower> towers = Collections.synchronizedList(new ArrayList<>());
+	private final List<Path> paths = Collections.synchronizedList(new ArrayList<>());
+	private final List<Wave> waves = Collections.synchronizedList(new ArrayList<>());
 	private final ScheduledExecutorService executor =
 			Executors.newSingleThreadScheduledExecutor(new CaughtExceptionsThreadFactory());
 	private final Random rng = new Random();
