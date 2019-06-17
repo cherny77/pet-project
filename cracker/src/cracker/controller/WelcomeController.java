@@ -2,6 +2,7 @@ package cracker.controller;
 
 import cracker.level.AbstractLevel;
 import cracker.level.FirstLevel;
+import cracker.level.SecondLevel;
 import cracker.model.Character;
 import cracker.model.CharacterType;
 import cracker.ui.CharacterView;
@@ -55,7 +56,7 @@ public class WelcomeController {
 	public void onPlay() {
 		if (level != null && level.isRunning())
 			return;
-		level = new FirstLevel();
+		level = new SecondLevel();
 		level.init();
 		levelController.init(level);
 		levelController.setBinding();

@@ -140,15 +140,17 @@ public class LevelController {
 	}
 
 	private void drawPath(AbstractLevel level) {
-		List<Position> positions = level.getMap().getPaths().get(0).getPositions();
-		for (int i = 1; i < positions.size(); i++) {
-			Line line1 = new Line(positions.get(i - 1).getX(), positions.get(i - 1).getY(), positions.get(i).getX(),
-					positions.get(i).getY());
-			line1.setStroke(Color.RED);
-			line1.setStrokeWidth(6);
-			pane.getChildren().add(line1);
-		}
 
+		for (Path path : level.getMap().getPaths()) {
+			List<Position> positions = path.getPositions();
+			for (int i = 1; i < positions.size(); i++) {
+				Line line1 = new Line(positions.get(i - 1).getX(), positions.get(i - 1).getY(), positions.get(i).getX(),
+						positions.get(i).getY());
+				line1.setStroke(Color.RED);
+				line1.setStrokeWidth(6);
+				pane.getChildren().add(line1);
+			}
+		}
 	}
 
 	private void coinImageInit() {
