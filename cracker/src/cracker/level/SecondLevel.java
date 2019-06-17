@@ -8,7 +8,7 @@ public class SecondLevel extends AbstractLevel {
 	@Override
 	public void init() {
 		map.setLives(10);
-		map.setMoney(10000);
+		map.setMoney(500);
 		Path path =
 				new Path(new Position(0, 365), new Position(50, 390), new Position(505, 390),
 						new Position(505, 430), new Position(815, 430), new Position(815, 470),
@@ -32,31 +32,31 @@ public class SecondLevel extends AbstractLevel {
 
 
 		addWave(2000, 10000, MobType.SKELETON, 3, path);
-		addWave(13000, 10000, MobType.SLIME, 4, path);
-		addWave(24000, 10000, MobType.GHOST, 10, path);
-		addWave(35000, 10000, MobType.SKELETON, 20, path);
-		addWave(46000, 20000, MobType.SLIME, 10, path);
-		addWave(57000, 10000, MobType.SKELETON, 40, path);
-		addWave(57000, 10000, MobType.GHOST, 15, path);
+		addWave(13000, 10000, MobType.SLIME, 2, path);
+		addWave(24000, 10000, MobType.GHOST, 3, path);
+		addWave(35000, 20000, MobType.SKELETON, 5, path);
+		addWave(46000, 20000, MobType.SLIME, 2, path);
+		addWave(57000, 30000, MobType.SKELETON, 7, path);
+		addWave(57000, 10000, MobType.GHOST, 3, path);
 
 
-		addWave(2000, 10000, MobType.SKELETON, 3, path1);
-		addWave(13000, 10000, MobType.SLIME, 4, path1);
-		addWave(24000, 10000, MobType.GHOST, 10, path1);
-		addWave(35000, 10000, MobType.SKELETON, 20, path1);
-		addWave(46000, 20000, MobType.SLIME, 10, path1);
-		addWave(57000, 10000, MobType.SKELETON, 40, path1);
-		addWave(57000, 10000, MobType.GHOST, 15, path1);
+		addWave(2000, 10000, MobType.SLIME, 1, path1);
+		addWave(13000, 10000, MobType.GHOST, 3, path1);
+		addWave(24000, 10000, MobType.SKELETON, 3, path1);
+		addWave(35000, 10000, MobType.SLIME, 1, path1);
+		addWave(46000, 20000, MobType.SKELETON, 7, path1);
+		addWave(57000, 10000, MobType.GHOST, 3, path1);
+		addWave(57000, 10000, MobType.SLIME, 2, path1);
 
 
 
 		addWave(2000, 10000, MobType.SKELETON, 3, path2);
-		addWave(13000, 10000, MobType.SLIME, 4, path2);
-		addWave(24000, 10000, MobType.GHOST, 10, path2);
-		addWave(35000, 10000, MobType.SKELETON, 20, path2);
-		addWave(46000, 20000, MobType.SLIME, 10, path2);
-		addWave(57000, 10000, MobType.SKELETON, 40, path2);
-		addWave(57000, 10000, MobType.GHOST, 15, path2);
+		addWave(13000, 10000, MobType.SLIME, 1, path2);
+		addWave(24000, 10000, MobType.SKELETON, 4, path2);
+		addWave(35000, 10000, MobType.GHOST, 3, path2);
+		addWave(46000, 20000, MobType.SLIME, 1, path2);
+		addWave(57000, 20000, MobType.SKELETON, 7, path2);
+		addWave(57000, 10000, MobType.SLIME, 2, path2);
 	}
 
 

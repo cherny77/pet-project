@@ -144,7 +144,8 @@ public class LevelController {
 		for (Path path : level.getMap().getPaths()) {
 			List<Position> positions = path.getPositions();
 			for (int i = 1; i < positions.size(); i++) {
-				Line line1 = new Line(positions.get(i - 1).getX(), positions.get(i - 1).getY(), positions.get(i).getX(),
+				Line line1 = new Line(positions.get(i - 1).getX(), positions.get(i - 1).getY(),
+						positions.get(i).getX(),
 						positions.get(i).getY());
 				line1.setStroke(Color.RED);
 				line1.setStrokeWidth(6);
@@ -354,7 +355,7 @@ public class LevelController {
 		}
 		towerCursor.toFront();
 		towerCursor.setX(event.getX() - TOWER_WIDTH / 2);
-		towerCursor.setY(event.getY() - TOWER_HEIGHT / 2);
+		towerCursor.setY(event.getY() - TOWER_HEIGHT);
 
 	}
 
@@ -367,7 +368,7 @@ public class LevelController {
 		imageView.setFitWidth(TOWER_WIDTH);
 
 		imageView.setX(event.getX() - TOWER_WIDTH / 2);
-		imageView.setY(event.getY() - TOWER_HEIGHT / 2);
+		imageView.setY(event.getY() - TOWER_HEIGHT);
 		mobTowerPane.getChildren().add(imageView);
 
 		towerCursor.setVisible(false);
@@ -481,10 +482,10 @@ public class LevelController {
 		playAgainBtn.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				System.out.println(gamePane.getChildren());
 				clear();
 				winPane.setVisible(false);
 				level = new FirstLevel();
+				level.setMoveCallback(() -> sortChildren());
 				level.init();
 				init(level);
 				setBinding();
@@ -566,8 +567,9 @@ public class LevelController {
 
 	private boolean isFreePlace(Position position) {
 		for (Tower tower : level.getMap().getTowers()) {
-			if (Math.abs(Position.getDistance(new Position(tower.getPosition().getX() + TOWER_HEIGHT / 2,
-					tower.getPosition().getY() + TOWER_HEIGHT / 2), position)) < TOWER_HEIGHT)
+			if (Position.getDistance(
+					tower.getPosition(),
+					new Position(position.getX() - TOWER_WIDTH / 2, position.getY() - TOWER_HEIGHT)) < TOWER_HEIGHT/2)
 				return false;
 		}
 		return true;
@@ -581,7 +583,7 @@ public class LevelController {
 						Math.min(minDistance, Position.getDistanceToSegment(position, path.get(i - 1), path.get(i)));
 			}
 		}
-		return (minDistance > TOWER_HEIGHT / 2.5) && isFreePlace(position) && isEnoughMoney();
+		return (minDistance > TOWER_HEIGHT / 4) && isFreePlace(position) && isEnoughMoney();
 	}
 
 	public void onFinish() {

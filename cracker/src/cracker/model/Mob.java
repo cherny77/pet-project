@@ -53,7 +53,7 @@ public class Mob {
 	}
 
 	public void doDamage(double damage) {
-		if (isKilled())
+		if (isKilled() || isFinished())
 			return;
 		health -= damage;
 		if (damageCallback != null) {
