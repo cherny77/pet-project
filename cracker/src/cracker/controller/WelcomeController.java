@@ -2,7 +2,6 @@ package cracker.controller;
 
 import cracker.level.AbstractLevel;
 import cracker.level.FirstLevel;
-import cracker.level.TestLevel;
 import cracker.model.Character;
 import cracker.model.CharacterType;
 import cracker.ui.CharacterView;
@@ -15,8 +14,11 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.util.Duration;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -72,7 +74,7 @@ public class WelcomeController {
 
 
 	public void init() {
-
+		mediaInit();
 		playButtonInit();
 		closeButtonInit();
 		minimizeButtonInit();
@@ -127,6 +129,7 @@ public class WelcomeController {
 	}
 
 	public void onEnteredLeftButton() {
+		buttonClickMedia();
 		Image image = new Image("image/welcome/left-arrow-button-entered.png");
 		leftButton.setImage(image);
 	}
@@ -137,8 +140,27 @@ public class WelcomeController {
 	}
 
 	public void onEnteredRightButton() {
+		buttonClickMedia();
 		Image image = new Image("image/welcome/right-arrow-btn-entered.png");
 		rightButton.setImage(image);
+	}
+
+	private void buttonClickMedia(){
+		File file = new File("res/music/button6.wav");
+		Media media = new Media(file.toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(0.03);
+		mediaPlayer.play();
+	}
+
+	private void mediaInit() {
+		File file = new File("res/music/Bustling-Ancient-City.mp3");
+		Media media = new Media(file.toURI().toString());
+		MediaPlayer mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(0.5);
+		mediaPlayer.setAutoPlay(true);
+		mediaPlayer.setCycleCount(100);
+		mediaPlayer.play();
 	}
 
 	private String getImagePath(String id, String suffix) {
@@ -167,6 +189,8 @@ public class WelcomeController {
 			characterImage.setImage(characters.get(++characterNumber).getImage());
 			getCharacter(characterNumber);
 		}
+
+
 	}
 
 	public void getCharacter(int number) {

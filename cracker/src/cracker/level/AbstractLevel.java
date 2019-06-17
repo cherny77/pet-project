@@ -10,7 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 public abstract class AbstractLevel {
 
-	private static final long PERIOD = 50L;
+	private static final long PERIOD = 10L;
 
 	protected GameMap map = new GameMap();
 	private ScheduledFuture<?> future;
