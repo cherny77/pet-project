@@ -13,22 +13,18 @@ import javafx.fxml.FXML;
 import javafx.scene.ImageCursor;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.shape.CubicCurveTo;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
@@ -96,7 +92,7 @@ public class LevelController {
 		return getImage("/image/mob/" + id.toLowerCase() + ".gif");
 	}
 
-	private  Image getMapImage(String id) {
+	private Image getMapImage(String id) {
 		return getImage("/image/level/" + id + "-background.png");
 	}
 
@@ -113,9 +109,9 @@ public class LevelController {
 		winPane.setVisible(false);
 //		drawPath(level);
 		System.out.println(level.getClass().getSimpleName());
-		level.setCallback(() -> onFinish());
+		level.setWinCallback(() -> onFinish());
 		for (Wave wave : level.getMap().getWaves()) {
-			wave.setStartCallback(()-> setWavesNumber());
+			wave.setStartCallback(() -> setWavesNumber());
 		}
 		coinLabel.setText(String.valueOf(level.getMap().getMoney()));
 		heartLabel.setText(String.valueOf(level.getMap().getLives()));
@@ -138,7 +134,7 @@ public class LevelController {
 		}
 	}
 
-	private void setWavesNumber(){
+	private void setWavesNumber() {
 		level.getMap().setWaveNumber(level.getMap().getWaveNumber() + 1);
 		setWaveLabel();
 	}
@@ -350,7 +346,7 @@ public class LevelController {
 		else
 			towerCursor.setImage(getImage(getTowerButtonImagePath(selectedTower.getId(), "cursor-disabled")));
 		towerCursor.setVisible(true);
-		if (selectedTower.getId().contains("Magic")){
+		if (selectedTower.getId().contains("Magic")) {
 			towerCursor.setFitHeight(TOWER_HEIGHT * 1.1);
 			towerCursor.setFitWidth(TOWER_WIDTH * 1.1);
 		}
@@ -381,14 +377,14 @@ public class LevelController {
 		} else if (selectedTower.getId().toLowerCase().contains("magic")) {
 			tower = new Tower(TowerType.MAGIC, new Position(imageView.getX(), imageView.getY()), level.getMap());
 			imageView.setFitWidth(TOWER_WIDTH * 1.1);
-			imageView.setFitHeight(TOWER_HEIGHT * 1.1 );
+			imageView.setFitHeight(TOWER_HEIGHT * 1.1);
 		} else {
 			tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		}
 		selectedTower = null;
 		pane.setCursor(new ImageCursor(getImage("/image/window/cursor.png")));
-		RangeView rangeView = new RangeView(imageView.getX() + imageView.getFitWidth() / 2,
-				imageView.getY() - -imageView.getFitHeight() / 2, tower.getType().getRange(), rangePane);
+		RangeView rangeView = new RangeView(imageView.getX() + imageView.getFitWidth() / 2, imageView.getY(),
+				tower.getType().getRange(), rangePane);
 		imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
 
 			@Override
@@ -495,6 +491,23 @@ public class LevelController {
 		});
 	}
 
+	public void sortChildren() {
+		Platform.runLater(() -> {
+			List<Node> nodes = new ArrayList<>(mobTowerPane.getChildren());
+			nodes.sort(Comparator.comparing(node -> {
+				if (node instanceof ImageView)
+					return ((ImageView) node).getY();
+				return 0d;
+			}));
+			for (Node node : nodes) {
+				node.toFront();
+			}
+//			mobTowerPane.getChildren().clear();
+//			mobTowerPane.getChildren().addAll(nodes);
+		});
+
+	}
+
 	private void clear() {
 		selectedTower = null;
 		for (Node node : towerBar.getChildren()) {
@@ -537,15 +550,12 @@ public class LevelController {
 		});
 	}
 
-	private boolean isEnoughMoney(){
+	private boolean isEnoughMoney() {
 		if (selectedTower.getId().contains("Magic")) {
 			return level.getMap().getAddMoney() >= TowerType.MAGIC.getCost();
-		}
-		else if (selectedTower.getId().contains("Bomb")) {
+		} else if (selectedTower.getId().contains("Bomb")) {
 			return level.getMap().getAddMoney() >= TowerType.BOMB.getCost();
-		}
-
-		else if (selectedTower.getId().contains("Arrow")) {
+		} else if (selectedTower.getId().contains("Arrow")) {
 			return level.getMap().getAddMoney() >= TowerType.ARROW.getCost();
 		}
 
@@ -555,7 +565,7 @@ public class LevelController {
 	private boolean isFreePlace(Position position) {
 		for (Tower tower : level.getMap().getTowers()) {
 			if (Math.abs(Position.getDistance(new Position(tower.getPosition().getX() + TOWER_HEIGHT / 2,
-					tower.getPosition().getY() + TOWER_HEIGHT / 2), position)) < TOWER_HEIGHT )
+					tower.getPosition().getY() + TOWER_HEIGHT / 2), position)) < TOWER_HEIGHT)
 				return false;
 		}
 		return true;
@@ -569,7 +579,7 @@ public class LevelController {
 						Math.min(minDistance, Position.getDistanceToSegment(position, path.get(i - 1), path.get(i)));
 			}
 		}
-		return (minDistance > TOWER_HEIGHT / 2.5) && isFreePlace(position) && isEnoughMoney() ;
+		return (minDistance > TOWER_HEIGHT / 2.5) && isFreePlace(position) && isEnoughMoney();
 	}
 
 	public void onFinish() {
@@ -585,7 +595,6 @@ public class LevelController {
 				opacityAnimation.setFromValue(0);
 				opacityAnimation.setToValue(100);
 				opacityAnimation.play();
-
 			}
 		});
 	}

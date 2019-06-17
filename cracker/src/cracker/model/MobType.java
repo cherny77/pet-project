@@ -2,9 +2,9 @@ package cracker.model;
 
 public enum MobType {
 
-	GHOST("Ghost", 450, 0.06, 1, 30),
-	SKELETON("Skeleton", 150, 0.15, 1, 10),
-	SLIME("Slime", 1000, 0.03, 2, 50);
+	GHOST("Ghost", 600, 0.06, 1, 30),
+	SKELETON("Skeleton", 150, 0.2, 1, 10),
+	SLIME("Slime", 5000, 0.03, 2, 50);
 
 	private final String name;
 	private final double health;

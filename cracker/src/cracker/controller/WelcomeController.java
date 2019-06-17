@@ -60,6 +60,7 @@ public class WelcomeController {
 		levelController.init(level);
 		levelController.setBinding();
 		level.start();
+		level.setMoveCallback(() -> levelController.sortChildren());
 		FadeTransition fade = new FadeTransition();
 		fade.setDuration(Duration.millis(1000));
 		fade.setFromValue(100);

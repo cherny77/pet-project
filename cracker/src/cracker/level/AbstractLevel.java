@@ -15,7 +15,8 @@ public abstract class AbstractLevel {
 	protected GameMap map = new GameMap();
 	private ScheduledFuture<?> future;
 	private long startTime;
-	private Runnable callback;
+	private Runnable winCallback;
+	private Runnable moveCallback;
 	private boolean isWin;
 
 	public abstract void init();
@@ -41,9 +42,16 @@ public abstract class AbstractLevel {
 				onLoose();
 				stop();
 			}
+			if (moveCallback != null) {
+				moveCallback.run();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setMoveCallback(Runnable moveCallback) {
+		this.moveCallback = moveCallback;
 	}
 
 	public void stop() {
@@ -53,9 +61,9 @@ public abstract class AbstractLevel {
 
 	public void onWin() {
 		isWin = true;
-		System.out.println(callback);
-		if (callback != null) {
-			callback.run();
+		System.out.println(winCallback);
+		if (winCallback != null) {
+			winCallback.run();
 		}
 
 		System.out.println("You win!");
@@ -64,14 +72,14 @@ public abstract class AbstractLevel {
 	public void onLoose() {
 		isWin = false;
 
-		if (callback != null) {
-			callback.run();
+		if (winCallback != null) {
+			winCallback.run();
 		}
 
 		System.out.println("You loose!");
 	}
 
-	protected  void addWave(long start, long duration, MobType mobType, int size, Path path) {
+	protected void addWave(long start, long duration, MobType mobType, int size, Path path) {
 		ArrayList<Mob> mobs = new ArrayList<>();
 		for (int i = 0; i < size; i++) {
 			Mob mob = new Mob(mobType, path);
@@ -93,7 +101,7 @@ public abstract class AbstractLevel {
 		return map.getExecutor();
 	}
 
-	public void setCallback(Runnable callback) {
-		this.callback = callback;
+	public void setWinCallback(Runnable winCallback) {
+		this.winCallback = winCallback;
 	}
 }
