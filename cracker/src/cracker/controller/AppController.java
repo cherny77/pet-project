@@ -9,6 +9,12 @@ public class AppController {
 	LevelController levelController;
 	@FXML
 	WelcomeController welcomeController;
+	@FXML
+	SettingsController settingsController;
+
+	public SettingsController getSettingsController() {
+		return settingsController;
+	}
 
 	public LevelController getLevelController() {
 		return levelController;
@@ -19,6 +25,7 @@ public class AppController {
 	}
 
 	public void init() {
+		settingsController.init();
 		welcomeController.setLevelController(levelController);
 		welcomeController.init();
 		levelController.setWelcomeController(welcomeController);

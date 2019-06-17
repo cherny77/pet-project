@@ -9,6 +9,7 @@
             prefHeight="868" prefWidth="1024">
     <fx:include fx:id="level" source="level.fxml"/>
     <fx:include fx:id="welcome" source="welcome.fxml"/>
+    <fx:include fx:id="settings" source="settings.fxml"/>
 
 
 </AnchorPane>

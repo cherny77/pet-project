@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'DPComic';
+    src: url('dpcomic.ttf');
+}
+
+.label {
+    -fx-font-family: 'DPComic';
+}

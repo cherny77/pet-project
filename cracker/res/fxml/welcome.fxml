@@ -55,17 +55,17 @@
       </ImageView>
       <ImageView fx:id="gearWheel" fitHeight="75.0" fitWidth="75.0" layoutX="792.0" layoutY="297.0">
          <image>
-            <Image url="@../image/welcome/gear-wheel.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="868.0" fitWidth="1024.0">
-         <image>
-            <Image url="@../image/welcome/welcome-frame.png" />
+            <Image url="@../image/welcome/settings/gear-wheel.png" />
          </image>
       </ImageView>
       <ImageView fitHeight="199.0" fitWidth="236.0" layoutX="128.0" layoutY="410.0">
          <image>
             <Image url="@../image/welcome/cracker-logo.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="868.0" fitWidth="1024.0">
+         <image>
+            <Image url="@../image/welcome/welcome-frame.png" />
          </image>
       </ImageView>
       <ImageView fx:id="crossView" fitHeight="23.0" fitWidth="23.0" layoutX="960.0" layoutY="11.0">

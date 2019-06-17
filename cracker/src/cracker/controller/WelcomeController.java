@@ -51,6 +51,8 @@ public class WelcomeController {
 	@FXML
 	private ImageView playButton;
 	private AbstractLevel level;
+	int soundLevel;
+	int musicLevel;
 
 	@FXML
 	public void onPlay() {
@@ -151,7 +153,7 @@ public class WelcomeController {
 		File file = new File("res/music/button6.wav");
 		Media media = new Media(file.toURI().toString());
 		MediaPlayer mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.setVolume(0.03);
+		mediaPlayer.setVolume(soundLevel/10.0);
 		mediaPlayer.play();
 	}
 
@@ -159,7 +161,7 @@ public class WelcomeController {
 		File file = new File("res/music/Bustling-Ancient-City.mp3");
 		Media media = new Media(file.toURI().toString());
 		MediaPlayer mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.setVolume(0.5);
+		mediaPlayer.setVolume(Math.min(soundLevel/10.0, musicLevel/10.0 ));
 		mediaPlayer.setAutoPlay(true);
 		mediaPlayer.setCycleCount(100);
 		mediaPlayer.play();

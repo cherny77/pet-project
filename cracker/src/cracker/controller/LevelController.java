@@ -81,6 +81,15 @@ public class LevelController {
 	private ImageView background;
 	private Map<String, Image> images = new HashMap<>();
 
+	@FXML
+	private Label arrowLabel;
+
+	@FXML
+	private Label magicLabel;
+
+	@FXML
+	private Label bombLabel;
+
 	private Image getImage(String path) {
 		if (!images.containsKey(path)) {
 			images.put(path, new Image(path));
@@ -105,6 +114,9 @@ public class LevelController {
 	}
 
 	public void init(AbstractLevel level) {
+		arrowLabel.setText(String.valueOf(TowerType.ARROW.getCost()));
+		bombLabel.setText(String.valueOf(TowerType.BOMB.getCost()));
+		magicLabel.setText(String.valueOf(TowerType.MAGIC.getCost()));
 		clear();
 		winPane.setVisible(false);
 //		drawPath(level);
@@ -115,11 +127,11 @@ public class LevelController {
 		}
 		coinLabel.setText(String.valueOf(level.getMap().getMoney()));
 		heartLabel.setText(String.valueOf(level.getMap().getLives()));
-
+		waveLabel.setText("0/" + level.getMap().getWaves().size());
 		towerCursor = new ImageView();
 		towerCursor.setFitHeight(TOWER_HEIGHT);
 		towerCursor.setFitWidth(TOWER_WIDTH);
-		mobTowerPane.getChildren().add(towerCursor);
+		gamePane.getChildren().add(towerCursor);
 		towerCursor.setVisible(false);
 		this.level = level;
 		background.setImage(getMapImage(this.level.getClass().getSimpleName()));
@@ -227,6 +239,7 @@ public class LevelController {
 	}
 
 	public void setBinding() {
+
 		setPlayAgainBtn();
 		coinImageInit();
 		minimizeButtonInit();
