@@ -114,7 +114,7 @@ public class GameMap {
 	}
 
 	public int getRemainedLives() {
-		return lives - getWastedLives();
+		return lives - getWastedLives() < 0 ? 0 : lives - getWastedLives();
 	}
 
 	public boolean isFinished() {
