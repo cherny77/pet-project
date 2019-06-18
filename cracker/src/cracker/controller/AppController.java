@@ -28,13 +28,14 @@ public class AppController {
 		welcomeController.setSettingsController(settingsController);
 		settingsController.setLevelController(levelController);
 		settingsController.setWelcomeController(welcomeController);
-		settingsController.init();
 		welcomeController.setLevelController(levelController);
 		welcomeController.init();
+		settingsController.init();
 		levelController.setWelcomeController(welcomeController);
 		Image image = new Image("/image/window/cursor.png");
 		levelController.getPane().setCursor(new ImageCursor(image));
 		welcomeController.getWelcomePane().setCursor(new ImageCursor(image));
+		settingsController.getSettingPane().setCursor(new ImageCursor(image));
 
 	}
 }

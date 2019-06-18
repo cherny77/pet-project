@@ -634,5 +634,8 @@ public class LevelController {
 		});
 	}
 
+	public void setLevel(AbstractLevel level) {
+		this.level = level;
+	}
 }
 

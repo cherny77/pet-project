@@ -62,17 +62,21 @@ public class WelcomeController {
 		File file = new File("res/music/button6.wav");
 		Media media = new Media(file.toURI().toString());
 		mediaPlayerOnClick = new MediaPlayer(media);
-		mediaPlayerOnClick.setVolume(soundLevel / 10.0);
+		mediaPlayerOnClick.setVolume(soundLevel / 1000.0);
+	}
+
+	public void setLevel(AbstractLevel level) {
+		this.level = level;
 	}
 
 	@FXML
 	public void onPlay() {
 		if (level != null && level.isRunning())
 			return;
-		level = new SecondLevel();
-		levelController.setCharacter(characters.get(characterNumber).getCharacter());
 		level.init();
 		levelController.init(level);
+		levelController.setCharacter(characters.get(characterNumber).getCharacter());
+
 		levelController.setBinding();
 		level.start();
 		level.setMoveCallback(() -> levelController.sortChildren());
@@ -108,6 +112,8 @@ public class WelcomeController {
 	}
 
 	public void init() {
+		level = new SecondLevel();
+		levelController.setLevel(level);
 		mediaInit();
 		playButtonInit();
 		closeButtonInit();
