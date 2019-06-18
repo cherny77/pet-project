@@ -309,7 +309,7 @@ public class LevelController {
 		Platform.runLater(new Runnable() {
 			@Override
 			public void run() {
-				coinLabel.setText(String.valueOf(level.getMap().getAddMoney()));
+				coinLabel.setText(String.valueOf(level.getMap().getBalance()));
 			}
 		});
 	}
@@ -433,7 +433,7 @@ public class LevelController {
 			}
 		});
 		level.getMap().addTower(tower);
-		coinLabel.setText(String.valueOf(level.getMap().getAddMoney()));
+		coinLabel.setText(String.valueOf(level.getMap().getBalance()));
 		tower.setCallback(this::onFire);
 	}
 
@@ -588,11 +588,11 @@ public class LevelController {
 
 	private boolean isEnoughMoney() {
 		if (selectedTower.getId().contains("Magic")) {
-			return level.getMap().getAddMoney() >= TowerType.MAGIC.getCost();
+			return level.getMap().getBalance() >= TowerType.MAGIC.getCost();
 		} else if (selectedTower.getId().contains("Bomb")) {
-			return level.getMap().getAddMoney() >= TowerType.BOMB.getCost();
+			return level.getMap().getBalance() >= TowerType.BOMB.getCost();
 		} else if (selectedTower.getId().contains("Arrow")) {
-			return level.getMap().getAddMoney() >= TowerType.ARROW.getCost();
+			return level.getMap().getBalance() >= TowerType.ARROW.getCost();
 		}
 
 		return false;

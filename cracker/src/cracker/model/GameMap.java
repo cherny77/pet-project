@@ -87,18 +87,19 @@ public class GameMap {
 		return counter;
 	}
 
-	public int getAddMoney() {
-		int addMoney = money;
+	// TODO reimplement this without dynamic calculations
+	public int getBalance() {
+		int balance = money;
 		for (Wave wave : waves) {
 			for (Mob mob : wave.getMobs()) {
 				if (mob.isKilled())
-					addMoney += mob.getType().getCost();
+					balance += mob.getType().getCost();
 			}
 		}
 		for (Tower tower : towers) {
-			addMoney -= Mods.getInstance().getTowerCostMode().mode() * tower.getType().getCost();
+			balance -= Mods.getInstance().getTowerCostMode().mode() * tower.getType().getCost();
 		}
-		return addMoney;
+		return balance;
 	}
 
 	public void setWaveNumber(int waveNumber) {
