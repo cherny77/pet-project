@@ -1,7 +1,6 @@
 package cracker.controller;
 
 import cracker.level.AbstractLevel;
-import cracker.level.FirstLevel;
 import cracker.level.SecondLevel;
 import cracker.model.Character;
 import cracker.model.CharacterType;
@@ -51,14 +50,27 @@ public class WelcomeController {
 	@FXML
 	private ImageView playButton;
 	private AbstractLevel level;
-	int soundLevel;
-	int musicLevel;
+	private int soundLevel;
+	private int musicLevel;
+	private MediaPlayer mediaPlayer;
+	private MediaPlayer mediaPlayerOnClick;
+	private SettingsController settingsController;
+
+	@FXML
+	public void changeVolume() {
+		mediaPlayer.setVolume(Math.min(soundLevel / 10.0, musicLevel / 10.0));
+		File file = new File("res/music/button6.wav");
+		Media media = new Media(file.toURI().toString());
+		mediaPlayerOnClick = new MediaPlayer(media);
+		mediaPlayerOnClick.setVolume(soundLevel / 10.0);
+	}
 
 	@FXML
 	public void onPlay() {
 		if (level != null && level.isRunning())
 			return;
 		level = new SecondLevel();
+		levelController.setCharacter(characters.get(characterNumber).getCharacter());
 		level.init();
 		levelController.init(level);
 		levelController.setBinding();
@@ -75,7 +87,25 @@ public class WelcomeController {
 		executor.schedule(() -> Platform.runLater(() -> welcomePane.setVisible(false)), 1000, TimeUnit.MILLISECONDS);
 	}
 
+	public int getSoundLevel() {
+		return soundLevel;
+	}
 
+	public void setSoundLevel(int soundLevel) {
+		this.soundLevel = soundLevel;
+	}
+
+	public int getMusicLevel() {
+		return musicLevel;
+	}
+
+	public void setMusicLevel(int musicLevel) {
+		this.musicLevel = musicLevel;
+	}
+
+	public void setSettingsController(SettingsController settingsController) {
+		this.settingsController = settingsController;
+	}
 
 	public void init() {
 		mediaInit();
@@ -149,19 +179,19 @@ public class WelcomeController {
 		rightButton.setImage(image);
 	}
 
-	private void buttonClickMedia(){
+	private void buttonClickMedia() {
 		File file = new File("res/music/button6.wav");
 		Media media = new Media(file.toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.setVolume(soundLevel/10.0);
-		mediaPlayer.play();
+		mediaPlayerOnClick = new MediaPlayer(media);
+		mediaPlayerOnClick.setVolume(soundLevel / 10.0);
+		mediaPlayerOnClick.play();
 	}
 
 	private void mediaInit() {
 		File file = new File("res/music/Bustling-Ancient-City.mp3");
 		Media media = new Media(file.toURI().toString());
-		MediaPlayer mediaPlayer = new MediaPlayer(media);
-		mediaPlayer.setVolume(Math.min(soundLevel/10.0, musicLevel/10.0 ));
+		mediaPlayer = new MediaPlayer(media);
+		mediaPlayer.setVolume(Math.min(soundLevel / 10.0, musicLevel / 10.0));
 		mediaPlayer.setAutoPlay(true);
 		mediaPlayer.setCycleCount(100);
 		mediaPlayer.play();
@@ -193,7 +223,6 @@ public class WelcomeController {
 			characterImage.setImage(characters.get(++characterNumber).getImage());
 			getCharacter(characterNumber);
 		}
-
 
 	}
 
@@ -279,4 +308,9 @@ public class WelcomeController {
 			}
 		});
 	}
+
+	public void clickOnGear() {
+		settingsController.open();
+	}
+
 }

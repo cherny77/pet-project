@@ -25,6 +25,9 @@ public class AppController {
 	}
 
 	public void init() {
+		welcomeController.setSettingsController(settingsController);
+		settingsController.setLevelController(levelController);
+		settingsController.setWelcomeController(welcomeController);
 		settingsController.init();
 		welcomeController.setLevelController(levelController);
 		welcomeController.init();

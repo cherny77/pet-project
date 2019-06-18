@@ -53,7 +53,7 @@
             <Image url="@../image/welcome/knight-name.png" />
          </image>
       </ImageView>
-      <ImageView fx:id="gearWheel" fitHeight="75.0" fitWidth="75.0" layoutX="792.0" layoutY="297.0">
+      <ImageView fx:id="gearWheel" fitHeight="75.0" fitWidth="75.0" layoutX="792.0" layoutY="297.0" onMouseClicked="#clickOnGear">
          <image>
             <Image url="@../image/welcome/settings/gear-wheel.png" />
          </image>

@@ -3,6 +3,7 @@ package cracker.controller;
 import cracker.level.AbstractLevel;
 import cracker.level.FirstLevel;
 import cracker.model.*;
+import cracker.model.Character;
 import cracker.ui.MobView;
 import cracker.ui.RangeView;
 import javafx.animation.FadeTransition;
@@ -23,6 +24,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+
 
 import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
@@ -80,6 +82,7 @@ public class LevelController {
 	@FXML
 	private ImageView background;
 	private Map<String, Image> images = new HashMap<>();
+	private Character character;
 
 	@FXML
 	private Label arrowLabel;
@@ -90,11 +93,18 @@ public class LevelController {
 	@FXML
 	private Label bombLabel;
 
+	private Complexity complexity = Complexity.NORMAL;
+
+
 	private Image getImage(String path) {
 		if (!images.containsKey(path)) {
 			images.put(path, new Image(path));
 		}
 		return images.get(path);
+	}
+
+	public void setCharacter(Character character) {
+		this.character = character;
 	}
 
 	private Image getMobImage(String id) {
@@ -111,6 +121,14 @@ public class LevelController {
 
 	public void setWelcomeController(WelcomeController welcomeController) {
 		this.welcomeController = welcomeController;
+	}
+
+	public Complexity getComplexity() {
+		return complexity;
+	}
+
+	public void setComplexity(Complexity complexity) {
+		this.complexity = complexity;
 	}
 
 	public void init(AbstractLevel level) {
