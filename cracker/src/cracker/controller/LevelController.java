@@ -134,9 +134,7 @@ public class LevelController {
 	}
 
 	public void init(AbstractLevel level) {
-		arrowLabel.setText(String.valueOf(TowerType.ARROW.getCost()));
-		bombLabel.setText(String.valueOf(TowerType.BOMB.getCost()));
-		magicLabel.setText(String.valueOf(TowerType.MAGIC.getCost()));
+
 		clear();
 		winPane.setVisible(false);
 //		drawPath(level);
@@ -154,6 +152,9 @@ public class LevelController {
 		gamePane.getChildren().add(towerCursor);
 		towerCursor.setVisible(false);
 		this.level = level;
+		arrowLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode() * TowerType.ARROW.getCost()));
+		bombLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode() * TowerType.BOMB.getCost()));
+		magicLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode() * TowerType.MAGIC.getCost()));
 		background.setImage(getMapImage(this.level.getClass().getSimpleName()));
 		List<Wave> waves = level.getMap().getWaves();
 		for (Wave wave : waves) {
@@ -393,7 +394,7 @@ public class LevelController {
 	}
 
 	public void addTower(MouseEvent event) {
-
+		System.out.println(character.getType());
 		String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
 		Image image = getImage(imagePath);
 		ImageView imageView = new ImageView(image);
@@ -585,14 +586,13 @@ public class LevelController {
 			}
 		});
 	}
-
 	private boolean isEnoughMoney() {
 		if (selectedTower.getId().contains("Magic")) {
-			return level.getMap().getBalance() >= TowerType.MAGIC.getCost();
+			return level.getMap().getBalance() >= Mods.getInstance().getTowerCostMode().mode() *TowerType.MAGIC.getCost();
 		} else if (selectedTower.getId().contains("Bomb")) {
-			return level.getMap().getBalance() >= TowerType.BOMB.getCost();
+			return level.getMap().getBalance() >= Mods.getInstance().getTowerCostMode().mode() *TowerType.BOMB.getCost();
 		} else if (selectedTower.getId().contains("Arrow")) {
-			return level.getMap().getBalance() >= TowerType.ARROW.getCost();
+			return level.getMap().getBalance() >= Mods.getInstance().getTowerCostMode().mode() *TowerType.ARROW.getCost();
 		}
 
 		return false;
