@@ -105,6 +105,7 @@ public class LevelController {
 
 	public void setCharacter(Character character) {
 		this.character = character;
+		Mods.getInstance().setCharacterType(character.getType());
 	}
 
 	private Image getMobImage(String id) {
@@ -129,6 +130,7 @@ public class LevelController {
 
 	public void setComplexity(Complexity complexity) {
 		this.complexity = complexity;
+		Mods.getInstance().setComplexity(complexity);
 	}
 
 	public void init(AbstractLevel level) {

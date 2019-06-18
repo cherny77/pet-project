@@ -41,11 +41,13 @@ public class Tower {
 		}
 		map.getExecutor().schedule(() -> {
 			if (type.getProjectileType().getSplash() == 0) {
-				mob.doDamage(type.getDamage());
+				mob.doDamage(Mods.getInstance().getDamageMode().mode(type.getProjectileType(), mob.getType()) *
+						type.getDamage());
 			} else {
 				List<Mob> splashedMobs = getSplashedMobs(strikePosition);
 				for (Mob m : splashedMobs) {
-					m.doDamage(type.getDamage() * (splash - Position.getDistance(m.getPosition(), strikePosition)) /
+					m.doDamage(Mods.getInstance().getDamageMode().mode(type.getProjectileType(), m.getType()) *
+							type.getDamage() * (splash - Position.getDistance(m.getPosition(), strikePosition)) /
 							splash);
 				}
 			}

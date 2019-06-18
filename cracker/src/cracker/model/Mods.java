@@ -17,7 +17,7 @@ public class Mods {
 		towerCostMode = new TowerCostMode();
 	}
 
-	public Mods getInstance() {
+	public static Mods getInstance() {
 		return ModsProvider.INSTANCE;
 	}
 
@@ -49,7 +49,7 @@ public class Mods {
 		private static final Mods INSTANCE = new Mods();
 	}
 
-	private class DamageMode {
+	public class DamageMode {
 		private final Map<CharacterType, Double> characterTypes;
 		private final Map<Complexity, Double> complexities;
 		private final Map<ProjectileType, Map<MobType, Double>> projectileToMobs;
@@ -100,7 +100,7 @@ public class Mods {
 		}
 	}
 
-	private class TowerCostMode {
+	public class TowerCostMode {
 		private final Map<CharacterType, Double> characterTypes;
 		private final Map<Complexity, Double> complexities;
 

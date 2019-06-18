@@ -96,7 +96,7 @@ public class GameMap {
 			}
 		}
 		for (Tower tower : towers) {
-			addMoney -= tower.getType().getCost();
+			addMoney -= Mods.getInstance().getTowerCostMode().mode() * tower.getType().getCost();
 		}
 		return addMoney;
 	}
