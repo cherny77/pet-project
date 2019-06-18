@@ -319,4 +319,7 @@ public class WelcomeController {
 		settingsController.open();
 	}
 
+	public AbstractLevel getLevel() {
+		return level;
+	}
 }

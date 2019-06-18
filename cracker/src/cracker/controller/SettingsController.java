@@ -65,14 +65,7 @@ public class SettingsController {
 		levels.add(testLevel);
 		levels.add(firstLevel);
 		levels.add(secondLevel);
-		for (int i = 0; i < levels.size(); i++) {
-			if (levels.get(i).getClass().getSimpleName()
-					.equals(levelController.getLevel().getClass().getSimpleName())) {
-				mapNumber = i;
-			}
-		}
-		mapView.setImage(getMapImage(levels.get(mapNumber).getClass().getSimpleName()));
-		chapterLabel.setText("Chapter " + mapNumber);
+		setLevel();
 	}
 
 	public void open() {
@@ -88,7 +81,18 @@ public class SettingsController {
 			onMediumButtonClicked();
 		else
 			onHardButtonClicked();
+		setLevel();
 
+	}
+	private void setLevel() {
+		for (int i = 0; i < levels.size(); i++) {
+			if (levels.get(i).getClass().getSimpleName()
+					.equals(welcomeController.getLevel().getClass().getSimpleName())) {
+				mapNumber = i;
+			}
+		}
+		mapView.setImage(getMapImage(levels.get(mapNumber).getClass().getSimpleName()));
+		chapterLabel.setText("Chapter " + mapNumber);
 	}
 
 	public void setWelcomeController(WelcomeController welcomeController) {
