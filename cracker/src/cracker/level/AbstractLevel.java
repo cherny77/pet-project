@@ -104,4 +104,7 @@ public abstract class AbstractLevel {
 	public void setWinCallback(Runnable winCallback) {
 		this.winCallback = winCallback;
 	}
+
+
+	public abstract AbstractLevel getLevel();
 }

@@ -514,8 +514,8 @@ public class LevelController {
 			@Override
 			public void handle(MouseEvent event) {
 				clear();
+				level = level.getLevel();
 				winPane.setVisible(false);
-				level = new FirstLevel();
 				level.setMoveCallback(() -> sortChildren());
 				level.init();
 				init(level);
@@ -630,6 +630,7 @@ public class LevelController {
 				opacityAnimation.setFromValue(0);
 				opacityAnimation.setToValue(100);
 				opacityAnimation.play();
+				gamePane.getChildren().remove(towerCursor);
 			}
 		});
 	}

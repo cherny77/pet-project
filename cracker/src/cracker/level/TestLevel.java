@@ -18,5 +18,9 @@ public class TestLevel extends AbstractLevel {
 
 		addWave(2000, 1000000, MobType.SLIME, 5, path);
 	}
+	@Override
+	public TestLevel getLevel(){
+		return new TestLevel();
+	}
 
 }

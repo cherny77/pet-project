@@ -4,6 +4,8 @@ import cracker.model.MobType;
 import cracker.model.Path;
 import cracker.model.Position;
 
+import java.util.logging.Level;
+
 public class SecondLevel extends AbstractLevel {
 	@Override
 	public void init() {
@@ -57,6 +59,10 @@ public class SecondLevel extends AbstractLevel {
 		addWave(46000, 20000, MobType.SLIME, 1, path2);
 		addWave(57000, 20000, MobType.SKELETON, 7, path2);
 		addWave(57000, 10000, MobType.SLIME, 2, path2);
+	}
+	@Override
+	public SecondLevel getLevel(){
+		return new SecondLevel();
 	}
 
 

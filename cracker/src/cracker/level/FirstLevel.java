@@ -22,6 +22,10 @@ public class FirstLevel extends AbstractLevel {
 		addWave(57000, 10000, MobType.SKELETON, 40, path);
 		addWave(57000, 10000, MobType.GHOST, 15, path);
 	}
+	@Override
+	public FirstLevel getLevel(){
+		return new FirstLevel();
+	}
 
 
 }
