@@ -58,7 +58,7 @@ public class WelcomeController {
 
 	@FXML
 	public void changeVolume() {
-		mediaPlayer.setVolume(Math.min(soundLevel / 10.0, musicLevel / 10.0));
+		mediaPlayer.setVolume( musicLevel / 10.0);
 		File file = new File("res/music/button6.wav");
 		Media media = new Media(file.toURI().toString());
 		mediaPlayerOnClick = new MediaPlayer(media);
