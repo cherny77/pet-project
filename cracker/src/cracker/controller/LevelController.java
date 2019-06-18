@@ -1,9 +1,8 @@
 package cracker.controller;
 
 import cracker.level.AbstractLevel;
-import cracker.level.FirstLevel;
-import cracker.model.*;
 import cracker.model.Character;
+import cracker.model.*;
 import cracker.ui.MobView;
 import cracker.ui.RangeView;
 import javafx.animation.FadeTransition;
@@ -25,7 +24,10 @@ import javafx.scene.shape.MoveTo;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.*;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -82,6 +84,8 @@ public class LevelController {
 	@FXML
 	private ImageView background;
 	private Map<String, Image> images = new HashMap<>();
+	private Map<String, byte[]> bytes = new HashMap<>();
+
 	private Character character;
 
 	@FXML
@@ -95,12 +99,23 @@ public class LevelController {
 
 	private Complexity complexity = Complexity.NORMAL;
 
-
-	private Image getImage(String path) {
+	private Image getCachedImage(String path) {
 		if (!images.containsKey(path)) {
 			images.put(path, new Image(path));
 		}
 		return images.get(path);
+	}
+
+	private Image getImage(String path) {
+		try {
+			if (!bytes.containsKey(path)) {
+				bytes.put(path, Files.readAllBytes(Paths.get("res/" + path)));
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Image img = new Image(new ByteArrayInputStream(bytes.get(path)));
+		return img;
 	}
 
 	public void setCharacter(Character character) {
@@ -109,11 +124,11 @@ public class LevelController {
 	}
 
 	private Image getMobImage(String id) {
-		return getImage("/image/mob/" + id.toLowerCase() + ".gif");
+		return getCachedImage("/image/mob/" + id.toLowerCase() + ".gif");
 	}
 
 	private Image getMapImage(String id) {
-		return getImage("/image/level/" + id + "-background.png");
+		return getCachedImage("/image/level/" + id + "-background.png");
 	}
 
 	public AnchorPane getPane() {
@@ -191,14 +206,14 @@ public class LevelController {
 		coinView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				coinView.setImage(getImage("/image/info-panel/coin-icon.png"));
+				coinView.setImage(getCachedImage("/image/info-panel/coin-icon.png"));
 			}
 		});
 
 		coinView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				coinView.setImage(getImage("/image/info-panel/coin-icon-animated.gif"));
+				coinView.setImage(getCachedImage("/image/info-panel/coin-icon-animated.gif"));
 			}
 		});
 	}
@@ -216,14 +231,14 @@ public class LevelController {
 		minimizeView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(getImage("/image/window/line.png"));
+				minimizeView.setImage(getCachedImage("/image/window/line.png"));
 			}
 		});
 
 		minimizeView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				minimizeView.setImage(getImage("/image/window/line-entered.png"));
+				minimizeView.setImage(getCachedImage("/image/window/line-entered.png"));
 			}
 		});
 
@@ -240,14 +255,14 @@ public class LevelController {
 		crossView.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(getImage("/image/window/cross-entered.png"));
+				crossView.setImage(getCachedImage("/image/window/cross-entered.png"));
 			}
 		});
 
 		crossView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				crossView.setImage(getImage("/image/window/cross.png"));
+				crossView.setImage(getCachedImage("/image/window/cross.png"));
 			}
 		});
 
@@ -271,7 +286,7 @@ public class LevelController {
 		controlFrame.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				pane.setCursor(new ImageCursor(getImage("/image/window/cursor.png")));
+				pane.setCursor(new ImageCursor(getCachedImage("/image/window/cursor.png")));
 			}
 		});
 		gamePane.setOnMouseMoved(new EventHandler<MouseEvent>() {
@@ -331,18 +346,18 @@ public class LevelController {
 				public void handle(MouseEvent event) {
 					if (selectedTower != towerView) {
 						selectedTower = event.getPickResult().getIntersectedNode();
-						Image image = getImage(getTowerButtonImagePath(selectedTower.getId(), "selected"));
+						Image image = getCachedImage(getTowerButtonImagePath(selectedTower.getId(), "selected"));
 
 						towerView.setImage(image);
 						for (Node node1 : towerBar.getChildren()) {
 							if (node1 != selectedTower) {
-								Image image1 = getImage(getTowerButtonImagePath(node1.getId(), "exited"));
+								Image image1 = getCachedImage(getTowerButtonImagePath(node1.getId(), "exited"));
 								((ImageView) node1).setImage(image1);
 
 							}
 						}
 					} else {
-						Image image = getImage(getTowerButtonImagePath(selectedTower.getId(), "exited"));
+						Image image = getCachedImage(getTowerButtonImagePath(selectedTower.getId(), "exited"));
 						selectedTower = null;
 						towerView.setImage(image);
 						towerCursor.setVisible(false);
@@ -354,7 +369,7 @@ public class LevelController {
 				@Override
 				public void handle(MouseEvent event) {
 					if (selectedTower != towerView) {
-						Image image = getImage(getTowerButtonImagePath(towerView.getId(), "exited"));
+						Image image = getCachedImage(getTowerButtonImagePath(towerView.getId(), "exited"));
 						towerView.setImage(image);
 					}
 				}
@@ -362,10 +377,10 @@ public class LevelController {
 			towerView.setOnMouseEntered(new EventHandler<MouseEvent>() {
 				@Override
 				public void handle(MouseEvent event) {
-					pane.setCursor(new ImageCursor(getImage("/image/window/cursor.png")));
+					pane.setCursor(new ImageCursor(getCachedImage("/image/window/cursor.png")));
 
 					if (selectedTower != towerView) {
-						Image image = getImage(getTowerButtonImagePath(towerView.getId(), "entered"));
+						Image image = getCachedImage(getTowerButtonImagePath(towerView.getId(), "entered"));
 						towerView.setImage(image);
 					}
 				}
@@ -379,9 +394,9 @@ public class LevelController {
 		towerCursor.setFitWidth(TOWER_WIDTH);
 
 		if (checkIntersectionWithPaths(new Position(event.getSceneX(), event.getSceneY())))
-			towerCursor.setImage(getImage(getTowerButtonImagePath(selectedTower.getId(), "cursor-enabled")));
+			towerCursor.setImage(getCachedImage(getTowerButtonImagePath(selectedTower.getId(), "cursor-enabled")));
 		else
-			towerCursor.setImage(getImage(getTowerButtonImagePath(selectedTower.getId(), "cursor-disabled")));
+			towerCursor.setImage(getCachedImage(getTowerButtonImagePath(selectedTower.getId(), "cursor-disabled")));
 		towerCursor.setVisible(true);
 		if (selectedTower.getId().contains("Magic")) {
 			towerCursor.setFitHeight(TOWER_HEIGHT * 1.1);
@@ -396,7 +411,7 @@ public class LevelController {
 	public void addTower(MouseEvent event) {
 		System.out.println(character.getType());
 		String imagePath = getTowerImagePath(selectedTower.getId(), "tower");
-		Image image = getImage(imagePath);
+		Image image = getCachedImage(imagePath);
 		ImageView imageView = new ImageView(image);
 		imageView.setFitHeight(TOWER_HEIGHT);
 		imageView.setFitWidth(TOWER_WIDTH);
@@ -407,7 +422,7 @@ public class LevelController {
 
 		towerCursor.setVisible(false);
 
-		((ImageView) selectedTower).setImage(getImage(getTowerButtonImagePath(selectedTower.getId(), "exited")));
+		((ImageView) selectedTower).setImage(getCachedImage(getTowerButtonImagePath(selectedTower.getId(), "exited")));
 		Tower tower;
 		if (selectedTower.getId().toLowerCase().contains("bomb")) {
 			tower = new Tower(TowerType.BOMB, new Position(imageView.getX(), imageView.getY()), level.getMap());
@@ -419,7 +434,7 @@ public class LevelController {
 			tower = new Tower(TowerType.ARROW, new Position(imageView.getX(), imageView.getY()), level.getMap());
 		}
 		selectedTower = null;
-		pane.setCursor(new ImageCursor(getImage("/image/window/cursor.png")));
+		pane.setCursor(new ImageCursor(getCachedImage("/image/window/cursor.png")));
 		RangeView rangeView = new RangeView(imageView.getX() + imageView.getFitWidth() / 2, imageView.getY(),
 				tower.getType().getRange(), rangePane);
 		imageView.setOnMouseClicked(new EventHandler<MouseEvent>() {
@@ -443,7 +458,7 @@ public class LevelController {
 	}
 
 	public void onFire(Projectile projectile) {
-		Image image = getImage(getProjectileImagePath(projectile.getProjectileType()));
+		Image image = getCachedImage(getProjectileImagePath(projectile.getProjectileType()));
 		ImageView imageView = new ImageView(image);
 		imageView.setX(projectile.getStartPosition().getX());
 		imageView.setX(projectile.getStartPosition().getY());
@@ -471,13 +486,13 @@ public class LevelController {
 		ScheduledExecutorService executor = getLevel().getExecutor();
 		if (projectile.getProjectileType().equals(ProjectileType.BOMB)) {
 			executor.schedule(
-					() -> Platform.runLater(() -> imageView.setImage(new Image("image/projectile/bomb-explosion.gif"))),
+					() -> Platform.runLater(() -> imageView.setImage(getImage("image/projectile/bomb-explosion.gif"))),
 					projectile.getDuration(), TimeUnit.MILLISECONDS);
 			executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
 					projectile.getDuration() + 1000, TimeUnit.MILLISECONDS);
 		} else if (projectile.getProjectileType().equals(ProjectileType.MAGIC)) {
-			executor.schedule(() -> Platform
-							.runLater(() -> imageView.setImage(new Image("image/projectile/magic-explosion.gif"))),
+			executor.schedule(
+					() -> Platform.runLater(() -> imageView.setImage(getImage("image/projectile/magic-explosion.gif"))),
 					projectile.getDuration(), TimeUnit.MILLISECONDS);
 			executor.schedule(() -> Platform.runLater(() -> progectilePane.getChildren().remove(imageView)),
 					projectile.getDuration() + 1000, TimeUnit.MILLISECONDS);
@@ -498,18 +513,22 @@ public class LevelController {
 		return level;
 	}
 
+	public void setLevel(AbstractLevel level) {
+		this.level = level;
+	}
+
 	private void setPlayAgainBtn() {
 		playAgainBtn.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playAgainBtn.setImage(getImage("image/end-game/play-again-btn-entered.png"));
+				playAgainBtn.setImage(getCachedImage("image/end-game/play-again-btn-entered.png"));
 			}
 		});
 
 		playAgainBtn.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				playAgainBtn.setImage(getImage("image/end-game/play-again-btn.png"));
+				playAgainBtn.setImage(getCachedImage("image/end-game/play-again-btn.png"));
 			}
 		});
 
@@ -561,14 +580,14 @@ public class LevelController {
 		goToMenuButton.setOnMouseEntered(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				goToMenuButton.setImage(getImage("image/end-game/go-to-menu-btn-entered.png"));
+				goToMenuButton.setImage(getCachedImage("image/end-game/go-to-menu-btn-entered.png"));
 			}
 		});
 
 		goToMenuButton.setOnMouseExited(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
-				goToMenuButton.setImage(getImage("image/end-game/go-to-menu-btn.png"));
+				goToMenuButton.setImage(getCachedImage("image/end-game/go-to-menu-btn.png"));
 			}
 		});
 
@@ -586,13 +605,17 @@ public class LevelController {
 			}
 		});
 	}
+
 	private boolean isEnoughMoney() {
 		if (selectedTower.getId().contains("Magic")) {
-			return level.getMap().getBalance() >= Mods.getInstance().getTowerCostMode().mode() *TowerType.MAGIC.getCost();
+			return level.getMap().getBalance() >=
+					Mods.getInstance().getTowerCostMode().mode() * TowerType.MAGIC.getCost();
 		} else if (selectedTower.getId().contains("Bomb")) {
-			return level.getMap().getBalance() >= Mods.getInstance().getTowerCostMode().mode() *TowerType.BOMB.getCost();
+			return level.getMap().getBalance() >=
+					Mods.getInstance().getTowerCostMode().mode() * TowerType.BOMB.getCost();
 		} else if (selectedTower.getId().contains("Arrow")) {
-			return level.getMap().getBalance() >= Mods.getInstance().getTowerCostMode().mode() *TowerType.ARROW.getCost();
+			return level.getMap().getBalance() >=
+					Mods.getInstance().getTowerCostMode().mode() * TowerType.ARROW.getCost();
 		}
 
 		return false;
@@ -600,9 +623,8 @@ public class LevelController {
 
 	private boolean isFreePlace(Position position) {
 		for (Tower tower : level.getMap().getTowers()) {
-			if (Position.getDistance(
-					tower.getPosition(),
-					new Position(position.getX() - TOWER_WIDTH / 2, position.getY() - TOWER_HEIGHT)) < TOWER_HEIGHT/2)
+			if (Position.getDistance(tower.getPosition(),
+					new Position(position.getX() - TOWER_WIDTH / 2, position.getY() - TOWER_HEIGHT)) < TOWER_HEIGHT / 2)
 				return false;
 		}
 		return true;
@@ -635,10 +657,6 @@ public class LevelController {
 				gamePane.getChildren().remove(towerCursor);
 			}
 		});
-	}
-
-	public void setLevel(AbstractLevel level) {
-		this.level = level;
 	}
 }
 
