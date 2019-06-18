@@ -1,84 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane  fx:id="settingPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="868.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1 " fx:controller="cracker.controller.SettingsController">
+<AnchorPane fx:id="settingPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="868.0" prefWidth="1024.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="cracker.controller.SettingsController">
    <children>
-      <AnchorPane  prefHeight="868.0" prefWidth="1024.0">
+      <AnchorPane prefHeight="868.0" prefWidth="1024.0">
          <children>
             <ImageView fitHeight="868.0" fitWidth="1024.0">
                <image>
-                  <Image url="@../image/welcome/settings/sound-bar.png" />
+                  <Image url="@../image/settings/settings.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="163.0" fitWidth="190.0" layoutX="522.0" layoutY="497.0">
+            <ImageView fx:id="mapView" fitHeight="163.0" fitWidth="190.0" layoutX="419.0" layoutY="497.0">
                <image>
                   <Image url="@../image/level/SecondLevel-background.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="868.0" fitWidth="1024.0" layoutX="105.0">
+            <ImageView fitHeight="868.0" fitWidth="1024.0" layoutX="-2.0">
                <image>
-                  <Image url="@../image/welcome/settings/settings-ramka.png" />
+                  <Image url="@../image/settings/ramka.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="49.0" fitWidth="200.0" layoutX="351.0" layoutY="680.0">
-               <image>
-                  <Image url="@../image/welcome/settings/save-button-exited.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="200.0" layoutX="476.0" layoutY="680.0">
-               <image>
-                  <Image url="@../image/welcome/settings/cancel-button-exited.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="280.0" layoutY="221.0" rotate="-25.0">
+            <ImageView fx:id="leftSoundButton" fitHeight="50.0" fitWidth="50.0" layoutX="280.0" layoutY="221.0" onMouseClicked="#onLeftSoundClicked" onMouseEntered="#onLeftSoundEntered" onMouseExited="#onLeftSoundExited" rotate="-25.0">
                <image>
                   <Image url="@../image/welcome/left-arrow-button.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="473.0" layoutY="221.0" rotate="25.0">
+            <ImageView fx:id="rightSoundButton" fitHeight="50.0" fitWidth="50.0" layoutX="474.0" layoutY="221.0" onMouseClicked="#onRightSoundClicked" onMouseEntered="#onRightSoundEntered" onMouseExited="#onRightSoundExited" rotate="25.0">
                <image>
                   <Image url="@../image/welcome/right-arrow-btn.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="280.0" layoutY="319.0" rotate="-25.0">
+            <ImageView fx:id="leftMusicButton" fitHeight="50.0" fitWidth="50.0" layoutX="280.0" layoutY="319.0" onMouseClicked="#onLeftMusicClicked" onMouseEntered="#onLeftMusicEntered" onMouseExited="#onLeftMusicExited" rotate="-25.0">
                <image>
                   <Image url="@../image/welcome/left-arrow-button.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="473.0" layoutY="319.0" rotate="25.0">
+            <ImageView fx:id="rightMusicButton" fitHeight="50.0" fitWidth="50.0" layoutX="474.0" layoutY="319.0" onMouseClicked="#onRightMusicClicked" onMouseEntered="#onRightMusicEntered" onMouseExited="#onRightMusicExited" rotate="25.0">
                <image>
                   <Image url="@../image/welcome/right-arrow-btn.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="442.0" layoutY="549.0" rotate="-25.0">
+            <ImageView fx:id="leftMapButton" fitHeight="66.0" fitWidth="66.0" layoutX="335.0" layoutY="549.0" rotate="-25.0">
                <image>
                   <Image url="@../image/welcome/left-arrow-button.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="66.0" fitWidth="66.0" layoutX="723.0" layoutY="549.0" rotate="25.0">
+            <ImageView fx:id="rightMapButton" fitHeight="66.0" fitWidth="66.0" layoutX="616.0" layoutY="549.0" rotate="25.0">
                <image>
                   <Image url="@../image/welcome/right-arrow-btn.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="200.0" layoutX="649.0" layoutY="203.0">
+            <ImageView fx:id="easyButton" fitHeight="75.0" fitWidth="300.0" layoutX="600.0" layoutY="184.0" onMouseClicked="#onEasyButtonClicked" onMouseEntered="#onEasyButtonEntered" onMouseExited="#onEasyButtonExited">
                <image>
-                  <Image url="@../image/welcome/settings/easy-btn-exited.png" />
+                  <Image url="@../image/settings/easy-btn-exited.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="200.0" layoutX="649.0" layoutY="336.0">
+            <ImageView fx:id="mediumButton" fitHeight="75.0" fitWidth="300.0" layoutX="600.0" layoutY="259.0" onMouseClicked="#onMediumButtonClicked" onMouseEntered="#onMediumButtonEntered" onMouseExited="#onMediumButtonExited">
                <image>
-                  <Image url="@../image/welcome/settings/hard-btn-exited.png" />
+                  <Image url="@../image/settings/medium-btn-exited.png" />
                </image>
             </ImageView>
-            <ImageView fitHeight="50.0" fitWidth="200.0" layoutX="649.0" layoutY="269.0">
+            <ImageView fx:id="hardButton" fitHeight="75.0" fitWidth="300.0" layoutX="600.0" layoutY="334.0" onMouseClicked="#onHardButtonClicked" onMouseEntered="#onHardButtonEntered" onMouseExited="#onHardButtonExited">
                <image>
-                  <Image url="@../image/welcome/settings/medium-btn-exited.png" />
+                  <Image url="@../image/settings/hard-btn-exited.png" />
                </image>
             </ImageView>
+            <Label fx:id="soundLabel" layoutX="398.0" layoutY="231.0" opacity="0.67" prefHeight="30.0" prefWidth="49.0" text="0" textAlignment="CENTER" textFill="#f8f5f5">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Label>
+            <Label fx:id="musicLabel" layoutX="398.0" layoutY="329.0" opacity="0.67" prefHeight="30.0" prefWidth="49.0" text="0" textAlignment="CENTER" textFill="#f8f5f5">
+               <font>
+                  <Font size="35.0" />
+               </font>
+            </Label>
          </children>
       </AnchorPane>
    </children>
