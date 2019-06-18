@@ -73,9 +73,9 @@ public class WelcomeController {
 	public void onPlay() {
 		if (level != null && level.isRunning())
 			return;
+		levelController.setCharacter(characters.get(characterNumber).getCharacter());
 		level.init();
 		levelController.init(level);
-		levelController.setCharacter(characters.get(characterNumber).getCharacter());
 
 		levelController.setBinding();
 		level.start();
