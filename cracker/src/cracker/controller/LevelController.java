@@ -330,7 +330,8 @@ public class LevelController {
 			@Override
 			public void run() {
 				coinLabel.setText(String.valueOf(level.getMap().getBalance()));
-				dragTower((MouseEvent) mouseEvent);
+				if (selectedTower != null)
+				dragTower( mouseEvent);
 			}
 		});
 	}

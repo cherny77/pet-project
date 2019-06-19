@@ -52,8 +52,8 @@ public class WelcomeController {
 	@FXML
 	private ImageView playButton;
 	private AbstractLevel level;
-	private int soundLevel;
-	private int musicLevel;
+	private int soundLevel = 1;
+	private int musicLevel = 3;
 	private MediaPlayer mediaPlayer;
 	private MediaPlayer mediaPlayerOnClick;
 	private SettingsController settingsController;
