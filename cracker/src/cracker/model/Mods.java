@@ -101,28 +101,39 @@ public class Mods {
 	}
 
 	public class TowerCostMode {
-		private final Map<CharacterType, Double> characterTypes;
 		private final Map<Complexity, Double> complexities;
+		private final Map<CharacterType, Map<TowerType, Double>> characterToTowers;
 
 		public TowerCostMode() {
-			characterTypes = new HashMap<>();
-			characterTypes.put(CharacterType.ARCHER, 1d);
-			characterTypes.put(CharacterType.KNIGHT, 1d);
-			characterTypes.put(CharacterType.WIZARD, 0.9d);
-
 			complexities = new HashMap<>();
 			complexities.put(Complexity.EASY, 0.9d);
 			complexities.put(Complexity.NORMAL, 1d);
 			complexities.put(Complexity.HARD, 1.1d);
 
+			characterToTowers = new HashMap<>();
+			characterToTowers.put(CharacterType.KNIGHT, new HashMap<>());
+			characterToTowers.get(CharacterType.KNIGHT).put(TowerType.ARROW, 1.2d);
+			characterToTowers.get(CharacterType.KNIGHT).put(TowerType.BOMB, 0.7d);
+			characterToTowers.get(CharacterType.KNIGHT).put(TowerType.MAGIC, 1.2d);
+
+			characterToTowers.put(CharacterType.ARCHER, new HashMap<>());
+			characterToTowers.get(CharacterType.ARCHER).put(TowerType.ARROW, 0.8d);
+			characterToTowers.get(CharacterType.ARCHER).put(TowerType.BOMB, 1d);
+			characterToTowers.get(CharacterType.ARCHER).put(TowerType.MAGIC, 1.2d);
+
+			characterToTowers.put(CharacterType.WIZARD, new HashMap<>());
+			characterToTowers.get(CharacterType.WIZARD).put(TowerType.ARROW, 1.2d);
+			characterToTowers.get(CharacterType.WIZARD).put(TowerType.BOMB, 1.2d);
+			characterToTowers.get(CharacterType.WIZARD).put(TowerType.MAGIC, 0.7d);
+
 		}
 
-		public double mode() {
-			return characterTypes.get(characterType) * complexities.get(complexity);
+		public double mode(TowerType towerType) {
+			return characterToTowers.get(characterType).get(towerType) * complexities.get(complexity);
 		}
 
-		public Map<CharacterType, Double> getCharacterTypes() {
-			return Collections.unmodifiableMap(characterTypes);
+		public Map<CharacterType, Map<TowerType, Double>> getCharacterToTowers() {
+			return characterToTowers;
 		}
 
 		public Map<Complexity, Double> getComplexities() {

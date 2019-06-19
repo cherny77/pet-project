@@ -97,7 +97,7 @@ public class GameMap {
 			}
 		}
 		for (Tower tower : towers) {
-			balance -= Mods.getInstance().getTowerCostMode().mode() * tower.getType().getCost();
+			balance -= Mods.getInstance().getTowerCostMode().mode(tower.getType()) * tower.getType().getCost();
 		}
 		return balance;
 	}

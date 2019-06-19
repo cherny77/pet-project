@@ -31,8 +31,8 @@ public class MobView extends ImageView {
 		Platform.runLater(() -> {
 			this.setVisible(true);
 			Position position = mob.getPosition();
-			this.setX(position.getX() - MOB_SIZE/2 );
-			this.setY(position.getY() - MOB_SIZE );
+			this.setX(position.getX() - MOB_SIZE / 2);
+			this.setY(position.getY() - MOB_SIZE);
 		});
 
 	}
