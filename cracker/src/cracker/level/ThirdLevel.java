@@ -21,7 +21,7 @@ public class ThirdLevel extends AbstractLevel {
 						new Position(440, 250), new Position(220, 250), new Position(220, 145), new Position(765, 145),
 						new Position(770, 190), new Position(1024, 190));
 		map.addPath(path1);
-		addWave(2000, 10000, MobType.SKELETON, 8, path1);
+		addWave(2000, 10000, MobType.BOSS, 8, path1);
 		addWave(13000, 10000, MobType.SLIME, 4, path1);
 		addWave(24000, 10000, MobType.GHOST, 10, path1);
 		addWave(35000, 10000, MobType.SKELETON, 20, path1);

@@ -1,6 +1,7 @@
 package cracker.ui;
 
 import cracker.model.Mob;
+import cracker.model.MobType;
 import cracker.model.Position;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
@@ -8,6 +9,7 @@ import javafx.scene.image.ImageView;
 
 public class MobView extends ImageView {
 	public final static double MOB_SIZE = 48;
+	public final static double BOSS_SIZE = 70;
 
 	private Mob mob;
 
@@ -16,8 +18,16 @@ public class MobView extends ImageView {
 		this.mob = mob;
 		mob.setMoveCallback(this::move);
 		mob.setDamageCallback(this::doDamage);
-		this.setFitHeight(MOB_SIZE);
-		this.setFitWidth(MOB_SIZE);
+		if (mob.getType() != MobType.BOSS){
+			this.setFitHeight(MOB_SIZE);
+			this.setFitWidth(MOB_SIZE);
+		}
+		else {
+			this.setFitHeight(BOSS_SIZE);
+			this.setFitWidth(BOSS_SIZE);
+		}
+
+
 		this.setVisible(false);
 		mob.addKillCallback(this::onKill);
 

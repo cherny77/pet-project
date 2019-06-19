@@ -8,6 +8,7 @@ import cracker.ui.RangeView;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.ImageCursor;
@@ -99,6 +100,8 @@ public class LevelController {
 
 	private Complexity complexity = Complexity.NORMAL;
 
+	public MouseEvent mouseEvent;
+
 	private Image getCachedImage(String path) {
 		if (!images.containsKey(path)) {
 			images.put(path, new Image(path));
@@ -169,7 +172,7 @@ public class LevelController {
 		this.level = level;
 		arrowLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode(TowerType.ARROW) * TowerType.ARROW.getCost()));
 		bombLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode(TowerType.BOMB) * TowerType.BOMB.getCost()));
-		magicLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode(TowerType.BOMB) * TowerType.MAGIC.getCost()));
+		magicLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode(TowerType.MAGIC) * TowerType.MAGIC.getCost()));
 		background.setImage(getMapImage(this.level.getClass().getSimpleName()));
 		List<Wave> waves = level.getMap().getWaves();
 		for (Wave wave : waves) {
@@ -296,6 +299,7 @@ public class LevelController {
 				if (selectedTower != null) {
 //					pane.setCursor(Cursor.NONE);
 					dragTower(event);
+					mouseEvent = event;
 				}
 			}
 		});
@@ -326,6 +330,7 @@ public class LevelController {
 			@Override
 			public void run() {
 				coinLabel.setText(String.valueOf(level.getMap().getBalance()));
+				dragTower((MouseEvent) mouseEvent);
 			}
 		});
 	}

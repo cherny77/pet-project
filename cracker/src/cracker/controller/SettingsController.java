@@ -55,12 +55,10 @@ public class SettingsController {
 
 	public void init() {
 		settingPane.setVisible(false);
-		TestLevel testLevel = new TestLevel();
 		FirstLevel firstLevel = new FirstLevel();
 		SecondLevel secondLevel = new SecondLevel();
 		ThirdLevel thirdLevel = new ThirdLevel();
 		levels = new ArrayList<>();
-		levels.add(testLevel);
 		levels.add(firstLevel);
 		levels.add(secondLevel);
 		levels.add(thirdLevel);

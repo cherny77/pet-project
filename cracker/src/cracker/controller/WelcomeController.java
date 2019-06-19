@@ -1,6 +1,7 @@
 package cracker.controller;
 
 import cracker.level.AbstractLevel;
+import cracker.level.FirstLevel;
 import cracker.level.SecondLevel;
 import cracker.level.ThirdLevel;
 import cracker.model.Character;
@@ -113,7 +114,7 @@ public class WelcomeController {
 	}
 
 	public void init() {
-		level = new ThirdLevel();
+		level = new FirstLevel();
 		levelController.setLevel(level);
 		mediaInit();
 		playButtonInit();
