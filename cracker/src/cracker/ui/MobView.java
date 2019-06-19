@@ -21,6 +21,7 @@ public class MobView extends ImageView {
 		this.setVisible(false);
 		mob.addKillCallback(this::onKill);
 
+
 	}
 
 	private String getMobImagePath(String id, String suffix) {
@@ -33,6 +34,11 @@ public class MobView extends ImageView {
 			Position position = mob.getPosition();
 			this.setX(position.getX() - MOB_SIZE / 2);
 			this.setY(position.getY() - MOB_SIZE);
+			if (mob.getPathPosition().isForward()){
+				setScaleX(1);
+			}
+			else setScaleX(-1);
+
 		});
 
 	}

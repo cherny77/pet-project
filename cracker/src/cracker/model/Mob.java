@@ -112,4 +112,7 @@ public class Mob {
 		return health;
 	}
 
+	public PathPosition getPathPosition() {
+		return pathPosition;
+	}
 }

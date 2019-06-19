@@ -100,4 +100,11 @@ public class PathPosition {
 		return cloned.getPosition();
 	}
 
+	public boolean isForward() {
+		if (path.getPositions().size() - 1 == nodeIndex) return false;
+		else if (path.getPositions().get(nodeIndex).getX() >= path.getPositions().get(nodeIndex + 1).getX() )
+			return false;
+		else return true;
+	}
+
 }

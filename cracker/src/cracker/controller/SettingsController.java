@@ -1,9 +1,6 @@
 package cracker.controller;
 
-import cracker.level.AbstractLevel;
-import cracker.level.FirstLevel;
-import cracker.level.SecondLevel;
-import cracker.level.TestLevel;
+import cracker.level.*;
 import cracker.model.Complexity;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -61,10 +58,12 @@ public class SettingsController {
 		TestLevel testLevel = new TestLevel();
 		FirstLevel firstLevel = new FirstLevel();
 		SecondLevel secondLevel = new SecondLevel();
+		ThirdLevel thirdLevel = new ThirdLevel();
 		levels = new ArrayList<>();
 		levels.add(testLevel);
 		levels.add(firstLevel);
 		levels.add(secondLevel);
+		levels.add(thirdLevel);
 		setLevel();
 	}
 

@@ -57,11 +57,11 @@ public class Mods {
 		public DamageMode() {
 			characterTypes = new HashMap<>();
 			characterTypes.put(CharacterType.ARCHER, 1d);
-			characterTypes.put(CharacterType.KNIGHT, 1d);
-			characterTypes.put(CharacterType.WIZARD, 1d);
+			characterTypes.put(CharacterType.KNIGHT, 1.05d);
+			characterTypes.put(CharacterType.WIZARD, 0.95d);
 
 			complexities = new HashMap<>();
-			complexities.put(Complexity.EASY, 1.1d);
+			complexities.put(Complexity.EASY, 1.5d);
 			complexities.put(Complexity.NORMAL, 1d);
 			complexities.put(Complexity.HARD, 0.9d);
 
