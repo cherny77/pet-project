@@ -134,6 +134,7 @@ public class WelcomeController {
 		characters.add(archerView);
 		characters.add(wizardView);
 		setOptionButton();
+		changeVolume();
 
 	}
 
