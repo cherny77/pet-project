@@ -21,13 +21,15 @@ public class Main extends Application {
 		AnchorPane root = fxmlLoader.load();
 		primaryStage.initStyle(StageStyle.UNDECORATED);
 		primaryStage.getIcons().add(new Image("/image/welcome/logo.png"));
-		primaryStage.setScene(new Scene(root, 1024, 868));
+		Scene scene = new Scene(root, 1024, 868);
+		primaryStage.setScene(scene);
 		root.getStylesheets().add(getClass().getResource("/fonts/FontStyle.css").toExternalForm());
 		AppController appController = fxmlLoader.getController();
 		primaryStage.show();
 		primaryStage.setResizable(false);
 		primaryStage.sizeToScene();
 		appController.init();
+		appController.setScene(scene);
 		appController.getLevelController().setStage(primaryStage);
 	}
 }

@@ -36,6 +36,7 @@ public class LevelController {
 	public final static double TOWER_WIDTH = 90;
 	public final static double TOWER_HEIGHT = 90;
 	public MouseEvent mouseEvent;
+	AppController appController;
 	@FXML
 	private AnchorPane mobTowerPane;
 	@FXML
@@ -101,6 +102,10 @@ public class LevelController {
 		return images.get(path);
 	}
 
+	public void setAppController(AppController appController) {
+		this.appController = appController;
+	}
+
 	private Image getImage(String path) {
 		try {
 			if (!bytes.containsKey(path)) {
@@ -162,6 +167,7 @@ public class LevelController {
 		gamePane.getChildren().add(towerCursor);
 		towerCursor.setVisible(false);
 		this.level = level;
+
 		charIcon.setImage(welcomeController.getCharacterImage().getImage());
 		arrowLabel.setText(String.valueOf(
 				(int) (Mods.getInstance().getTowerCostMode().mode(TowerType.ARROW) * TowerType.ARROW.getCost())));
@@ -178,6 +184,7 @@ public class LevelController {
 				mob.setFinishCallback(() -> setLives());
 				mob.addKillCallback(() -> addMoney(mob));
 			}
+			onEscape();
 		}
 	}
 
@@ -658,6 +665,22 @@ public class LevelController {
 				opacityAnimation.setToValue(100);
 				opacityAnimation.play();
 				gamePane.getChildren().remove(towerCursor);
+			}
+		});
+	}
+
+	private void onEscape() {
+		appController.getScene().setOnKeyPressed(event -> {
+			switch (event.getCode()) {
+				case ESCAPE:
+					if (welcomeController.getWelcomePane().getOpacity() == 0) {
+
+						welcomeController.getWelcomePane().setVisible(true);
+						welcomeController.getWelcomePane().setOpacity(100);
+						level = level.getLevel();
+
+
+					}
 			}
 		});
 	}
