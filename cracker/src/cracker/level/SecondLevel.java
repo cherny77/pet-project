@@ -50,7 +50,7 @@ public class SecondLevel extends AbstractLevel {
 		addWave(57000, 10000, MobType.GHOST, 3, path1);
 		addWave(57000, 10000, MobType.SLIME, 2, path1);
 
-		addWave(80000, 10000, MobType.BOSS, 1, path1);
+		addWave(100000, 10000, MobType.BOSS, 1, path1);
 
 
 
@@ -64,6 +64,8 @@ public class SecondLevel extends AbstractLevel {
 	}
 	@Override
 	public SecondLevel getLevel(){
+		this.map.getWaves().clear();
+		this.map.getTowers().clear();
 		return new SecondLevel();
 	}
 

@@ -20,6 +20,8 @@ public class TestLevel extends AbstractLevel {
 	}
 	@Override
 	public TestLevel getLevel(){
+		this.map.getWaves().clear();
+		this.map.getTowers().clear();
 		return new TestLevel();
 	}
 

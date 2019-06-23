@@ -67,6 +67,10 @@ public class WelcomeController {
 		mediaPlayerOnClick.setVolume(soundLevel / 1000.0);
 	}
 
+	public ImageView getCharacterImage() {
+		return characterImage;
+	}
+
 	public void setLevel(AbstractLevel level) {
 		this.level = level;
 	}
@@ -188,7 +192,7 @@ public class WelcomeController {
 		rightButton.setImage(image);
 	}
 
-	private void buttonClickMedia() {
+	public void buttonClickMedia() {
 		File file = new File("res/music/button6.wav");
 		Media media = new Media(file.toURI().toString());
 		mediaPlayerOnClick = new MediaPlayer(media);
@@ -307,6 +311,7 @@ public class WelcomeController {
 			@Override
 			public void handle(MouseEvent event) {
 				playButton.setImage(new Image("/image/welcome/play-btn-entered.png"));
+				buttonClickMedia();
 			}
 		});
 

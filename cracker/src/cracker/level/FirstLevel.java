@@ -14,7 +14,7 @@ public class FirstLevel extends AbstractLevel {
 						new Position(505, 625), new Position(775, 625), new Position(775, 280),
 						new Position(1024, 280));
 		map.addPath(path);
-		addWave(2000, 10000, MobType.SKELETON, 8, path);
+		addWave(2000, 10000, MobType.SKELETON, 10, path);
 		addWave(13000, 10000, MobType.SLIME, 4, path);
 		addWave(24000, 10000, MobType.GHOST, 10, path);
 		addWave(35000, 10000, MobType.SKELETON, 20, path);
@@ -24,6 +24,8 @@ public class FirstLevel extends AbstractLevel {
 	}
 	@Override
 	public FirstLevel getLevel(){
+		this.map.getWaves().clear();
+		this.map.getTowers().clear();
 		return new FirstLevel();
 	}
 

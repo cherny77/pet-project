@@ -8,7 +8,6 @@ import cracker.ui.RangeView;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.application.Platform;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.ImageCursor;
@@ -36,7 +35,7 @@ import java.util.concurrent.TimeUnit;
 public class LevelController {
 	public final static double TOWER_WIDTH = 90;
 	public final static double TOWER_HEIGHT = 90;
-
+	public MouseEvent mouseEvent;
 	@FXML
 	private AnchorPane mobTowerPane;
 	@FXML
@@ -74,10 +73,8 @@ public class LevelController {
 	private AnchorPane progectilePane;
 	@FXML
 	private AnchorPane rangePane;
-
 	@FXML
 	private AnchorPane winPane;
-
 	@FXML
 	private ImageView loseView;
 	@FXML
@@ -86,21 +83,16 @@ public class LevelController {
 	private ImageView background;
 	private Map<String, Image> images = new HashMap<>();
 	private Map<String, byte[]> bytes = new HashMap<>();
-
 	private Character character;
-
 	@FXML
 	private Label arrowLabel;
-
 	@FXML
 	private Label magicLabel;
-
 	@FXML
 	private Label bombLabel;
-
+	@FXML
+	private ImageView charIcon;
 	private Complexity complexity = Complexity.NORMAL;
-
-	public MouseEvent mouseEvent;
 
 	private Image getCachedImage(String path) {
 		if (!images.containsKey(path)) {
@@ -170,9 +162,13 @@ public class LevelController {
 		gamePane.getChildren().add(towerCursor);
 		towerCursor.setVisible(false);
 		this.level = level;
-		arrowLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode(TowerType.ARROW) * TowerType.ARROW.getCost()));
-		bombLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode(TowerType.BOMB) * TowerType.BOMB.getCost()));
-		magicLabel.setText(String.valueOf(Mods.getInstance().getTowerCostMode().mode(TowerType.MAGIC) * TowerType.MAGIC.getCost()));
+		charIcon.setImage(welcomeController.getCharacterImage().getImage());
+		arrowLabel.setText(String.valueOf(
+				(int) (Mods.getInstance().getTowerCostMode().mode(TowerType.ARROW) * TowerType.ARROW.getCost())));
+		bombLabel.setText(String.valueOf(
+				(int) (Mods.getInstance().getTowerCostMode().mode(TowerType.BOMB) * TowerType.BOMB.getCost())));
+		magicLabel.setText(String.valueOf(
+				(int) (Mods.getInstance().getTowerCostMode().mode(TowerType.MAGIC) * TowerType.MAGIC.getCost())));
 		background.setImage(getMapImage(this.level.getClass().getSimpleName()));
 		List<Wave> waves = level.getMap().getWaves();
 		for (Wave wave : waves) {
@@ -331,7 +327,7 @@ public class LevelController {
 			public void run() {
 				coinLabel.setText(String.valueOf(level.getMap().getBalance()));
 				if (selectedTower != null)
-				dragTower( mouseEvent);
+					dragTower(mouseEvent);
 			}
 		});
 	}
@@ -557,15 +553,15 @@ public class LevelController {
 		Platform.runLater(() -> {
 			List<Node> nodes = new ArrayList<>(mobTowerPane.getChildren());
 			nodes.sort(Comparator.comparing(node -> {
-				if (node instanceof ImageView)
-					return ((ImageView) node).getY();
+				if (node instanceof ImageView) {
+					ImageView iv = ((ImageView) node);
+					return iv.getY() + iv.getFitHeight();
+				}
 				return 0d;
 			}));
 			for (Node node : nodes) {
 				node.toFront();
 			}
-//			mobTowerPane.getChildren().clear();
-//			mobTowerPane.getChildren().addAll(nodes);
 		});
 
 	}
@@ -600,6 +596,7 @@ public class LevelController {
 		goToMenuButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
 			@Override
 			public void handle(MouseEvent event) {
+				level = level.getLevel();
 				welcomeController.getWelcomePane().setVisible(true);
 				FadeTransition fade = new FadeTransition();
 				fade.setDuration(Duration.millis(1000));

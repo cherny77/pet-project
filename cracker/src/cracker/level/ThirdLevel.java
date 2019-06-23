@@ -41,6 +41,8 @@ public class ThirdLevel extends AbstractLevel {
 
 	@Override
 	public ThirdLevel getLevel() {
+		this.map.getWaves().clear();
+		this.map.getTowers().clear();
 		return new ThirdLevel();
 	}
 

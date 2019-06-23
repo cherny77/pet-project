@@ -1,12 +1,17 @@
 package cracker.controller;
 
-import cracker.level.*;
+import cracker.level.AbstractLevel;
+import cracker.level.FirstLevel;
+import cracker.level.SecondLevel;
+import cracker.level.ThirdLevel;
 import cracker.model.Complexity;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 
 import java.util.ArrayList;
@@ -46,6 +51,10 @@ public class SettingsController {
 	@FXML
 	private ImageView hardButton;
 	@FXML
+	private ImageView crossView;
+	@FXML
+	private ImageView minimizeView;
+	@FXML
 	private Label chapterLabel;
 	private Node selected;
 	private Complexity complexity;
@@ -54,6 +63,8 @@ public class SettingsController {
 	private int mapNumber;
 
 	public void init() {
+		minimizeButtonInit();
+		closeButtonInit();
 		settingPane.setVisible(false);
 		FirstLevel firstLevel = new FirstLevel();
 		SecondLevel secondLevel = new SecondLevel();
@@ -81,6 +92,7 @@ public class SettingsController {
 		setLevel();
 
 	}
+
 	private void setLevel() {
 		for (int i = 0; i < levels.size(); i++) {
 			if (levels.get(i).getClass().getSimpleName()
@@ -89,7 +101,7 @@ public class SettingsController {
 			}
 		}
 		mapView.setImage(getMapImage(levels.get(mapNumber).getClass().getSimpleName()));
-		chapterLabel.setText("Chapter " + mapNumber);
+		chapterLabel.setText("Chapter " + (mapNumber + 1));
 	}
 
 	public void setWelcomeController(WelcomeController welcomeController) {
@@ -104,16 +116,19 @@ public class SettingsController {
 		if (soundLevel > 0)
 			soundLevel--;
 		soundLabel.setText(String.valueOf(soundLevel));
+
 	}
 
 	public void onRightSoundClicked() {
 		if (soundLevel < 10)
 			soundLevel++;
 		soundLabel.setText(String.valueOf(soundLevel));
+
 	}
 
 	public void onRightSoundEntered() {
 		rightSoundButton.setImage(new Image("image/welcome/right-arrow-btn-entered.png"));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onRightSoundExited() {
@@ -122,6 +137,7 @@ public class SettingsController {
 
 	public void onLeftSoundEntered() {
 		leftSoundButton.setImage(new Image("image/welcome/left-arrow-button-entered.png"));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onLeftSoundExited() {
@@ -136,6 +152,7 @@ public class SettingsController {
 
 	public void onRightMusicEntered() {
 		rightMusicButton.setImage(new Image("image/welcome/right-arrow-btn-entered.png"));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onRightMusicExited() {
@@ -144,6 +161,7 @@ public class SettingsController {
 
 	public void onLeftMusicEntered() {
 		leftMusicButton.setImage(new Image("image/welcome/left-arrow-button-entered.png"));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onLeftMusicExited() {
@@ -157,13 +175,15 @@ public class SettingsController {
 	}
 
 	public void onEasyButtonEntered() {
-		if (selected != easyButton)
+		if (selected != easyButton) {
 			easyButton.setImage(new Image("image/settings/easy-btn-entered.png"));
+		welcomeController.buttonClickMedia();}
 	}
 
 	public void onEasyButtonExited() {
 		if (selected != easyButton)
 			easyButton.setImage(new Image("image/settings/easy-btn-exited.png"));
+
 	}
 
 	public void onEasyButtonClicked() {
@@ -172,17 +192,21 @@ public class SettingsController {
 		onMediumButtonExited();
 		onHardButtonExited();
 		complexity = complexity.EASY;
+		welcomeController.buttonClickMedia();
 
 	}
 
 	public void onMediumButtonEntered() {
-		if (selected != mediumButton)
+		if (selected != mediumButton) {
 			mediumButton.setImage(new Image("image/settings/medium-btn-entered.png"));
+			welcomeController.buttonClickMedia();
+		}
 	}
 
 	public void onMediumButtonExited() {
 		if (selected != mediumButton)
 			mediumButton.setImage(new Image("image/settings/medium-btn-exited.png"));
+
 	}
 
 	public void onMediumButtonClicked() {
@@ -191,12 +215,15 @@ public class SettingsController {
 		onEasyButtonExited();
 		onHardButtonExited();
 		complexity = complexity.NORMAL;
+		welcomeController.buttonClickMedia();
 
 	}
 
 	public void onHardButtonEntered() {
-		if (selected != hardButton)
+		if (selected != hardButton) {
 			hardButton.setImage(new Image("image/settings/hard-btn-entered.png"));
+			welcomeController.buttonClickMedia();
+		}
 	}
 
 	public void onHardButtonExited() {
@@ -210,11 +237,13 @@ public class SettingsController {
 		onEasyButtonExited();
 		onMediumButtonExited();
 		complexity = complexity.HARD;
+		welcomeController.buttonClickMedia();
 
 	}
 
 	public void onSaveButtonEntered() {
 		saveButton.setImage(new Image("image/settings/save-btn-entered.png"));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onSaveButtonExited() {
@@ -223,6 +252,7 @@ public class SettingsController {
 
 	public void onCancelButtonEntered() {
 		cancelButton.setImage(new Image("image/settings/cancel-btn-entered.png"));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onCancelButtonExited() {
@@ -236,14 +266,17 @@ public class SettingsController {
 		welcomeController.changeVolume();
 		settingPane.setVisible(false);
 		welcomeController.setLevel(levels.get(mapNumber));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onCancelClicked() {
 		settingPane.setVisible(false);
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onRightMapEntered() {
 		rightMapButton.setImage(new Image("image/welcome/right-arrow-btn-entered.png"));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onRightMapExited() {
@@ -252,6 +285,7 @@ public class SettingsController {
 
 	public void onLeftMapEntered() {
 		leftMapButton.setImage(new Image("image/welcome/left-arrow-button-entered.png"));
+		welcomeController.buttonClickMedia();
 	}
 
 	public void onLeftMapExited() {
@@ -265,7 +299,7 @@ public class SettingsController {
 			mapNumber--;
 		}
 		mapView.setImage(getMapImage(levels.get(mapNumber).getClass().getSimpleName()));
-		chapterLabel.setText("Chapter " + mapNumber);
+		chapterLabel.setText("Chapter " + (mapNumber + 1));
 	}
 
 	public void onRightMapClicked() {
@@ -275,7 +309,7 @@ public class SettingsController {
 			mapNumber++;
 		}
 		mapView.setImage(getMapImage(levels.get(mapNumber).getClass().getSimpleName()));
-		chapterLabel.setText("Chapter " + mapNumber);
+		chapterLabel.setText("Chapter " + (mapNumber + 1));
 	}
 
 	private Image getMapImage(String id) {
@@ -285,4 +319,54 @@ public class SettingsController {
 	public AnchorPane getSettingPane() {
 		return settingPane;
 	}
+	private void closeButtonInit() {
+		crossView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				System.exit(0);
+			}
+		});
+
+		this.crossView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				crossView.setImage(new Image("/image/window/cross.png"));
+			}
+		});
+
+		this.crossView.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				crossView.setImage(new Image("/image/window/cross-entered.png"));
+			}
+		});
+
+	}
+
+	private void minimizeButtonInit() {
+		this.minimizeView.setOnMouseExited(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				minimizeView.setImage(new Image("/image/window/line.png"));
+			}
+		});
+
+		minimizeView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				levelController.getStage().setIconified(true);
+
+			}
+		});
+
+		this.minimizeView.setOnMouseEntered(new EventHandler<MouseEvent>() {
+			@Override
+			public void handle(MouseEvent event) {
+				minimizeView.setImage(new Image("/image/window/line-entered.png"));
+			}
+		});
+
+
+	}
+
 }
