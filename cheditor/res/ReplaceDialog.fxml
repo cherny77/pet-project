@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="107.0" prefWidth="428.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Button layoutX="176.0" layoutY="66.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Replace" onAction="#onReplaceFirst"/>
+      <Button layoutX="300.0" layoutY="66.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="114.0" text="Replace All" onAction="#onReplaceAll" />
+      <TextField fx:id="from" layoutX="65.0" layoutY="29.0" prefHeight="26.0" prefWidth="149.0" AnchorPane.leftAnchor="65.0" AnchorPane.rightAnchor="213.4" />
+      <TextField fx:id="to" layoutX="263.0" layoutY="30.0" prefHeight="26.0" prefWidth="150.0" AnchorPane.leftAnchor="263.0" AnchorPane.rightAnchor="14.600000000000023" />
+      <Label alignment="CENTER_RIGHT" layoutX="18.0" layoutY="33.0" prefHeight="18.0" prefWidth="44.0" text="From: " />
+      <Label alignment="CENTER_RIGHT" layoutX="214.0" layoutY="34.0" prefHeight="18.0" prefWidth="44.0" text="to: " />
+   </children>
+</AnchorPane>
